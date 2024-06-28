@@ -6,24 +6,10 @@ MAXLEN_TITLE = 150
 MAXLEN_LINK = 150
 
 class Anime(models.Model):
-    FormatType = models.TextChoices('TV', 'TV_SHORT', 'MOVIE', 'SPECIAL', 'OVA', 'ONA', 'MUSIC')
-    StatusType = models.TextChoices('FINISHED', 'RELEASING', 'NOT_YET_RELEASED', 'CANCELLED', 'HIATUS')
-    SourceType = models.TextChoices(
-        'ORIGINAL', 
-        'MANGA', 
-        'LIGHT_NOVEL',
-        'VISUAL_NOVEL',
-        'VIDEO_GAME',
-        'OTHER',
-        'NOVEL',
-        'DOUJINSHI',
-        'ANIME',
-        'WEB_NOVEL',
-        'LIVE_ACTION',
-        'GAME',
-        'COMIC',
-        'MULTIMEDIA_PROJECT',
-        'PICTURE_BOOK'
+    FormatType = models.TextChoices('FormatType', 'TV TV_SHORT MOVIE SPECIAL OVA ONA MUSIC')
+    StatusType = models.TextChoices('StatusType', 'FINISHED RELEASING NOT_YET_RELEASED CANCELLED HIATUS')
+    SourceType = models.TextChoices('SourceType',
+        'ORIGINAL MANGA LIGHT_NOVEL VISUAL_NOVEL VIDEO_GAME OTHER NOVEL DOUJINSHI ANIME WEB_NOVEL LIVE_ACTION GAME COMIC MULTIMEDIA_PROJECT PICTURE_BOOK'
     )
 
     # Primary key
@@ -143,7 +129,7 @@ class StaffVoiceCharacter(models.Model):
     # The references to the staff and anime id
     staff_in_anime_id = models.ForeignKey('StaffInAnime', on_delete=models.CASCADE)
     # The role of the character in that anime
-    CharRoleType = models.TextChoices('MAIN', 'SUPPORTING', 'BACKGROUND')
+    CharRoleType = models.TextChoices('CharRoleType', 'MAIN SUPPORTING BACKGROUND')
     char_role = models.CharField(choices=CharRoleType, max_length=10)
 
     class Meta:
@@ -157,16 +143,8 @@ class AnimeProducedByStudio(models.Model):
         unique_together = [['anime_id', 'studio_id']]
 
 class AnimeRelation(models.Model):
-    RelationType = models.TextChoices(
-        'SEQUEL',
-        'PARENT',
-        'SIDE_STORY',
-        'CHARACTER',
-        'SUMMARY',
-        'SPIN_OFF',
-        'OTHER',
-        'COMPILATION',
-        'CONTAINS'
+    RelationType = models.TextChoices('RelationType',
+        'SEQUEL PARENT SIDE_STORY CHARACTER SUMMARY SPIN_OFF OTHER COMPILATION CONTAINS'
     )
 
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE, related_name='anime_id')

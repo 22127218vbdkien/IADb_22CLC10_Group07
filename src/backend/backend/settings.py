@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
     'base',
 ]
@@ -80,7 +79,7 @@ DATABASES = {
     'default':{
         'ENGINE':'mssql',         # Must be "mssql"
         'NAME':'test_djangorest', # DB name
-        'HOST':'LAPTOP-ONJ8RFFS', # <server>\<instance>
+        'HOST':'DESKTOP-Q8RT6LN', # <server>\<instance>
         'PORT':'',                           
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',

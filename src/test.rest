@@ -1,0 +1,19 @@
+POST http://127.0.0.1:8000/anime/2
+Content-Type: application/json
+Authorization: token "d8d984f7f96d032bdacfa2ccbe69e83ad4233ad8"
+
+{ "id_anilist": 2, "id_mal": 2, "romaji_title": "test","english_title": "test","native_title": "...","format": "TV","status": "FINISHED","description": "...","start_date": "2020-11-11T10:10:00Z","end_date": "2021-11-11T11:11:00Z","episodes": 12,"duration": 30,"source": "LIGHT_NOVEL","hashtag": "#MahiruUWU","trailer": "none","cover_img_large": "none","cover_img_med": "none","banner_img_large": "none","banner_img_med": "none","weighted_score": 10,"mean_score": 10,"popularity": 1000000,"trending": 1000000,"favorites": 1000000 }
+
+###
+
+POST http://127.0.0.1:8000/register 
+Content-Type: application/json
+
+{ "username": "admin", "password": "admin", "is_superuser": true, "is_staff": true}
+
+###
+
+POST http://127.0.0.1:8000/login 
+Content-Type: application/json
+
+{ "username": "kiet2004", "password": "Kiet@2004" }

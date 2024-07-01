@@ -2,12 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
 
-# Basic user serializers
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
-        
 #Anime serializers
 class AnimeSerializers(serializers.ModelSerializer):
     class Meta:

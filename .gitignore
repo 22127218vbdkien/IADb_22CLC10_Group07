@@ -7,3 +7,4 @@ __pycache__/
 migrations/
 # ignore test files
 test.rest
+test.txt

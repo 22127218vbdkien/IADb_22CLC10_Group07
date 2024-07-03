@@ -62,6 +62,12 @@ class Anime(models.Model):
     # The amount of user's who have favourited the anime
     favorites = models.IntegerField()
 
+    # ManyToMany
+    studios = models.ManyToManyField('Studio', through='AnimeProducedByStudio', blank=True)
+    staffs = models.ManyToManyField('Staff', through='StaffInAnime', blank=True)
+    tags = models.ManyToManyField('Tag', through='AnimeTag', blank=True)
+    relations = models.ManyToManyField('Anime', through='AnimeRelation', blank=True)
+
 class AnimeSynonym(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     synonym = models.CharField(max_length=MAXLEN_TITLE, unique=True)
@@ -70,7 +76,7 @@ class Studio(models.Model):
     # Primary key
     id = models.AutoField(primary_key=True)
     # The name of the studio
-    name = models.CharField(max_length=MAXLEN_TITLE)
+    name = models.CharField(max_length=MAXLEN_TITLE, unique=True)
     # The amount of user's who have favourited the studio
     favorites = models.IntegerField()
 
@@ -124,11 +130,13 @@ class StaffInAnime(models.Model):
     class Meta:
         unique_together = [['anime_id', 'staff_id']]
 
+    # ManyToMany
+
 class StaffVoiceCharacter(models.Model):
+    # A staff can optionally be a voice actor/actress
+    staff_in_anime = models.OneToOneField('StaffInAnime', on_delete=models.CASCADE, unique=True, null=True)
     # The character ID
     char_id = models.ForeignKey('Character', on_delete=models.CASCADE)
-    # The references to the staff and anime id
-    staff_in_anime_id = models.ForeignKey('StaffInAnime', on_delete=models.CASCADE)
     # The role of the character in that anime
     CharRoleType = models.TextChoices('CharRoleType', 'MAIN SUPPORTING BACKGROUND')
     char_role = models.CharField(choices=CharRoleType, max_length=10)

@@ -14,60 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include, re_path
-from rest_framework.urlpatterns import format_suffix_patterns
-from base.views import *
-from authentication.views import *
+from django.urls import include, re_path
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+
+API_TITLE = 'Pastebin API'
+API_DESCRIPTION = 'A Web API for creating and viewing highlighted code snippets.'
+schema_view = get_schema_view(title=API_TITLE)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    
-    re_path('register', UserRegisterView.as_view()),
-    re_path('login', UserLoginView.as_view()),
-    
-    path('anime/', AnimeList.as_view()),
-    path('anime/<int:pk>/', AnimeDetails.as_view()),
-    
-    path('animeSynonym/', AnimeSynonymList.as_view()),
-    path('animeSynonym/<int:pk>/', AnimeSynonymDetails.as_view()),
-
-    path('studio/', StudioList.as_view()),
-    path('studio/<int:pk>/', StudioDetails.as_view()),
-    
-    path('character/', CharacterList.as_view()),
-    path('character/<int:pk>/', CharacterDetails.as_view()),  
-
-    path('staff/', StaffList.as_view()),
-    path('staff/<int:pk>/', StaffDetails.as_view()),
-    
-    path('staffInAnime/', StaffInAnimeList.as_view()),
-    path('staffInAnime/<int:pk>/', StaffInAnimeDetails.as_view()),  
-    
-    path('staffVoiceCharacter/', StaffVoiceCharacterList.as_view()),
-    path('staffVoiceCharecter/<int:pk>/', StaffVoiceCharacterDetails.as_view()),    
-
-    path('animeProducedByStudio/', AnimeProducedByStudioList.as_view()),
-    path('animeProducedByStudio/<int:pk>/', AnimeProducedByStudioDetails.as_view()),  
-
-    path('animeRelation/', AnimeRelationList.as_view()),
-    path('animeRelation/<int:pk>/', AnimeRelationDetails.as_view()),  
-
-    path('tag/', TagList.as_view()),
-    path('tag/<int:pk>/', TagDetails.as_view()),  
-
-    path('animeTag/', AnimeTagList.as_view()),
-    path('animeTag/<int:pk>/', AnimeTagDetails.as_view()), 
-
-    path('externalSite/', ExternalSiteList.as_view()),
-    path('externalSite/<int:pk>/', ExternalSiteDetails.as_view()), 
-
-    path('animeExternalLink/', AnimeExternalLinkList.as_view()),
-    path('animeExternalLink/<int:pk>/', AnimeExternalLinkDetails.as_view()), 
-
-    path('staffExternalLink/', StaffExternalLinkList.as_view()),
-    path('staffExternalLink/<int:pk>/', StaffExternalLinkDetails.as_view()), 
+    re_path(r'^', include('base.urls')),
+    re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)

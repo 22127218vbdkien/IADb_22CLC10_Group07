@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r'animes', views.AnimeViewSet, basename='anime')
 router.register(r'studios', views.StudioViewSet, basename='studio')
 router.register(r'staffs', views.StaffViewSet, basename='staff')
+router.register(r'tags', views.TagViewSet, basename='tag')
 
 # The API URLs are now determined automatically by the router.
 # Additionally, we include the login URLs for the browsable API.

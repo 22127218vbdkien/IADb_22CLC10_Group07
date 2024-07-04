@@ -2,80 +2,107 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
 
+# Anime Serializer
+class AnimeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Anime
+        fields = '__all__'
+
 #Anime synonym serializers 
-class AnimeSynonymSerializers(serializers.HyperlinkedModelSerializer):
+class AnimeSynonymSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeSynonym
         fields = '__all__'
 
 #Studio serializers
-class StudioSerializers(serializers.HyperlinkedModelSerializer):
+class StudioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Studio
         fields = '__all__'
 
 #Character serializers
-class CharacterSerializers(serializers.HyperlinkedModelSerializer):
+class CharacterSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Character
         fields = '__all__'
         
 #Staff serializers
-class StaffSerializers(serializers.HyperlinkedModelSerializer):
+class StaffSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Staff
         fields = '__all__'
 
 #Staff in anime serializers
-class StaffInAnimeSerializers(serializers.HyperlinkedModelSerializer):
+class StaffInAnimeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = StaffInAnime
         fields = '__all__'
 
 #Anime produced by Studio serializers
-class AnimeProducedByStudioSerializers(serializers.HyperlinkedModelSerializer):
+class AnimeProducedByStudioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeProducedByStudio
         fields = '__all__'
 
 #Anime relation serializers 
-class AnimeRelationSerializers(serializers.HyperlinkedModelSerializer):
+class AnimeRelationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeRelation
         fields = '__all__'
 
 #Tag serializers 
-class TagSerializers(serializers.HyperlinkedModelSerializer):
+class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tag
         fields = '__all__'
 
 #Anime tag serializers  
-class AnimeTagSerializers(serializers.HyperlinkedModelSerializer):
+class AnimeTagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeTag
         fields = '__all__'
 
 #External site serializers 
-class ExternalSiteSerializers(serializers.HyperlinkedModelSerializer):
+class ExternalSiteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ExternalSite
         fields = '__all__'
 
 #Anime External link serializers 
-class AnimeExternalLinkSerializers(serializers.HyperlinkedModelSerializer):
+class AnimeExternalLinkSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeExternalLink
         fields = '__all__'
 
 #Staff External link serializers
-class StaffExternalLinkSerializers(serializers.HyperlinkedModelSerializer):
+class StaffExternalLinkSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = StaffExternalLink
         fields = '__all__'
+    
 
-#Anime serializers
-class AnimeSerializers(serializers.HyperlinkedModelSerializer):
+# ACTUAL VIEW SERIALIZERS
+#Anime view serializers
+class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Anime
         fields = '__all__'
+
+    studios = StudioSerializer(many=True)
+    staffs = StaffSerializer(many=True)
+    tags = TagSerializer(many=True)
+    relations = AnimeSerializer(many=True)
+
+class StudioViewSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Studio
+        fields = '__all__'
+
+    animes = AnimeSerializer(many=True)
+
+class StaffViewSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Staff
+        fields = '__all__'
+
+    animes = AnimeSerializer(many=True)

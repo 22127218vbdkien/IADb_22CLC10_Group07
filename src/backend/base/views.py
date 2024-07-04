@@ -8,12 +8,16 @@ from base.serializers import *
 
 class AnimeViewSet(viewsets.ModelViewSet):
     queryset = Anime.objects.all()
-    serializer_class = AnimeSerializers
+    serializer_class = AnimeViewSerializer
 
 class StudioViewSet(viewsets.ModelViewSet):
     queryset = Studio.objects.all()
-    serializer_class = StudioSerializers
+    serializer_class = StudioViewSerializer
 
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Studio.objects.all()
-    serializer_class = StaffSerializers
+    serializer_class = StaffViewSerializer
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer

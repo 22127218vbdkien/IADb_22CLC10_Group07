@@ -36,9 +36,9 @@ class Anime(models.Model):
     # The last official release date of the media
     end_date = models.DateTimeField()
     # The amount of episodes the anime has when complete
-    episodes = models.SmallIntegerField()
+    episodes = models.SmallIntegerField(null=True)
     # The general length of each anime episode in minutes
-    duration = models.SmallIntegerField()
+    duration = models.SmallIntegerField(null=True)
     # Source type the media was adapted from
     source = models.CharField(choices=SourceType, max_length=20)
     # Official Twitter hashtags for the media
@@ -52,17 +52,17 @@ class Anime(models.Model):
     banner_img_large = models.CharField(max_length=MAXLEN_LINK)
     banner_img_med = models.CharField(max_length=MAXLEN_LINK)
     # A weighted average score of all the user's scores of the media
-    weighted_score = models.SmallIntegerField()
+    weighted_score = models.SmallIntegerField(default=0)
     # Anilist weighted score
-    anilist_score = models.SmallIntegerField()
+    anilist_score = models.SmallIntegerField(default=0)
     # Mean score of all the user's scores of the media
-    mean_score = models.SmallIntegerField()
+    mean_score = models.SmallIntegerField(default=0)
     # The number of users with the media on their list
-    popularity = models.IntegerField()
+    popularity = models.IntegerField(default=0)
     # The amount of related activity in the past day (may change time period)
-    trending = models.BigIntegerField()
+    trending = models.BigIntegerField(default=0)
     # The amount of user's who have favourited the anime
-    favorites = models.IntegerField()
+    favorites = models.IntegerField(default=0)
 
     # ManyToMany
     studios = models.ManyToManyField('Studio', through='AnimeProducedByStudio', blank=True)
@@ -80,7 +80,10 @@ class Studio(models.Model):
     # The name of the studio
     name = models.CharField(max_length=MAXLEN_TITLE, unique=True)
     # The amount of user's who have favourited the studio
-    favorites = models.IntegerField()
+    favorites = models.IntegerField(default=0)
+
+    # ManyToMany
+    animes = models.ManyToManyField('Anime', through='AnimeProducedByStudio', blank=True)
 
 class Character(models.Model):
     # Primary key
@@ -101,7 +104,7 @@ class Character(models.Model):
     # The character's age. Note this is a string, not an int, it may contain further text and additional ages.
     age = models.TextField()
     # The amount of user's who have favourited the character
-    favorites = models.IntegerField()
+    favorites = models.IntegerField(default=0)
 
 class Staff(models.Model):
     # Primary key
@@ -120,11 +123,14 @@ class Staff(models.Model):
     # The staff's birth date
     date_of_birth = models.DateField()
     # The staff's age
-    age = models.SmallIntegerField()
+    age = models.SmallIntegerField(null=True)
     # The persons birthplace or hometown
     home_town = models.CharField(max_length=MAXLEN_TITLE),
     # The amount of user's who have favourited the staff
-    favorites = models.IntegerField()
+    favorites = models.IntegerField(default=0)
+
+    # ManyToMany
+    animes = models.ManyToManyField('Anime', through='StaffInAnime', blank=True)
 
 class StaffInAnime(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
@@ -132,10 +138,10 @@ class StaffInAnime(models.Model):
     staff_role = models.CharField(max_length=150)
 
     # A staff can optionally be a voice actor/actress
-    char_id = models.ForeignKey('Character', on_delete=models.CASCADE)
+    char_id = models.ForeignKey('Character', on_delete=models.CASCADE, null=True)
     # The role of the character in that anime
     CharRoleType = models.TextChoices('CharRoleType', 'MAIN SUPPORTING BACKGROUND')
-    char_role = models.CharField(choices=CharRoleType, max_length=10)
+    char_role = models.CharField(choices=CharRoleType, max_length=10, null=True)
 
     class Meta:
         unique_together = [['anime_id', 'staff_id']]

@@ -1,0 +1,11 @@
+[
+    {
+        "model": "base.externalsite",
+        "pk": <id>,
+        "fields": {
+            "name": <name>,
+            "icon": <icon>,
+            "language": <lang>
+        }
+    }
+]

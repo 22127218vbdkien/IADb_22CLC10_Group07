@@ -1,0 +1,11 @@
+[
+    {
+        "model": "base.animeexternallink",
+        "pk": <id>,
+        "fields": {
+            "anime_id": <anime_id>,
+            "url": <url>,
+            "site_id": <site_id>
+        }
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "model": "base.animesysnonym",
+        "pk": <id>,
+        "fields": {
+            "anime_id": <anime_id>,
+            "synonym": <synonym>,
+        }
+    }
+]

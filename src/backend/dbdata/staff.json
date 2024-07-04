@@ -1,0 +1,18 @@
+[
+    {
+        "model": "base.staff",
+        "pk": <id>,
+        "fields": {
+            "name": <full_name>,
+            "name_native": <native_name>,
+            "img_large": <large>,
+            "img_med": <med>,
+            "description": <description>,
+            "gender": <gender>,
+            "date_of_birth": <date>,
+            "age": <age>,
+            "home_town": <home_town>,
+            "favorites": <favourites>
+        }
+    }
+]

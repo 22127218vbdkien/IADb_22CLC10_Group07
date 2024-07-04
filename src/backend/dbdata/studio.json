@@ -1,0 +1,402 @@
+[
+    {
+        "model": "base.studio",
+        "pk": 1,
+        "fields": {
+            "name": "Studio Pierrot",
+            "favorites": 2730
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 2,
+        "fields": {
+            "name": "Kyoto Animation",
+            "favorites": 20112
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 3,
+        "fields": {
+            "name": "GONZO",
+            "favorites": 332
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 4,
+        "fields": {
+            "name": "bones",
+            "favorites": 12624
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 5,
+        "fields": {
+            "name": "Bee Train",
+            "favorites": 54
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 6,
+        "fields": {
+            "name": "Gainax",
+            "favorites": 3244
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 7,
+        "fields": {
+            "name": "J.C. Staff",
+            "favorites": 3576
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 8,
+        "fields": {
+            "name": "Artland",
+            "favorites": 141
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 10,
+        "fields": {
+            "name": "Production I.G",
+            "favorites": 5690
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 11,
+        "fields": {
+            "name": "MADHOUSE",
+            "favorites": 16289
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 13,
+        "fields": {
+            "name": "Studio 4°C",
+            "favorites": 445
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 14,
+        "fields": {
+            "name": "Sunrise",
+            "favorites": 3366
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 15,
+        "fields": {
+            "name": "Sony Pictures Entertainment",
+            "favorites": 21
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 16,
+        "fields": {
+            "name": "TV Tokyo",
+            "favorites": 262
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 17,
+        "fields": {
+            "name": "Aniplex",
+            "favorites": 1770
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 18,
+        "fields": {
+            "name": "Toei Animation",
+            "favorites": 3210
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 21,
+        "fields": {
+            "name": "Studio Ghibli",
+            "favorites": 10754
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 22,
+        "fields": {
+            "name": "Nippon Animation",
+            "favorites": 232
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 23,
+        "fields": {
+            "name": "Bandai Visual",
+            "favorites": 24
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 24,
+        "fields": {
+            "name": "Studio Fantasia",
+            "favorites": 22
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 25,
+        "fields": {
+            "name": "Milky Animation Label",
+            "favorites": 96
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 27,
+        "fields": {
+            "name": "Xebec",
+            "favorites": 294
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 28,
+        "fields": {
+            "name": "OLM",
+            "favorites": 717
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 29,
+        "fields": {
+            "name": "VAP",
+            "favorites": 38
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 30,
+        "fields": {
+            "name": "Ajiado",
+            "favorites": 95
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 31,
+        "fields": {
+            "name": "NBCUniversal Entertainment Japan",
+            "favorites": 39
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 32,
+        "fields": {
+            "name": "Manglobe",
+            "favorites": 328
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 33,
+        "fields": {
+            "name": "WOWOW",
+            "favorites": 6
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 34,
+        "fields": {
+            "name": "Hal Film Maker",
+            "favorites": 114
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 35,
+        "fields": {
+            "name": "Seven Arcs",
+            "favorites": 139
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 36,
+        "fields": {
+            "name": "Studio Gallop",
+            "favorites": 69
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 37,
+        "fields": {
+            "name": "Studio DEEN",
+            "favorites": 923
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 38,
+        "fields": {
+            "name": "Arms",
+            "favorites": 96
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 39,
+        "fields": {
+            "name": "Daume",
+            "favorites": 22
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 40,
+        "fields": {
+            "name": "m.o.e.",
+            "favorites": 3
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 41,
+        "fields": {
+            "name": "Satelight",
+            "favorites": 290
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 42,
+        "fields": {
+            "name": "GDH",
+            "favorites": 1
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 43,
+        "fields": {
+            "name": "ufotable",
+            "favorites": 13379
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 44,
+        "fields": {
+            "name": "Shaft",
+            "favorites": 10415
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 45,
+        "fields": {
+            "name": "Pink Pineapple",
+            "favorites": 560
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 47,
+        "fields": {
+            "name": "Studio Khara",
+            "favorites": 386
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 48,
+        "fields": {
+            "name": "AIC",
+            "favorites": 99
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 49,
+        "fields": {
+            "name": "Remic",
+            "favorites": 0
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 50,
+        "fields": {
+            "name": "KSS",
+            "favorites": 4
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 51,
+        "fields": {
+            "name": "diomedéa",
+            "favorites": 184
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 52,
+        "fields": {
+            "name": "Avex Entertainment",
+            "favorites": 10
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 53,
+        "fields": {
+            "name": "Dentsu",
+            "favorites": 48
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 54,
+        "fields": {
+            "name": "Mook Animation",
+            "favorites": 6
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 55,
+        "fields": {
+            "name": "TV Asahi",
+            "favorites": 12
+        }
+    },
+    {
+        "model": "base.studio",
+        "pk": 57,
+        "fields": {
+            "name": "Touhouku Shinsha",
+            "favorites": 1
+        }
+    }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "model": "base.character",
+        "pk": <id>,
+        "fields": {
+            "name": <name>,
+            "name_native": <native name>,
+            "img_large": <large>,
+            "img_med": <med>,
+            "description": <description>,
+            "gender": <gender>,
+            "date_of_birth": <date>,
+            "age": <age>,
+            "favorites": <favourites>
+        }
+    }
+]

@@ -1,0 +1,33 @@
+[
+    {
+        "model": "base.anime",
+        "pk": <id>,
+        "fields": {
+            "id_anilist": <anilist_id>,
+            "id_mal": <id_mal>,
+            "romaji_title": <romaji_title>,
+            "english_title": <english_title>,
+            "native_title": <native_title>,
+            "format": <format>,
+            "status": <status>,
+            "description": <description>,
+            "start_date": <start_date>,
+            "end_date": <end_date>,
+            "episodes": <episodes>,
+            "duration": <duration>,
+            "source": <source>,
+            "hashtag": <hashtag>,
+            "trailer": <trailer>,
+            "cover_img_large": <cover_img_large>,
+            "cover_img_med": <cover_img_med>,
+            "banner_img_large": <banner_img_large>,
+            "banner_img_med": <banner_img_med>,
+            "weighted_score": <weighted_score>,
+            "anilist_score": <anilist_score>,
+            "mean_score": <mean_score>,
+            "popularity": <popularity>,
+            "trending": <trending>,
+            "favorites": <favorites>,
+        }
+    }
+]

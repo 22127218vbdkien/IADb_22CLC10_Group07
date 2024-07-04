@@ -1,0 +1,13 @@
+[
+    {
+        "model": "base.staffinanime",
+        "pk": <id>,
+        "fields": {
+            "anime_id": <anime_id>,
+            "staff_id": <staff_id>,
+            "staff_role": <role>,
+            "char_id": <char_id>,
+            "char_role:" <char_role>
+        }
+    }
+]

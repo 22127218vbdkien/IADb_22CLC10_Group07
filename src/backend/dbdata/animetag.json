@@ -1,0 +1,12 @@
+[
+    {
+        "model": "base.animetag",
+        "pk": <id>,
+        "fields": {
+            "anime_id": <anime_id>,
+            "tag_id": <tag_id>,
+            "rank": <rank>,
+            "is_spoiler": <is_spoiler>
+        }
+    }
+]

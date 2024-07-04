@@ -2,12 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from base.models import *
 
-#Anime serializers
-class AnimeSerializers(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Anime
-        fields = '__all__'
-
 #Anime synonym serializers 
 class AnimeSynonymSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -36,12 +30,6 @@ class StaffSerializers(serializers.HyperlinkedModelSerializer):
 class StaffInAnimeSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = StaffInAnime
-        fields = '__all__'
-
-#Staff voice character serializers 
-class StaffVoiceCharacterSerializers(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = StaffVoiceCharacter
         fields = '__all__'
 
 #Anime produced by Studio serializers
@@ -84,4 +72,10 @@ class AnimeExternalLinkSerializers(serializers.HyperlinkedModelSerializer):
 class StaffExternalLinkSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = StaffExternalLink
+        fields = '__all__'
+
+#Anime serializers
+class AnimeSerializers(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Anime
         fields = '__all__'

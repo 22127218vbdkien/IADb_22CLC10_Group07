@@ -1,0 +1,12 @@
+[
+    {
+        "model": "base.tag",
+        "pk": <id>,
+        "fields": {
+            "name": <name>,
+            "description": <description>,
+            "category": <cat>,
+            "is_general_spoiler": <bool>
+        }
+    }
+]

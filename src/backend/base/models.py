@@ -32,9 +32,9 @@ class Anime(models.Model):
     # Short description of the media's story and characters
     description = models.TextField()
     # The first official release date of the media
-    start_date = models.DateTimeField()
+    start_date = models.DateField()
     # The last official release date of the media
-    end_date = models.DateTimeField()
+    end_date = models.DateField()
     # The amount of episodes the anime has when complete
     episodes = models.SmallIntegerField(null=True)
     # The general length of each anime episode in minutes
@@ -49,8 +49,7 @@ class Anime(models.Model):
     cover_img_large = models.CharField(max_length=MAXLEN_LINK)
     cover_img_med = models.CharField(max_length=MAXLEN_LINK)
     # The banner image of the media
-    banner_img_large = models.CharField(max_length=MAXLEN_LINK)
-    banner_img_med = models.CharField(max_length=MAXLEN_LINK)
+    banner_img = models.CharField(max_length=MAXLEN_LINK)
     # A weighted average score of all the user's scores of the media
     weighted_score = models.SmallIntegerField(default=0)
     # Anilist weighted score

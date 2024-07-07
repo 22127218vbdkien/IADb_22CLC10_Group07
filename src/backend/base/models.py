@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 # Set length of titles
-MAXLEN_TITLE = 150
-MAXLEN_LINK = 150
+MAXLEN_TITLE = 200
+MAXLEN_LINK = 200
 
 class Anime(models.Model):
     FormatType = models.TextChoices('FormatType', 'TV TV_SHORT MOVIE SPECIAL OVA ONA MUSIC')
@@ -16,52 +16,52 @@ class Anime(models.Model):
     # Primary key
     id = models.AutoField(primary_key=True)
     # The anilist id of the anime
-    id_anilist = models.IntegerField(unique=True)
+    id_anilist = models.IntegerField(unique=True, null=True)
     # The mal id of the anime
-    id_mal = models.IntegerField(unique=True)
+    id_mal = models.IntegerField(null=True)
     # The romanization of the native language title
-    romaji_title = models.CharField(max_length=MAXLEN_TITLE, unique=True)
+    romaji_title = models.CharField(max_length=MAXLEN_TITLE)
     # The official english title
-    english_title = models.CharField(max_length=MAXLEN_TITLE, unique=True)
+    english_title = models.CharField(max_length=MAXLEN_TITLE, null=True)
     # Official title in it's native language
-    native_title = models.CharField(max_length=MAXLEN_TITLE, unique=True)
+    native_title = models.CharField(max_length=MAXLEN_TITLE, null=True)
     # The format the media was released in
-    format = models.CharField(choices=FormatType, max_length=10)
+    format = models.CharField(choices=FormatType, max_length=10, null=True)
     # The current releasing status of the media
-    status = models.CharField(choices=StatusType, max_length=20)
+    status = models.CharField(choices=StatusType, max_length=20, null=True)
     # Short description of the media's story and characters
-    description = models.TextField()
+    description = models.TextField(null=True)
     # The first official release date of the media
-    start_date = models.DateField()
+    start_date = models.DateField(null=True)
     # The last official release date of the media
-    end_date = models.DateField()
+    end_date = models.DateField(null=True)
     # The amount of episodes the anime has when complete
     episodes = models.SmallIntegerField(null=True)
     # The general length of each anime episode in minutes
     duration = models.SmallIntegerField(null=True)
     # Source type the media was adapted from
-    source = models.CharField(choices=SourceType, max_length=20)
+    source = models.CharField(choices=SourceType, max_length=20, null=True)
     # Official Twitter hashtags for the media
-    hashtag = models.CharField(max_length=MAXLEN_LINK)
+    hashtag = models.CharField(max_length=MAXLEN_LINK, null=True)
     # Media trailer or advertisement
-    trailer = models.CharField(max_length=MAXLEN_LINK)
+    trailer = models.CharField(max_length=MAXLEN_LINK, null=True)
     # The cover images of the media
-    cover_img_large = models.CharField(max_length=MAXLEN_LINK)
-    cover_img_med = models.CharField(max_length=MAXLEN_LINK)
+    cover_img_large = models.CharField(max_length=MAXLEN_LINK, null=True)
+    cover_img_med = models.CharField(max_length=MAXLEN_LINK, null=True)
     # The banner image of the media
-    banner_img = models.CharField(max_length=MAXLEN_LINK)
+    banner_img = models.CharField(max_length=MAXLEN_LINK, null=True)
     # A weighted average score of all the user's scores of the media
-    weighted_score = models.SmallIntegerField(default=0)
+    weighted_score = models.SmallIntegerField(default=0, null=True)
     # Anilist weighted score
-    anilist_score = models.SmallIntegerField(default=0)
+    anilist_score = models.SmallIntegerField(default=0, null=True)
     # Mean score of all the user's scores of the media
-    mean_score = models.SmallIntegerField(default=0)
+    mean_score = models.SmallIntegerField(default=0, null=True)
     # The number of users with the media on their list
-    popularity = models.IntegerField(default=0)
+    popularity = models.IntegerField(default=0, null=True)
     # The amount of related activity in the past day (may change time period)
-    trending = models.BigIntegerField(default=0)
+    trending = models.BigIntegerField(default=0, null=True)
     # The amount of user's who have favourited the anime
-    favorites = models.IntegerField(default=0)
+    favorites = models.IntegerField(default=0, null=True)
 
     # ManyToMany
     studios = models.ManyToManyField('Studio', through='AnimeProducedByStudio', blank=True)

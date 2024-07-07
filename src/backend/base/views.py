@@ -1,7 +1,5 @@
-from django.contrib.auth.models import User
 from rest_framework import permissions, renderers, viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from base.models import *
 from base.serializers import *

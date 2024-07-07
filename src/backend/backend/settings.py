@@ -136,4 +136,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',  # Add this line
         'rest_framework.authentication.SessionAuthentication',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 50
 }

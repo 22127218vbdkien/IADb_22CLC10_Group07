@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 
 # Set length of titles
 MAXLEN_TITLE = 200
-MAXLEN_LINK = 200
+MAXLEN_LINK = 250
 
 class Anime(models.Model):
     FormatType = models.TextChoices('FormatType', 'TV TV_SHORT MOVIE SPECIAL OVA ONA MUSIC')
@@ -184,18 +184,21 @@ class ExternalSite(models.Model):
     # Primary key
     id = models.AutoField(primary_key=True)
     # The name of the site
-    name = models.CharField(max_length=MAXLEN_TITLE, unique=True)
+    name = models.CharField(max_length=MAXLEN_TITLE)
     # The link to the icon of the site
-    icon = models.CharField(max_length=MAXLEN_LINK)
+    icon = models.CharField(max_length=MAXLEN_LINK, null=True)
     # The native language of the content on that site
-    language = models.CharField(max_length=50)
+    language = models.CharField(max_length=50, null=True)
 
 class AnimeExternalLink(models.Model):
-    anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
-    url = models.CharField(max_length=MAXLEN_LINK, unique=True)
+    anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE, related_name='animeexternallinks')
+    url = models.CharField(max_length=MAXLEN_LINK)
     site_id = models.ForeignKey('ExternalSite', null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ['anime_id']
 
 class StaffExternalLink(models.Model):
     staff_id = models.ForeignKey('Staff', on_delete=models.CASCADE)
-    url = models.CharField(max_length=MAXLEN_LINK, unique=True)
+    url = models.CharField(max_length=MAXLEN_LINK)
     site_id = models.ForeignKey('ExternalSite', null=True, on_delete=models.SET_NULL)

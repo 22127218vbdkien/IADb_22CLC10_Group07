@@ -92,6 +92,7 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
     staffs = StaffSerializer(many=True)
     tags = TagSerializer(many=True)
     relations = AnimeSerializer(many=True)
+    animeexternallinks = serializers.SlugRelatedField(many=True, read_only=True, slug_field='url')
 
 class StudioViewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

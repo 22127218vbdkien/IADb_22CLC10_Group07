@@ -1,11 +1,344 @@
 [
     {
         "model": "base.externalsite",
-        "pk": <id>,
+        "pk": 7,
         "fields": {
-            "name": <name>,
-            "icon": <icon>,
-            "language": <lang>
+            "name": "Hulu",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/7-rM06PQyWONGC.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 5,
+        "fields": {
+            "name": "Crunchyroll",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/5-AWN2pVlluCOO.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 21,
+        "fields": {
+            "name": "Amazon Prime Video",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/21-bDoNIomehkOx.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 30,
+        "fields": {
+            "name": "Tubi TV",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/30-H2h0Fxnog1Pr.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 28,
+        "fields": {
+            "name": "Adult Swim",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/28-W1L8AHW0O4xE.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 10,
+        "fields": {
+            "name": "Netflix",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/10-rVGPom8RCiwH.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 1,
+        "fields": {
+            "name": "Official Site",
+            "icon": null,
+            "language": "Japanese"
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 25,
+        "fields": {
+            "name": "HBO Max",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/25-w4HqrEsxtHJJ.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 27,
+        "fields": {
+            "name": "RetroCrush",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/27-1wGdEnOAv9WX.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 13,
+        "fields": {
+            "name": "YouTube",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/13-ZwR1Xwgtyrwa.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 45,
+        "fields": {
+            "name": "Bilibili",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/45-6JAD1SYYCHI2.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 122,
+        "fields": {
+            "name": "iQ",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/122-EPBJ2E0oPt5C.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 119,
+        "fields": {
+            "name": "Bilibili TV",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/119-NCwGvCjFADGQ.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 131,
+        "fields": {
+            "name": "WeTV",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/131-5sN08ZCe7HKZ.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 17,
+        "fields": {
+            "name": "Twitter",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/17-R0tMgOvwvhsS.png",
+            "language": "Japanese"
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 20,
+        "fields": {
+            "name": "HIDIVE",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/20-3nWxygrjVM5A.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 34,
+        "fields": {
+            "name": "CONtv",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/34-oHO1UvONDlYV.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 211,
+        "fields": {
+            "name": "Max",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/211-S2C1vx1Ex5N7.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 31,
+        "fields": {
+            "name": "Crackle",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/34-oHO1UvONDlYV.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 196,
+        "fields": {
+            "name": "TikTok",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/196-o2g5cLUG6k5V.png",
+            "language": "Japanese"
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 48,
+        "fields": {
+            "name": "Instagram",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/48-VFlxaXGaNqXk.png",
+            "language": "Japanese"
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 230,
+        "fields": {
+            "name": "Criterion Channel",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/230-Vni5Fgvr3mQh.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 118,
+        "fields": {
+            "name": "Disney Plus",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/118-mphNAqNDTvhO.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 210,
+        "fields": {
+            "name": "Star+",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/210-7I8TiOqOL5Vz.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 32,
+        "fields": {
+            "name": "AsianCrush",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/32-ItyJfLo9P38L.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 33,
+        "fields": {
+            "name": "Midnight Pulp",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/33-3LjNPHhTdAar.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 216,
+        "fields": {
+            "name": "Cineverse",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/216-Mc0w6XPy9HKx.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 29,
+        "fields": {
+            "name": "Japanese Film Archives",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/29-nBg0xp4H802d.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 22,
+        "fields": {
+            "name": "Vimeo",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/22-bC0AcWysVhZt.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 38,
+        "fields": {
+            "name": "Facebook",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/38-JvMCwgmWvF6Z.png",
+            "language": "Japanese"
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 180,
+        "fields": {
+            "name": "Niconico Video",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/180-CrzyTkXcc7UU.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 219,
+        "fields": {
+            "name": "Twitter",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/219-EwrfceXsqIWg.png",
+            "language": "Japanese"
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 120,
+        "fields": {
+            "name": "Weibo",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/120-Q60x0hPKE19B.png",
+            "language": "Chinese"
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 26,
+        "fields": {
+            "name": "Wakanim",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/26-mlteKd1HzkLH.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 121,
+        "fields": {
+            "name": "Tencent Video",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/121-BQIBl0q1Eh9w.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 204,
+        "fields": {
+            "name": "iQIYI",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/204-VS6anqt2SaIN.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 126,
+        "fields": {
+            "name": "Youku",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/126-QUuKXK3ri4c2.png",
+            "language": null
+        }
+    },
+    {
+        "model": "base.externalsite",
+        "pk": 226,
+        "fields": {
+            "name": "Coolmic",
+            "icon": "https://s4.anilist.co/file/anilistcdn/link/icon/226-7einbLc8fW6h.png",
+            "language": null
         }
     }
 ]

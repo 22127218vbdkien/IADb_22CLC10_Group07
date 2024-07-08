@@ -3,10 +3,9 @@
         "model": "base.animeproducedbystudio",
         "pk": <id>,
         "fields": {
-            "name": <name>,
-            "description": <description>,
-            "category": <cat>,
-            "is_general_spoiler": <bool>
+            "anime_id": <anime_id>,
+            "studio_id": <studio_id>,
+            "is_main": <is_main>
         }
     }
 ]

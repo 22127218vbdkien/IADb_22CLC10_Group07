@@ -136,14 +136,21 @@ class StaffInAnime(models.Model):
     staff_id = models.ForeignKey('Staff', on_delete=models.CASCADE)
     staff_role = models.CharField(max_length=150)
 
-    # A staff can optionally be a voice actor/actress
-    char_id = models.ForeignKey('Character', on_delete=models.CASCADE, null=True)
-    # The role of the character in that anime
-    CharRoleType = models.TextChoices('CharRoleType', 'MAIN SUPPORTING BACKGROUND')
-    char_role = models.CharField(choices=CharRoleType, max_length=10, null=True)
-
     class Meta:
         unique_together = [['anime_id', 'staff_id']]
+
+class CharacterInAnime(models.Model):
+    CharRoleType = models.TextChoices('CharRoleType', 'MAIN SUPPORTING BACKGROUND')
+
+    char_id = models.ForeignKey('Character', on_delete=models.CASCADE)
+    anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
+    # the staff that voiced the character
+    staff_id = models.ForeignKey('Staff', on_delete=models.CASCADE, null=True)
+    char_role = models.CharField(choices=CharRoleType, max_length=10, null=True)
+    language = models.CharField(max_length=50, null=True)
+
+    class Meta:
+        unique_together = [['char_id', 'anime_id', 'staff_id']]
 
 class AnimeProducedByStudio(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)

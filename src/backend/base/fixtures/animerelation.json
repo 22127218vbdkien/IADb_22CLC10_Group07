@@ -1,0 +1,11 @@
+[
+    {
+        "model": "base.animerelation",
+        "pk": <id>,
+        "fields": {
+            "anime_id": <anime_id>,
+            "senior_anime_id": <senior_anime_id>,
+            "relation": <relation>
+        }
+    }
+]

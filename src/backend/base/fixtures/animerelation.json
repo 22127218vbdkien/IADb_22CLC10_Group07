@@ -7462,15 +7462,6 @@
     },
     {
         "model": "base.animerelation",
-        "pk": 61932,
-        "fields": {
-            "anime_id": 769,
-            "senior_anime_id": 370,
-            "relation": "ALTERNATIVE"
-        }
-    },
-    {
-        "model": "base.animerelation",
         "pk": 846,
         "fields": {
             "anime_id": 232,
@@ -12453,24 +12444,6 @@
             "anime_id": 769,
             "senior_anime_id": 767,
             "relation": "SPIN_OFF"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 61901,
-        "fields": {
-            "anime_id": 769,
-            "senior_anime_id": 767,
-            "relation": "ALTERNATIVE"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 61903,
-        "fields": {
-            "anime_id": 370,
-            "senior_anime_id": 767,
-            "relation": "ALTERNATIVE"
         }
     },
     {
@@ -45586,15 +45559,6 @@
     },
     {
         "model": "base.animerelation",
-        "pk": 77284,
-        "fields": {
-            "anime_id": 21020,
-            "senior_anime_id": 5082,
-            "relation": "ALTERNATIVE"
-        }
-    },
-    {
-        "model": "base.animerelation",
         "pk": 90077,
         "fields": {
             "anime_id": 169319,
@@ -54096,15 +54060,6 @@
             "anime_id": 8685,
             "senior_anime_id": 7531,
             "relation": "SEQUEL"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 76656,
-        "fields": {
-            "anime_id": 8685,
-            "senior_anime_id": 7531,
-            "relation": "ALTERNATIVE"
         }
     },
     {
@@ -67771,15 +67726,6 @@
     },
     {
         "model": "base.animerelation",
-        "pk": 23139,
-        "fields": {
-            "anime_id": 101928,
-            "senior_anime_id": 11813,
-            "relation": "OTHER"
-        }
-    },
-    {
-        "model": "base.animerelation",
         "pk": 7553,
         "fields": {
             "anime_id": 12893,
@@ -77226,15 +77172,6 @@
             "anime_id": 98310,
             "senior_anime_id": 17437,
             "relation": "PARENT"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 76876,
-        "fields": {
-            "anime_id": 98310,
-            "senior_anime_id": 17437,
-            "relation": "CHARACTER"
         }
     },
     {
@@ -90064,24 +90001,6 @@
     },
     {
         "model": "base.animerelation",
-        "pk": 76601,
-        "fields": {
-            "anime_id": 21635,
-            "senior_anime_id": 21020,
-            "relation": "ALTERNATIVE"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 77283,
-        "fields": {
-            "anime_id": 5082,
-            "senior_anime_id": 21020,
-            "relation": "ALTERNATIVE"
-        }
-    },
-    {
-        "model": "base.animerelation",
         "pk": 9934,
         "fields": {
             "anime_id": 10524,
@@ -96283,15 +96202,6 @@
     },
     {
         "model": "base.animerelation",
-        "pk": 46106,
-        "fields": {
-            "anime_id": 20745,
-            "senior_anime_id": 21573,
-            "relation": "PARENT"
-        }
-    },
-    {
-        "model": "base.animerelation",
         "pk": 10892,
         "fields": {
             "anime_id": 21202,
@@ -96949,15 +96859,6 @@
     },
     {
         "model": "base.animerelation",
-        "pk": 76602,
-        "fields": {
-            "anime_id": 21020,
-            "senior_anime_id": 21635,
-            "relation": "ALTERNATIVE"
-        }
-    },
-    {
-        "model": "base.animerelation",
         "pk": 77282,
         "fields": {
             "anime_id": 6901,
@@ -97566,15 +97467,6 @@
             "anime_id": 98436,
             "senior_anime_id": 21688,
             "relation": "SEQUEL"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 97322,
-        "fields": {
-            "anime_id": 98436,
-            "senior_anime_id": 21688,
-            "relation": "PARENT"
         }
     },
     {
@@ -102845,15 +102737,6 @@
     {
         "model": "base.animerelation",
         "pk": 18208,
-        "fields": {
-            "anime_id": 966,
-            "senior_anime_id": 98093,
-            "relation": "PARENT"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 18216,
         "fields": {
             "anime_id": 966,
             "senior_anime_id": 98093,
@@ -114535,15 +114418,6 @@
     },
     {
         "model": "base.animerelation",
-        "pk": 71758,
-        "fields": {
-            "anime_id": 147764,
-            "senior_anime_id": 110788,
-            "relation": "SEQUEL"
-        }
-    },
-    {
-        "model": "base.animerelation",
         "pk": 36477,
         "fields": {
             "anime_id": 113187,
@@ -118509,15 +118383,6 @@
             "anime_id": 113311,
             "senior_anime_id": 127227,
             "relation": "ALTERNATIVE"
-        }
-    },
-    {
-        "model": "base.animerelation",
-        "pk": 76844,
-        "fields": {
-            "anime_id": 113311,
-            "senior_anime_id": 127227,
-            "relation": "PARENT"
         }
     },
     {

@@ -4,11 +4,10 @@ from django.core.exceptions import ValidationError
 
 # load fixtures using
 # python manage.py loaddata anime studio staff voicestaff tag externalsite character1 character2 character3
-# python manage.py loaddata animeexternallink animeproducedbystudio animetag characterinanime1 characterinanime2
-# not resolved: animerelation animesynonym
+# python manage.py loaddata animeexternallink animeproducedbystudio animetag characterinanime1 characterinanime2 animerelation staffinanime animesynonym
 
 # Set length of titles
-MAXLEN_TITLE = 200
+MAXLEN_TITLE = 250
 MAXLEN_LINK = 250
 
 class Anime(models.Model):
@@ -76,10 +75,7 @@ class Anime(models.Model):
 
 class AnimeSynonym(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
-    synonym = models.CharField(max_length=MAXLEN_TITLE)
-
-    class Meta:
-        unique_together = [['anime_id', 'synonym']]
+    synonym = models.TextField(max_length=MAXLEN_TITLE)
 
 class Studio(models.Model):
     # Primary key

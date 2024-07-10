@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    
     'base',
     'authentication',
 ]
@@ -76,7 +77,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+import pyodbc
 DATABASES = {
     'default':{
         'ENGINE':'mssql',         # Must be "mssql"
@@ -85,6 +86,15 @@ DATABASES = {
         'PORT':'',                           
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
+            'unicode_results': True,
+            'connection_timeout': 300,
+            "setdecoding": [
+                {"sqltype": pyodbc.SQL_CHAR, "encoding": 'utf-8'},
+                {"sqltype": pyodbc.SQL_WCHAR, "encoding": 'utf-8'}
+            ],
+            "setencoding": [
+                {"encoding": "utf-8"}
+            ],
         },
     }
 }

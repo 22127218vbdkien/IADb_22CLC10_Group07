@@ -17094,5 +17094,13 @@
             "name": "AmiAmi",
             "favorites": 0
         }
+    },
+    {
+        "model": "base.studio",
+        "pk": 7531,
+        "fields": {
+            "name": "Imageworks Studio",
+            "favorites": 0
+        }
     }
 ]

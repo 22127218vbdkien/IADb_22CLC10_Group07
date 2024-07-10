@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+# load fixtures using
+# python manage.py loaddata anime studio staff voicestaff tag externalsite character1 character2 character3
+# python manage.py loaddata animeexternallink animeproducedbystudio animetag characterinanime1 characterinanime2
+# not resolved: animerelation animesynonym
+
 # Set length of titles
 MAXLEN_TITLE = 200
 MAXLEN_LINK = 250
@@ -71,13 +76,16 @@ class Anime(models.Model):
 
 class AnimeSynonym(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
-    synonym = models.CharField(max_length=MAXLEN_TITLE, unique=True)
+    synonym = models.CharField(max_length=MAXLEN_TITLE)
+
+    class Meta:
+        unique_together = [['anime_id', 'synonym']]
 
 class Studio(models.Model):
     # Primary key
     id = models.AutoField(primary_key=True)
     # The name of the studio
-    name = models.CharField(max_length=MAXLEN_TITLE, unique=True)
+    name = models.CharField(max_length=MAXLEN_TITLE)
     # The amount of user's who have favourited the studio
     favorites = models.IntegerField(default=0)
 
@@ -88,20 +96,20 @@ class Character(models.Model):
     # Primary key
     id = models.AutoField(primary_key=True)
     # The character's full name
-    name = models.CharField(max_length=MAXLEN_TITLE)
+    name = models.CharField(max_length=MAXLEN_TITLE, null=True)
     # The character's full name in their native language
-    name_native = models.CharField(max_length=MAXLEN_TITLE)
+    name_native = models.CharField(max_length=MAXLEN_TITLE, null=True)
     # Character images
-    img_large = models.CharField(max_length=MAXLEN_LINK)
-    img_med = models.CharField(max_length=MAXLEN_LINK)
+    img_large = models.CharField(max_length=MAXLEN_LINK, null=True)
+    img_med = models.CharField(max_length=MAXLEN_LINK, null=True)
     # A general description of the character
-    description = models.TextField()
+    description = models.TextField(null=True)
     # The character's gender. Usually Male, Female, or Non-binary but can be any string.
-    gender = models.CharField(max_length=50)
+    gender = models.CharField(max_length=50, null=True)
     # The character's birth date
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True)
     # The character's age. Note this is a string, not an int, it may contain further text and additional ages.
-    age = models.TextField()
+    age = models.TextField(null=True)
     # The amount of user's who have favourited the character
     favorites = models.IntegerField(default=0)
 
@@ -111,20 +119,20 @@ class Staff(models.Model):
     # The person's full name
     name = models.CharField(max_length=MAXLEN_TITLE)
     # The person's full name in their native language
-    name_native = models.CharField(max_length=MAXLEN_TITLE)
+    name_native = models.CharField(max_length=MAXLEN_TITLE, null=True)
     # The person's images
-    img_large = models.CharField(max_length=MAXLEN_LINK)
-    img_med = models.CharField(max_length=MAXLEN_LINK)
+    img_large = models.CharField(max_length=MAXLEN_LINK, null=True)
+    img_med = models.CharField(max_length=MAXLEN_LINK, null=True)
     # A general description of the staff member
-    description = models.TextField()
+    description = models.TextField(null=True)
     # The staff's gender
-    gender = models.CharField(max_length=50)
+    gender = models.CharField(max_length=50, null=True)
     # The staff's birth date
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True)
     # The staff's age
     age = models.SmallIntegerField(null=True)
     # The persons birthplace or hometown
-    home_town = models.CharField(max_length=MAXLEN_TITLE),
+    home_town = models.CharField(max_length=MAXLEN_TITLE, null=True)
     # The amount of user's who have favourited the staff
     favorites = models.IntegerField(default=0)
 
@@ -134,10 +142,10 @@ class Staff(models.Model):
 class StaffInAnime(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     staff_id = models.ForeignKey('Staff', on_delete=models.CASCADE)
-    staff_role = models.CharField(max_length=150)
+    staff_role = models.CharField(max_length=250)
 
     class Meta:
-        unique_together = [['anime_id', 'staff_id']]
+        unique_together = [['anime_id', 'staff_id', 'staff_role']]
 
 class CharacterInAnime(models.Model):
     CharRoleType = models.TextChoices('CharRoleType', 'MAIN SUPPORTING BACKGROUND')
@@ -147,7 +155,6 @@ class CharacterInAnime(models.Model):
     # the staff that voiced the character
     staff_id = models.ForeignKey('Staff', on_delete=models.CASCADE, null=True)
     char_role = models.CharField(choices=CharRoleType, max_length=10, null=True)
-    language = models.CharField(max_length=50, null=True)
 
     class Meta:
         unique_together = [['char_id', 'anime_id', 'staff_id']]
@@ -157,7 +164,7 @@ class AnimeProducedByStudio(models.Model):
     studio_id = models.ForeignKey('Studio', on_delete=models.CASCADE)
     is_main = models.BooleanField(default=False)
     class Meta:
-        unique_together = [['anime_id', 'studio_id']]
+        unique_together = [['anime_id', 'studio_id', 'is_main']]
 
 class AnimeRelation(models.Model):
     RelationType = models.TextChoices('RelationType',
@@ -169,7 +176,7 @@ class AnimeRelation(models.Model):
     relation = models.CharField(choices=RelationType, max_length=15)
 
     class Meta:
-        unique_together = [['anime_id', 'senior_anime_id']]
+        unique_together = [['anime_id', 'senior_anime_id', 'relation']]
 
 class Tag(models.Model):
     id = models.AutoField(primary_key=True)
@@ -181,8 +188,8 @@ class Tag(models.Model):
 class AnimeTag(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     tag_id = models.ForeignKey('Tag', on_delete=models.CASCADE)
-    rank = models.SmallIntegerField(default=0)
-    is_spoiler = models.BooleanField(default=False)
+    rank = models.SmallIntegerField(default=0, null=True)
+    is_spoiler = models.BooleanField(default=False, null=True)
 
     class Meta:
         unique_together = [['anime_id', 'tag_id']]

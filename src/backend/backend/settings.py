@@ -87,14 +87,6 @@ DATABASES = {
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
             'unicode_results': True,
-            'connection_timeout': 300,
-            "setdecoding": [
-                {"sqltype": pyodbc.SQL_CHAR, "encoding": 'utf-8'},
-                {"sqltype": pyodbc.SQL_WCHAR, "encoding": 'utf-8'}
-            ],
-            "setencoding": [
-                {"encoding": "utf-8"}
-            ],
         },
     }
 }
@@ -147,5 +139,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 50
+    'PAGE_SIZE': 50,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }

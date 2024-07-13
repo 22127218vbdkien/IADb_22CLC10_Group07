@@ -72,6 +72,7 @@ class Anime(models.Model):
     staffs = models.ManyToManyField('Staff', through='StaffInAnime', blank=True)
     tags = models.ManyToManyField('Tag', through='AnimeTag', blank=True)
     relations = models.ManyToManyField('Anime', through='AnimeRelation', blank=True)
+    characters = models.ManyToManyField('Character', through='CharacterInAnime', blank=True)
 
 class AnimeSynonym(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
@@ -167,8 +168,8 @@ class AnimeRelation(models.Model):
         'SEQUEL PARENT SIDE_STORY CHARACTER SUMMARY SPIN_OFF OTHER COMPILATION CONTAINS'
     )
 
-    anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE, related_name='anime_id')
-    senior_anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE, related_name='senior_anime_id')
+    anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE, related_name='animerelation_set')
+    senior_anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE, related_name='anime_relation')
     relation = models.CharField(choices=RelationType, max_length=15)
 
     class Meta:

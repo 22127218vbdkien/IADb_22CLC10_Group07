@@ -14,7 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import include, re_path
+from django.contrib import admin
+from django.urls import include, re_path, path
 from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
 
@@ -23,6 +24,8 @@ API_DESCRIPTION = 'A Web API for creating and viewing highlighted code snippets.
 schema_view = get_schema_view(title=API_TITLE)
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     re_path(r'^', include('base.urls')),
+    re_path(r'^', include('authentication.urls')),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    
     'base',
     'authentication',
 ]
@@ -81,8 +80,8 @@ import pyodbc
 DATABASES = {
     'default':{
         'ENGINE':'mssql',         # Must be "mssql"
-        'NAME':'test_djangorest', # DB name
-        'HOST':'LAPTOP-ONJ8RFFS', # <server>\<instance>
+        'NAME':'djangorest', # DB name
+        'HOST':'DESKTOP-Q8RT6LN', # <server>\<instance>
         'PORT':'',                           
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',

@@ -1,13 +1,39 @@
 from rest_framework import permissions, renderers, viewsets
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from base.models import *
 from base.serializers import *
+import django_filters
+from rest_framework import filters
+
 
 class AnimeViewSet(viewsets.ModelViewSet):
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    class AnimeFilter(django_filters.FilterSet):
+        anime_format = django_filters.ChoiceFilter(
+            field_name= 'format',
+            choices = Anime.FormatType
+        )
+        tags = django_filters.ModelMultipleChoiceFilter(
+            field_name = 'tags',
+            to_field_name = 'id',
+            conjoined = True,
+            queryset = Tag.objects.filter()
+        )
+        year = django_filters
+        class Meta:
+            model = Anime
+            fields = ['tags', 'anime_format', 'status', 'source']
+
     queryset = Anime.objects.all()
     serializer_class = AnimeViewSerializer
+
+    # For filtering
+    filter_backends = [
+        django_filters.rest_framework.DjangoFilterBackend, 
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+    search_fields = ['romaji_title', 'english_title', 'native_title', 'hashtag']
+    ordering_fields = ['start_date', 'popularity', 'trending', 'favorites', 'anilist_score']
+    filterset_class = AnimeFilter
     
     def get_serializer_class(self):
         if self.action == 'list':
@@ -15,12 +41,10 @@ class AnimeViewSet(viewsets.ModelViewSet):
         return AnimeViewSerializer
 
 class StudioViewSet(viewsets.ModelViewSet):
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     queryset = Studio.objects.all()
     serializer_class = StudioViewSerializer
 
 class StaffViewSet(viewsets.ModelViewSet):
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     queryset = Staff.objects.all()
     serializer_class = StaffViewSerializer
 

@@ -182,6 +182,9 @@ class Tag(models.Model):
     category = models.CharField(max_length=150)
     is_general_spoiler = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 class AnimeTag(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     tag_id = models.ForeignKey('Tag', on_delete=models.CASCADE)

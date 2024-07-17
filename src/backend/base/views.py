@@ -20,7 +20,7 @@ class AnimeViewSet(viewsets.ModelViewSet):
         year = django_filters
         class Meta:
             model = Anime
-            fields = ['tags', 'anime_format', 'status', 'source']
+            fields = ['tags', 'anime_format', 'status', 'source', 'studios']
 
     queryset = Anime.objects.all()
     serializer_class = AnimeViewSerializer
@@ -44,9 +44,19 @@ class StudioViewSet(viewsets.ModelViewSet):
     queryset = Studio.objects.all()
     serializer_class = StudioViewSerializer
 
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return StudioListSerializer
+        return StudioViewSerializer
+
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffViewSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return StaffListSerializer
+        return StaffViewSerializer
 
 # class TagViewSet(viewsets.ModelViewSet):
 #     queryset = Tag.objects.all()

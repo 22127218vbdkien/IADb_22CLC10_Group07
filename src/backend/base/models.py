@@ -205,7 +205,7 @@ class ExternalSite(models.Model):
     language = models.CharField(max_length=50, null=True)
 
 class AnimeExternalLink(models.Model):
-    anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE, related_name='animeexternallinks')
+    anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     url = models.CharField(max_length=MAXLEN_LINK)
     site_id = models.ForeignKey('ExternalSite', null=True, on_delete=models.SET_NULL)
 

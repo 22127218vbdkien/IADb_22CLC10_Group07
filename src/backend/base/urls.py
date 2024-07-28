@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r'animes', views.AnimeViewSet, basename='anime')
 router.register(r'studios', views.StudioViewSet, basename='studio')
 router.register(r'staffs', views.StaffViewSet, basename='staff')
+router.register(r'characters', views.CharacterViewSet, basename='character')
 # router.register(r'tags', views.TagViewSet, basename='tag')
 # router.register(r'animetags', views.AnimeTagViewSet)
 

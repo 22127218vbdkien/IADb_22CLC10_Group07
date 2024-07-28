@@ -58,10 +58,11 @@ class StaffViewSet(viewsets.ModelViewSet):
             return StaffListSerializer
         return StaffViewSerializer
 
-# class TagViewSet(viewsets.ModelViewSet):
-#     queryset = Tag.objects.all()
-#     serializer_class = TagSerializer
+class CharacterViewSet(viewsets.ModelViewSet):
+    queryset = Character.objects.all()
+    serializer_class = CharacterViewSerializer
 
-# class AnimeTagViewSet(viewsets.ModelViewSet):
-#     queryset = AnimeTag.objects.all()
-#     serializer_class = AnimeTagSerializer
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CharacterListSerializer
+        return CharacterViewSerializer

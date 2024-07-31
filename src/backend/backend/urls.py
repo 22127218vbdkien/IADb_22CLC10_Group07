@@ -18,15 +18,27 @@ from django.contrib import admin
 from django.urls import include, re_path, path
 from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
+from rest_framework import routers
+
+from base.urls import router as base_router
+from collection.urls import router as collection_router
 
 API_TITLE = 'IADb API'
 API_DESCRIPTION = 'A Web API for an online anime database.'
 schema_view = get_schema_view(title=API_TITLE)
 
+class DefaultRouter(routers.DefaultRouter):
+    def extend(self, router):
+        self.registry.extend(router.registry)
+
+router = DefaultRouter()
+router.extend(base_router)
+router.extend(collection_router)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^', include('base.urls')),
     re_path(r'^', include('authentication.urls')),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    re_path(r'^', include('collection.urls'))
+
+    re_path(r'^', include(router.urls)),
 ]

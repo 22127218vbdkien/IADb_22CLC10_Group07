@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'base',
+    'collection',
     'authentication',
 ]
 

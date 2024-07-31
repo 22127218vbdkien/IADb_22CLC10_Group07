@@ -1,6 +1,7 @@
 # ignore python virtual environment
 venv/
 env/
+.env
 # ignore pycache
 __pycache__/
 # ignore django migration folder

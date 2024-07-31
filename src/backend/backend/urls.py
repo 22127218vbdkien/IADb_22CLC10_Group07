@@ -19,8 +19,8 @@ from django.urls import include, re_path, path
 from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
 
-API_TITLE = 'Pastebin API'
-API_DESCRIPTION = 'A Web API for creating and viewing highlighted code snippets.'
+API_TITLE = 'IADb API'
+API_DESCRIPTION = 'A Web API for an online anime database.'
 schema_view = get_schema_view(title=API_TITLE)
 
 urlpatterns = [
@@ -28,4 +28,5 @@ urlpatterns = [
     re_path(r'^', include('base.urls')),
     re_path(r'^', include('authentication.urls')),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    re_path(r'^', include('collection.urls'))
 ]

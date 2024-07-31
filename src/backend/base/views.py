@@ -66,3 +66,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return CharacterListSerializer
         return CharacterViewSerializer
+    
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagListSerializer

@@ -228,3 +228,8 @@ class CharacterViewSerializer(serializers.HyperlinkedModelSerializer):
         model = Character
         fields = [field.name for field in Character._meta.fields]
         fields += ['in_animes']
+
+class TagListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'

@@ -16,14 +16,13 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     def get_permissions(self):
-        if self.action == ['list', 'create']:
+        permission_classes = []
+        if self.action in ['list', 'create']:
             permission_classes = [IsAdminUser]
         elif self.action in ['retrieve', 'update', 'destroy']:
             permission_classes = [IsAdminUser, IsOwnerPermission]
-        elif self.action in ['signup', 'login']:
+        elif self.action in ['signup', 'login', 'changePassword']:
             permission_classes = [AllowAny]
-        elif self.action == 'changePassword':
-            permission_classes = [IsOwnerPermission]
         return [permission() for permission in permission_classes]
     
     
@@ -58,6 +57,8 @@ class UserViewSet(viewsets.ModelViewSet):
         
         if not request.user.is_authenticated:
             return Response({'detail': 'Authentication credentials are not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+        if request.user.username != request.data['username']:
+            return Response({'detail': 'Invalid password changing request'}, status=status.HTTP_401_UNAUTHORIZED)
         
         serializer = PasswordSerializer(data=request.data)
         if serializer.is_valid():

@@ -20,7 +20,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'create']:
             permission_classes = [IsAdminUser]
         elif self.action in ['retrieve', 'update', 'destroy']:
-            permission_classes = [IsAdminUser, IsOwnerPermission]
+            permission_classes = [IsAdminUser | IsOwnerPermission]
         elif self.action in ['signup', 'login', 'changePassword']:
             permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]

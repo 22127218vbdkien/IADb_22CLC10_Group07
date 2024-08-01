@@ -22,6 +22,7 @@ from rest_framework import routers
 
 from base.urls import router as base_router
 from collection.urls import router as collection_router
+from authentication.urls import router as authentication_url
 
 API_TITLE = 'IADb API'
 API_DESCRIPTION = 'A Web API for an online anime database.'
@@ -34,11 +35,10 @@ class DefaultRouter(routers.DefaultRouter):
 router = DefaultRouter()
 router.extend(base_router)
 router.extend(collection_router)
+router.extend(authentication_url)
 
-urlpatterns = [
+urlpatterns = [ 
     path('admin/', admin.site.urls),
-    re_path(r'^', include('authentication.urls')),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
     re_path(r'^', include(router.urls)),
 ]

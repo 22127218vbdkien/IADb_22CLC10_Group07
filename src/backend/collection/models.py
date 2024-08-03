@@ -26,7 +26,7 @@ class FavoriteStaff(models.Model):
         unique_together = [['user_id', 'staff_id']]
 
 class AnimeInCollection(models.Model):
-    ListType = models.TextChoices('ListType', 'READING REREADING COMPLETED PAUSED DROPPED PLANNING')
+    ListType = models.TextChoices('ListType', 'WATCHING COMPLETED PAUSED DROPPED PLANNING')
 
     user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     anime_id = models.ForeignKey('base.Anime', on_delete=models.CASCADE)

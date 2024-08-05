@@ -6,4 +6,4 @@ class IsOwnerPermission(permissions.BasePermission):
     Object-level permission to only allow updating his own profile
     """
     def has_object_permission(self, request, view, obj):
-        return obj == request.user
+        return obj == request.user or obj.user_id == request.user

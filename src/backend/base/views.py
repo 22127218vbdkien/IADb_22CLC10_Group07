@@ -22,7 +22,7 @@ class AnimeViewSet(viewsets.ModelViewSet):
             model = Anime
             fields = ['tags', 'anime_format', 'status', 'source', 'studios']
 
-    queryset = Anime.objects.all()
+    queryset = Anime.objects.all().order_by('id')
     serializer_class = AnimeViewSerializer
 
     # For filtering
@@ -41,8 +41,14 @@ class AnimeViewSet(viewsets.ModelViewSet):
         return AnimeViewSerializer
 
 class StudioViewSet(viewsets.ModelViewSet):
-    queryset = Studio.objects.all()
+    queryset = Studio.objects.all().order_by('id')
     serializer_class = StudioViewSerializer
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+    search_fields = ['name']
+    ordering_fields = ['name', 'favorites']
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -50,8 +56,15 @@ class StudioViewSet(viewsets.ModelViewSet):
         return StudioViewSerializer
 
 class StaffViewSet(viewsets.ModelViewSet):
-    queryset = Staff.objects.all()
+    queryset = Staff.objects.all().order_by('id')
     serializer_class = StaffViewSerializer
+
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+    search_fields = ['name', 'name_native']
+    ordering_fields = ['name', 'favorites']
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -59,8 +72,14 @@ class StaffViewSet(viewsets.ModelViewSet):
         return StaffViewSerializer
 
 class CharacterViewSet(viewsets.ModelViewSet):
-    queryset = Character.objects.all()
+    queryset = Character.objects.all().order_by('id')
     serializer_class = CharacterViewSerializer
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+    search_fields = ['name', 'name_native']
+    ordering_fields = ['name', 'favorites']
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -68,5 +87,5 @@ class CharacterViewSet(viewsets.ModelViewSet):
         return CharacterViewSerializer
     
 class TagViewSet(viewsets.ModelViewSet):
-    queryset = Tag.objects.all()
+    queryset = Tag.objects.all().order_by('id')
     serializer_class = TagListSerializer

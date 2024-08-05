@@ -13,7 +13,6 @@ from rest_framework import serializers
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
 
     def get_permissions(self):
         permission_classes = []
@@ -25,7 +24,17 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]
     
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve', 'update', 'partial_update']:
+            return UserDetailsSerializer
+        return UserSerializer
     
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        if pk == "current":
+            return self.request.user
+        return super().get_object()
+
     @action(detail=False, methods=['post'], url_path='signup')
     def signup(self, request):
         serializer = UserSerializer(data=request.data)
@@ -35,16 +44,24 @@ class UserViewSet(viewsets.ModelViewSet):
             user.set_password(request.data['password'])
             user.save()
             token = Token.objects.create(user=user)
+            UserProfile.objects.create(user_id=user, id=user.id)
             return Response({'token': token.key, 'user': serializer.data})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
 
     @action(detail=False, methods=['post'], url_path='login')
     def login(self, request):
+        class UserLoginSerializer(serializers.ModelSerializer):
+            password = serializers.CharField(min_length=5,validators=[MinLengthValidator(5)],max_length=30,write_only=True,required=True)
+            username = serializers.CharField(min_length=5,validators=[MinLengthValidator(5)],max_length=30,required=True)
+            class Meta:
+                model = User
+                fields = ['password', 'username']
+
         user = get_object_or_404(User, username=request.data['username'])
         if not user.check_password(request.data['password']):
             return Response("missing user", status=status.HTTP_404_NOT_FOUND)
         token, created = Token.objects.get_or_create(user=user)
-        serializer = UserSerializer(user)
+        serializer = UserLoginSerializer(user)
         return Response({'token': token.key, 'user': serializer.data})
 
     @action(detail=False, methods=['post'], url_path='changePassword')
@@ -70,4 +87,17 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'status':'password changed successfully.'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
-        
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsOwnerPermission | IsAdminUser]
+    serializer_class = UserProfileSerializer
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        if pk == "current":
+            return self.request.user
+        return super().get_object()
+
+    def get_queryset(self):
+        user = self.request.user
+        return UserProfile.objects.all()

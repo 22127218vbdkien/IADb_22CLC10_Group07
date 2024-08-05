@@ -1,6 +1,7 @@
 from rest_framework import permissions, renderers, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
 
 from base.models import *
 from base.serializers import *
@@ -13,7 +14,7 @@ from rest_framework import filters
 from collection.permissions import *
 
 class FavoriteCharacterViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerPermission]
+    permission_classes = [IsAuthenticated or IsOwnerPermission]
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -22,14 +23,14 @@ class FavoriteCharacterViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return FavoriteCharacter.objects.filter(user_id=user).prefetch_related('char_id')
+        return FavoriteCharacter.objects.filter(user_id=user).order_by('id').prefetch_related('char_id')
     
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user)
 
 
 class FavoriteStudioViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerPermission]
+    permission_classes = [IsAuthenticated or IsOwnerPermission]
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -38,14 +39,14 @@ class FavoriteStudioViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return FavoriteStudio.objects.filter(user_id=user).prefetch_related('studio_id')
+        return FavoriteStudio.objects.filter(user_id=user).order_by('id').prefetch_related('studio_id')
     
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user)
 
 
 class FavoriteStaffViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerPermission]
+    permission_classes = [IsAuthenticated or IsOwnerPermission]
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -54,13 +55,13 @@ class FavoriteStaffViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return FavoriteStaff.objects.filter(user_id=user).prefetch_related('staff_id')
+        return FavoriteStaff.objects.filter(user_id=user).order_by('id').prefetch_related('staff_id')
     
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user)
 
 class AnimeInCollectionViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerPermission]
+    permission_classes = [IsAuthenticated or IsOwnerPermission]
 
     @action(detail=False)
     def Watching(self, request):
@@ -144,7 +145,7 @@ class AnimeInCollectionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return AnimeInCollection.objects.filter(user_id=user).prefetch_related('anime_id')
+        return AnimeInCollection.objects.filter(user_id=user).order_by('id').prefetch_related('anime_id')
     
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user)

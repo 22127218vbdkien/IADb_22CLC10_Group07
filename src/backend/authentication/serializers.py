@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator
 from django.contrib.auth import get_user_model
+from authentication.models import *
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=5,validators=[MinLengthValidator(5)],max_length=30,write_only=True,required=True)
@@ -21,3 +22,20 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'password', 'email']
+
+class UserDetailsSerializer(serializers.HyperlinkedModelSerializer):
+    class UserProfileSer(serializers.ModelSerializer):
+        class Meta:
+            model = UserProfile
+            fields = ['url', 'about', 'avatar']
+    
+    profile = UserProfileSer(read_only=True)
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'profile']
+
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+    user_id = serializers.ReadOnlyField(source='user_id.user_id')
+    class Meta:
+        model = UserProfile
+        fields = '__all__'

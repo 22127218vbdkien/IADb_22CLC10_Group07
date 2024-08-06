@@ -39,6 +39,12 @@ class AnimeViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return AnimeListSerializer
         return AnimeViewSerializer
+    
+    def retrieve(self, request, *args, **kwargs):
+        obj = self.get_object()
+        obj.trending += 1
+        obj.save(update_fields=("trending",))
+        return super().retrieve(request, *args, **kwargs)
 
 class StudioViewSet(viewsets.ModelViewSet):
     queryset = Studio.objects.all().order_by('id')

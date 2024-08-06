@@ -27,6 +27,10 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ['list', 'retrieve', 'update', 'partial_update']:
             return UserDetailsSerializer
+        if self.action in ['changePassword']:
+            return PasswordSerializer
+        if self.action in ['login']:
+            return UserLoginSerializer
         return UserSerializer
     
     def get_object(self):
@@ -50,13 +54,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'], url_path='login')
     def login(self, request):
-        class UserLoginSerializer(serializers.ModelSerializer):
-            password = serializers.CharField(min_length=5,validators=[MinLengthValidator(5)],max_length=30,write_only=True,required=True)
-            username = serializers.CharField(min_length=5,validators=[MinLengthValidator(5)],max_length=30,required=True)
-            class Meta:
-                model = User
-                fields = ['password', 'username']
-
         user = get_object_or_404(User, username=request.data['username'])
         if not user.check_password(request.data['password']):
             return Response("missing user", status=status.HTTP_404_NOT_FOUND)
@@ -66,12 +63,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'], url_path='changePassword')
     def changePassword(self, request):
-        class PasswordSerializer(serializers.Serializer):
-            old_password = serializers.CharField(required=True, write_only=True, style={'input_type': 'password'})
-            new_password = serializers.CharField(required=True, write_only=True, style={'input_type': 'password'})
-            class Meta:
-                model = User
-        
         if not request.user.is_authenticated:
             return Response({'detail': 'Authentication credentials are not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
         if request.user.username != request.data['username']:

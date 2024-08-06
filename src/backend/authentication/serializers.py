@@ -23,6 +23,19 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'password', 'email']
 
+class PasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True, write_only=True, style={'input_type': 'password'})
+    new_password = serializers.CharField(required=True, write_only=True, style={'input_type': 'password'})
+    class Meta:
+        model = User
+
+class UserLoginSerializer(serializers.ModelSerializer):
+            password = serializers.CharField(min_length=5,validators=[MinLengthValidator(5)],max_length=30,write_only=True,required=True)
+            username = serializers.CharField(min_length=5,validators=[MinLengthValidator(5)],max_length=30,required=True)
+            class Meta:
+                model = User
+                fields = ['password', 'username']
+
 class UserDetailsSerializer(serializers.HyperlinkedModelSerializer):
     class UserProfileSer(serializers.ModelSerializer):
         class Meta:

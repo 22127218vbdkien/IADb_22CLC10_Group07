@@ -95,3 +95,23 @@ class CharacterViewSet(viewsets.ModelViewSet):
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all().order_by('id')
     serializer_class = TagListSerializer
+
+class AnimeProducedByStudioViewSet(viewsets.ModelViewSet):
+    queryset = AnimeProducedByStudio.objects.all().order_by('id')
+    serializer_class = AnimeProducedByStudioSerializer
+
+class StaffInAnimeViewSet(viewsets.ModelViewSet):
+    queryset = StaffInAnime.objects.all().order_by('id')
+    serializer_class = StaffInAnimeSerializer
+
+class AnimeTagViewSet(viewsets.ModelViewSet):
+    queryset = AnimeTag.objects.all().order_by('id')
+    serializer_class = AnimeTagSerializer
+
+class AnimeRelationViewSet(viewsets.ModelViewSet):
+    queryset = AnimeRelation.objects.all().order_by('id')
+    serializer_class = AnimeRelationSerializer
+
+class CharacterInAnimeViewSet(viewsets.ModelViewSet):
+    queryset = CharacterInAnime.objects.all().order_by('id')
+    serializer_class = CharacterInAnimeSerializer

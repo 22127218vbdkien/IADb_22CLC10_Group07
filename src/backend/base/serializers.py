@@ -233,3 +233,28 @@ class TagListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tag
         fields = '__all__'
+
+class AnimeProducedByStudioSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AnimeProducedByStudio
+        fields = '__all__'
+
+class StaffInAnimeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = StaffInAnime
+        fields = '__all__'
+
+class AnimeTagSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AnimeTag
+        fields = '__all__'
+
+class AnimeRelationSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AnimeRelation
+        fields = '__all__'
+
+class CharacterInAnimeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = CharacterInAnime
+        fields = '__all__'

@@ -9,18 +9,11 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
         class TagSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Tag
-                fields = ['name', 'description', 'is_general_spoiler']
+                fields = ['url', 'name', 'description', 'is_general_spoiler']
         tag = TagSer(source='tag_id')
         class Meta:
             model = AnimeTag
-            fields = ['tag', 'rank', 'is_spoiler']
-        
-        def to_representation(self, instance):
-            data = super().to_representation(instance)
-            tag_data = data.pop('tag')
-            for key in tag_data:
-                data[key] = tag_data[key]
-            return data
+            fields = ['url', 'tag', 'rank', 'is_spoiler']
 
     # Anime relation serializer in anime view
     class AnimeRelationSer(serializers.HyperlinkedModelSerializer):
@@ -32,14 +25,7 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
 
         class Meta:
             model = AnimeRelation
-            fields = ['anime', 'relation']
-        
-        def to_representation(self, instance):
-            data = super().to_representation(instance)
-            anime_data = data.pop('anime')
-            for key in anime_data:
-                data[key] = anime_data[key]
-            return data
+            fields = ['url', 'anime', 'relation']
     
     # Character in anime serializer in anime view
     class CharacterInAnimeSer(serializers.HyperlinkedModelSerializer):
@@ -58,17 +44,7 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
 
         class Meta:
             model = CharacterInAnime
-            fields = ['character', 'staff', 'char_role']
-
-        def to_representation(self, instance):
-            data = super().to_representation(instance)
-            char_data = data.pop('character')
-            staff_data = data.pop('staff')
-            for key in char_data:
-                data['char_' + key] = char_data[key]
-            for key in staff_data:
-                data['staff_' + key] = staff_data[key]
-            return data
+            fields = ['url', 'character', 'staff', 'char_role']
         
     # staff in anime serializer
     class StaffInAnimeSer(serializers.HyperlinkedModelSerializer):
@@ -81,15 +57,8 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
 
         class Meta:
             model = StaffInAnime
-            fields = ['staff', 'staff_role']
+            fields = ['url', 'staff', 'staff_role']
 
-        def to_representation(self, instance):
-            data = super().to_representation(instance)
-            staff_data = data.pop('staff')
-            for key in staff_data:
-                data[key] = staff_data[key]
-            return data
-    
     # studio made anime serializer
     class AnimeProducedByStudioSer(serializers.HyperlinkedModelSerializer):
         class StudioSer(serializers.HyperlinkedModelSerializer):
@@ -101,14 +70,7 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
 
         class Meta:
             model = AnimeProducedByStudio
-            fields = ['studio', 'is_main']
-
-        def to_representation(self, instance):
-            data = super().to_representation(instance)
-            studio_data = data.pop('studio')
-            for key in studio_data:
-                data[key] = studio_data[key]
-            return data
+            fields = ['url', 'studio', 'is_main']
         
     class AnimeExternalLinkSer(serializers.HyperlinkedModelSerializer):
         class ExternalSiteSer(serializers.HyperlinkedModelSerializer):
@@ -121,13 +83,6 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
         class Meta:
             model = AnimeExternalLink
             fields = ['site', 'url']
-
-        def to_representation(self, instance):
-            data = super().to_representation(instance)
-            site_data = data.pop('site')
-            for key in site_data:
-                data[key] = site_data[key]
-            return data
 
     tags = AnimeTagSer(many=True, source='animetag_set', read_only=True)
     relations = AnimeRelationSer(many=True, source='animerelation_set', read_only=True)

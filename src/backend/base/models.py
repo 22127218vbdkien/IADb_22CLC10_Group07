@@ -74,6 +74,9 @@ class Anime(models.Model):
     relations = models.ManyToManyField('Anime', through='AnimeRelation', blank=True)
     characters = models.ManyToManyField('Character', through='CharacterInAnime', blank=True)
 
+    def __str__(self):
+        return self.romaji_title
+
 class AnimeSynonym(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     synonym = models.TextField(max_length=MAXLEN_TITLE)
@@ -88,6 +91,9 @@ class Studio(models.Model):
 
     # ManyToMany
     animes = models.ManyToManyField('Anime', through='AnimeProducedByStudio', blank=True)
+
+    def __str__(self):
+        return self.name
 
 class Character(models.Model):
     # Primary key
@@ -109,6 +115,9 @@ class Character(models.Model):
     age = models.TextField(null=True)
     # The amount of user's who have favourited the character
     favorites = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class Staff(models.Model):
     # Primary key
@@ -136,6 +145,9 @@ class Staff(models.Model):
     # ManyToMany
     animes = models.ManyToManyField('Anime', through='StaffInAnime', blank=True)
 
+    def __str__(self):
+        return self.name
+
 class StaffInAnime(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     staff_id = models.ForeignKey('Staff', on_delete=models.CASCADE)
@@ -143,6 +155,9 @@ class StaffInAnime(models.Model):
 
     class Meta:
         unique_together = [['anime_id', 'staff_id', 'staff_role']]
+
+    def __str__(self):
+        return f'staff="{self.staff_id}", anime="{self.anime_id}", staff_role="{self.staff_role}"'
 
 class CharacterInAnime(models.Model):
     CharRoleType = models.TextChoices('CharRoleType', 'MAIN SUPPORTING BACKGROUND')
@@ -156,12 +171,18 @@ class CharacterInAnime(models.Model):
     class Meta:
         unique_together = [['char_id', 'anime_id', 'staff_id']]
 
+    def __str__(self):
+        return f'staff="{self.staff_id}", anime="{self.anime_id}", staff_role="{self.staff_role}"'
+
 class AnimeProducedByStudio(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     studio_id = models.ForeignKey('Studio', on_delete=models.CASCADE)
     is_main = models.BooleanField(default=False)
     class Meta:
         unique_together = [['anime_id', 'studio_id', 'is_main']]
+
+    def __str__(self):
+        return f'studio="{self.studio_id}", anime="{self.anime_id}", is_main="{self.is_main}"'
 
 class AnimeRelation(models.Model):
     RelationType = models.TextChoices('RelationType',
@@ -174,6 +195,9 @@ class AnimeRelation(models.Model):
 
     class Meta:
         unique_together = [['anime_id', 'senior_anime_id', 'relation']]
+
+    def __str__(self):
+        return f'anime="{self.anime_id}", senior_anime="{self.senior_anime_id}", relation="{self.relation}"'
 
 class Tag(models.Model):
     id = models.AutoField(primary_key=True)
@@ -194,6 +218,9 @@ class AnimeTag(models.Model):
     class Meta:
         unique_together = [['anime_id', 'tag_id']]
 
+    def __str__(self):
+        return f'anime="{self.anime_id}", tag="{self.tag_id}"'
+
 class ExternalSite(models.Model):
     # Primary key
     id = models.AutoField(primary_key=True)
@@ -204,6 +231,9 @@ class ExternalSite(models.Model):
     # The native language of the content on that site
     language = models.CharField(max_length=50, null=True)
 
+    def __str__(self):
+        return self.name
+
 class AnimeExternalLink(models.Model):
     anime_id = models.ForeignKey('Anime', on_delete=models.CASCADE)
     url = models.CharField(max_length=MAXLEN_LINK)
@@ -212,7 +242,13 @@ class AnimeExternalLink(models.Model):
     class Meta:
         ordering = ['anime_id']
 
+    def __str__(self):
+        return f'url="{self.url}", anime="{self.anime_id}"'
+
 class StaffExternalLink(models.Model):
     staff_id = models.ForeignKey('Staff', on_delete=models.CASCADE)
     url = models.CharField(max_length=MAXLEN_LINK)
     site_id = models.ForeignKey('ExternalSite', null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f'url="{self.url}", staff="{self.staff_id}"'

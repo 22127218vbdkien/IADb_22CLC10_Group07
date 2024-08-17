@@ -11,7 +11,7 @@ from forum.serializers import *
 from forum.permissions import *
 
 class CommentViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly or IsOwnerPermission]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerPermission]
     serializer_class = CommentSerializer
 
     def perform_create(self, serializer):
@@ -19,10 +19,10 @@ class CommentViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         user = self.request.user
-        return Comment.objects.filter(user_id=user).order_by('id')
+        return Comment.objects.all().order_by('id')
 
 class ThreadViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly or IsOwnerPermission]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerPermission]
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter

@@ -36,15 +36,15 @@ jobs:
 
       - name: Collect static files
         run: |
-        cd src/backend
-        python manage.py collectstatic --noinput
+          cd src/backend
+          python manage.py collectstatic --noinput
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
         run: |
-        cd src/backend
-        zip release.zip ./* -r
+          cd src/backend
+          zip release.zip ./* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4

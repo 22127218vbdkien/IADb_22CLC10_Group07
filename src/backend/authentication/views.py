@@ -94,7 +94,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         return UserProfile.objects.all()
     
 class ComplaintViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
     serializer_class = ComplaintSerializer
 
     def get_queryset(self):

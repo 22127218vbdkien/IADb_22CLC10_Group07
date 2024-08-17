@@ -80,7 +80,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerPermission | IsAdminUser]
+    permission_classes = [IsAuthenticated]
     serializer_class = UserProfileSerializer
 
     def get_object(self):
@@ -92,3 +92,14 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return UserProfile.objects.all()
+    
+class ComplaintViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = ComplaintSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Complaint.objects.filter(user_id=user).order_by('id')
+    
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.user)

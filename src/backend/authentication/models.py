@@ -10,3 +10,14 @@ class UserProfile(models.Model):
     )
     about = models.TextField(null=True, blank=True)
     avatar = models.TextField(null=True, blank=True)
+
+class Complaint(models.Model):
+    ComplaintType = models.TextChoices('ComplaintType', 
+        'CONTENT USER BUG FUNCTION OTHER'
+    )
+
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    complaint_type = models.CharField(max_length=10, choices=ComplaintType)
+    complaint_target = models.CharField(max_length=150, null=True)
+    complaint_msg = models.TextField()

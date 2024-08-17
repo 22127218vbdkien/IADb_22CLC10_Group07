@@ -52,3 +52,10 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'
+
+class ComplaintSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Complaint
+        fields = '__all__'
+        read_only_fields = ['user_id']
+        

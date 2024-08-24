@@ -1,7 +1,6 @@
 <script setup>
-    import { computed, defineProps, ref } from 'vue';
+    import { defineProps, ref } from 'vue';
     import { RouterLink } from 'vue-router';
-
     const props = defineProps({
         anime:Object
     })
@@ -9,9 +8,12 @@
 
 <template>
     <div>
-        <div>
+        <RouterLink :to="`/animes/${props.anime.id}`">
+            <div>
             <img :src="anime.cover_img_large" alt="Anime Image"/>
             <div>{{ anime.romaji_title }}</div>
-        </div>
+            </div>
+        </RouterLink>
+        
     </div>
 </template>

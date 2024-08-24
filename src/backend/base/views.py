@@ -1,8 +1,10 @@
-from rest_framework import permissions, renderers, viewsets
+from rest_framework import viewsets, status
 from base.models import *
 from base.serializers import *
 import django_filters
 from rest_framework import filters
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 
 class AnimeViewSet(viewsets.ModelViewSet):
@@ -45,6 +47,14 @@ class AnimeViewSet(viewsets.ModelViewSet):
         obj.trending += 1
         obj.save(update_fields=("trending",))
         return super().retrieve(request, *args, **kwargs)
+    
+    @action(detail=False, methods=['delete'])
+    def reset_score(self, request):
+        try:
+            Anime.objects.all().order_by('id').update(mean_score=0)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class StudioViewSet(viewsets.ModelViewSet):
     queryset = Studio.objects.all().order_by('id')

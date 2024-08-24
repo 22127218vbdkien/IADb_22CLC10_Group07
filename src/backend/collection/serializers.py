@@ -8,13 +8,13 @@ class FavoriteCharacterListSerializer(serializers.HyperlinkedModelSerializer):
     class CharacterSer(serializers.HyperlinkedModelSerializer):
         class Meta:
             model = Character
-            fields = ['url', 'name', 'img_large', 'img_med']
+            fields = ['url', 'id', 'name', 'img_large', 'img_med']
 
     character = CharacterSer(source='char_id', read_only=True)
     
     class Meta:
         model = FavoriteCharacter
-        fields = ['url', 'character']
+        fields = ['url', 'id', 'character']
 
 class FavoriteCharacterSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user_id.name')
@@ -27,13 +27,13 @@ class FavoriteStudioListSerializer(serializers.HyperlinkedModelSerializer):
     class StudioSer(serializers.HyperlinkedModelSerializer):
         class Meta:
             model = Studio
-            fields = ['url', 'name']
+            fields = ['url', 'id', 'name']
 
     studio = StudioSer(source='studio_id', read_only=True)
     
     class Meta:
         model = FavoriteStudio
-        fields = ['url', 'studio']
+        fields = ['url', 'id', 'studio']
 
 class FavoriteStudioSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user_id.name')
@@ -46,13 +46,13 @@ class FavoriteStaffListSerializer(serializers.HyperlinkedModelSerializer):
     class StaffSer(serializers.HyperlinkedModelSerializer):
         class Meta:
             model = Staff
-            fields = ['url', 'name', 'img_large', 'img_med']
+            fields = ['url', 'id', 'name', 'img_large', 'img_med']
 
     staff = StaffSer(source='staff_id', read_only=True)
     
     class Meta:
         model = FavoriteStaff
-        fields = ['url', 'staff']
+        fields = ['url', 'id', 'staff']
 
 class FavoriteStaffSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user_id.id')
@@ -65,12 +65,12 @@ class AnimeInCollectionListSerializer(serializers.HyperlinkedModelSerializer):
     class AnimeSer(serializers.HyperlinkedModelSerializer):
         class Meta:
             model = Anime
-            fields = ['url', 'romaji_title', 'format', 'status', 'start_date', 'end_date', 'episodes', 'duration', 'cover_img_large', 'cover_img_med', 'weighted_score', 'anilist_score', 'mean_score', 'popularity', 'trending', 'favorites']
+            fields = ['url', 'id', 'romaji_title', 'format', 'status', 'start_date', 'end_date', 'episodes', 'duration', 'cover_img_large', 'cover_img_med', 'weighted_score', 'anilist_score', 'mean_score', 'popularity', 'trending', 'favorites']
     
     anime = AnimeSer(source='anime_id', read_only=True)
     class Meta:
         model = AnimeInCollection
-        fields = ['url', 'is_favorite', 'in_list', 'score', 'progress', 'start_date', 'finish_date', 'notes', 'anime']
+        fields = ['url', 'id', 'is_favorite', 'in_list', 'score', 'progress', 'start_date', 'finish_date', 'notes', 'anime']
 
 class AnimeInCollectionSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user_id.id')

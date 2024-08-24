@@ -7,14 +7,14 @@ class ThreadListSerializer(serializers.HyperlinkedModelSerializer):
     owner = UserDetailsSerializer(source='owner_id', read_only=True)
     class Meta:
         model = Thread
-        fields = ['url', 'title', 'body', 'view_count', 'comment_count', 'created_at', 'updated_at', 'owner']
+        fields = ['url', 'id', 'title', 'body', 'view_count', 'comment_count', 'created_at', 'updated_at', 'owner']
 
 class ThreadDetailSerializer(serializers.HyperlinkedModelSerializer):
     class CommentDetailSer(serializers.HyperlinkedModelSerializer):
         user = UserDetailsSerializer(source='user_id')
         class Meta:
             model = Comment
-            fields = ['url', 'user', 'reply_to', 'content', 'created_at', 'updated_at']
+            fields = ['url', 'id', 'user', 'reply_to', 'content', 'created_at', 'updated_at']
     
     owner = UserDetailsSerializer(source='owner_id', read_only=True)
     comments = CommentDetailSer(many=True, read_only=True, source='comment_set')
@@ -22,10 +22,10 @@ class ThreadDetailSerializer(serializers.HyperlinkedModelSerializer):
     comment_count = serializers.ReadOnlyField()
     class Meta:
         model = Thread
-        fields = ['url', 'title', 'body', 'view_count', 'comment_count', 'created_at', 'updated_at', 'owner', 'comments']
+        fields = ['url', 'id', 'title', 'body', 'view_count', 'comment_count', 'created_at', 'updated_at', 'owner', 'comments']
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
-        fields = '__all__'
-        read_only_fields = ['user_id']
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']

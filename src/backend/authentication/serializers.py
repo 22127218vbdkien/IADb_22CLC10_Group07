@@ -40,18 +40,19 @@ class UserDetailsSerializer(serializers.HyperlinkedModelSerializer):
     class UserProfileSer(serializers.ModelSerializer):
         class Meta:
             model = UserProfile
-            fields = ['url', 'about', 'avatar']
+            fields = ['url', 'id', 'about', 'avatar']
     
     profile = UserProfileSer(read_only=True)
     class Meta:
         model = User
-        fields = ['url', 'username', 'profile']
+        fields = ['url', 'id', 'username', 'profile']
 
 class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
     user_id = serializers.ReadOnlyField(source='user_id.user_id')
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']
 
 class ComplaintSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

@@ -9,68 +9,68 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
         class TagSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Tag
-                fields = ['url', 'name', 'description', 'is_general_spoiler']
+                fields = ['url', 'id', 'name', 'description', 'is_general_spoiler']
         tag = TagSer(source='tag_id')
         class Meta:
             model = AnimeTag
-            fields = ['url', 'tag', 'rank', 'is_spoiler']
+            fields = ['url', 'id', 'tag', 'rank', 'is_spoiler']
 
     # Anime relation serializer in anime view
     class AnimeRelationSer(serializers.HyperlinkedModelSerializer):
         class AnimeSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Anime
-                fields = ['url', 'romaji_title', 'format', 'status', 'cover_img_med']
+                fields = ['url', 'id', 'romaji_title', 'format', 'status', 'cover_img_med']
         anime = AnimeSer(source='senior_anime_id')
 
         class Meta:
             model = AnimeRelation
-            fields = ['url', 'anime', 'relation']
+            fields = ['url', 'id', 'anime', 'relation']
     
     # Character in anime serializer in anime view
     class CharacterInAnimeSer(serializers.HyperlinkedModelSerializer):
         class CharacterSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Character
-                fields = ['url', 'name', 'img_med']
+                fields = ['url', 'id', 'name', 'img_med']
         
         class VoiceStaffSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Staff
-                fields = ['url', 'name', 'img_med']
+                fields = ['url', 'id', 'name', 'img_med']
 
         character = CharacterSer(source='char_id')
         staff = VoiceStaffSer(source='staff_id')
 
         class Meta:
             model = CharacterInAnime
-            fields = ['url', 'character', 'staff', 'char_role']
+            fields = ['url', 'id', 'character', 'staff', 'char_role']
         
     # staff in anime serializer
     class StaffInAnimeSer(serializers.HyperlinkedModelSerializer):
         class StaffSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Staff
-                fields = ['url', 'name', 'img_med']
+                fields = ['url', 'id', 'name', 'img_med']
 
         staff = StaffSer(source='staff_id')
 
         class Meta:
             model = StaffInAnime
-            fields = ['url', 'staff', 'staff_role']
+            fields = ['url', 'id', 'staff', 'staff_role']
 
     # studio made anime serializer
     class AnimeProducedByStudioSer(serializers.HyperlinkedModelSerializer):
         class StudioSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Studio
-                fields = ['url', 'name']
+                fields = ['url', 'id', 'name']
             
         studio = StudioSer(source='studio_id')
 
         class Meta:
             model = AnimeProducedByStudio
-            fields = ['url', 'studio', 'is_main']
+            fields = ['url', 'id', 'studio', 'is_main']
         
     class AnimeExternalLinkSer(serializers.HyperlinkedModelSerializer):
         class ExternalSiteSer(serializers.HyperlinkedModelSerializer):
@@ -82,7 +82,7 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
 
         class Meta:
             model = AnimeExternalLink
-            fields = ['site', 'url']
+            fields = ['site', 'url', 'id']
 
     tags = AnimeTagSer(many=True, source='animetag_set', read_only=True)
     relations = AnimeRelationSer(many=True, source='animerelation_set', read_only=True)
@@ -100,35 +100,35 @@ class AnimeViewSerializer(serializers.HyperlinkedModelSerializer):
 class AnimeListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Anime
-        fields = ['url', 'id', 'id_anilist', 'romaji_title', 'format', 'status', 'start_date', 'end_date', 'episodes', 'duration', 'cover_img_large', 'cover_img_med', 'weighted_score', 'anilist_score', 'mean_score', 'popularity', 'trending', 'favorites']
+        fields = ['url', 'id', 'id', 'id_anilist', 'romaji_title', 'format', 'status', 'start_date', 'end_date', 'episodes', 'duration', 'cover_img_large', 'cover_img_med', 'weighted_score', 'anilist_score', 'mean_score', 'popularity', 'trending', 'favorites']
     
 class StudioViewSerializer(serializers.HyperlinkedModelSerializer):
     animes = AnimeListSerializer(many=True, read_only=True)
     class Meta:
         model = Studio
-        fields = ['url', 'name', 'favorites', 'animes']
+        fields = ['url', 'id', 'name', 'favorites', 'animes']
 
 class StudioListSerializer(serializers.HyperlinkedModelSerializer):
     #animes = AnimeListSerializer(many=True, read_only=True)
     class Meta:
         model = Studio
-        fields = ['url', 'name', 'favorites']
+        fields = ['url', 'id', 'name', 'favorites']
 
 class StaffListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Staff
-        fields = ['url', 'id', 'name', 'name_native', 'img_large', 'img_med']
+        fields = ['url', 'id', 'id', 'name', 'name_native', 'img_large', 'img_med']
 
 class StaffViewSerializer(serializers.HyperlinkedModelSerializer):
     class VoicedCharacterSer(serializers.HyperlinkedModelSerializer):
         class AnimeSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Anime
-                fields = ['url', 'romaji_title', 'cover_img_large', 'cover_img_med']
+                fields = ['url', 'id', 'romaji_title', 'cover_img_large', 'cover_img_med']
         class CharacterSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Character
-                fields = ['url', 'name', 'img_large', 'img_med']
+                fields = ['url', 'id', 'name', 'img_large', 'img_med']
 
         character = CharacterSer(source='char_id')
         anime = AnimeSer(source='anime_id')
@@ -140,7 +140,7 @@ class StaffViewSerializer(serializers.HyperlinkedModelSerializer):
         class AnimeSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Anime
-                fields = ['url', 'romaji_title', 'cover_img_large', 'cover_img_med']
+                fields = ['url', 'id', 'romaji_title', 'cover_img_large', 'cover_img_med']
 
         anime = AnimeSer(source='anime_id')
         class Meta:
@@ -157,19 +157,19 @@ class StaffViewSerializer(serializers.HyperlinkedModelSerializer):
 class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Character
-        fields = ['url', 'name', 'name_native', 'img_large', 'img_med', 'favorites']
+        fields = ['url', 'id', 'name', 'name_native', 'img_large', 'img_med', 'favorites']
 
 class CharacterViewSerializer(serializers.HyperlinkedModelSerializer):
     class CharInAnimeSer(serializers.HyperlinkedModelSerializer):
         class AnimeSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Anime
-                fields = ['url', 'romaji_title', 'cover_img_large', 'cover_img_med']
+                fields = ['url', 'id', 'romaji_title', 'cover_img_large', 'cover_img_med']
         
         class StaffSer(serializers.HyperlinkedModelSerializer):
             class Meta:
                 model = Staff
-                fields = ['url', 'name', 'img_large', 'img_med']
+                fields = ['url', 'id', 'name', 'img_large', 'img_med']
 
         anime = AnimeSer(source='anime_id')
         staff = StaffSer(source='staff_id')
@@ -187,29 +187,35 @@ class CharacterViewSerializer(serializers.HyperlinkedModelSerializer):
 class TagListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']
 
 class AnimeProducedByStudioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeProducedByStudio
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']
 
 class StaffInAnimeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = StaffInAnime
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']
 
 class AnimeTagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeTag
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']
 
 class AnimeRelationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AnimeRelation
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']
 
 class CharacterInAnimeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CharacterInAnime
-        fields = '__all__'
+        fields = [field.name for field in model._meta.fields]
+        fields += ['url']

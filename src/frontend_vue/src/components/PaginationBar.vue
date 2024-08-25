@@ -25,19 +25,17 @@ const arrayRange = (start1, stop1, step1) =>
 
 const emit = defineEmits(['changePage'])
 
-// const toPage = (event) => {
-//     _router.push({path: _route.path, query:{page: event}})
-//     emit('changePage')
-// }
+const toPage = (event) => {
+    console.log(event)
+    emit('changePage', event)
+}
 </script>
 
 
 <template>
     <div class="bar-wrapper">
         <span><i class="pi pi-angle-double-left  text-blue-500 hover:text-blue-100 hover:bg-blue-500"></i></span>
-        <RouterLink v-for="(value, index) in arrayRange(start, end, 1)" :key="index" 
-        class=" text-blue-500 hover:text-blue-100 hover:bg-blue-500 hover:cursor-pointer" 
-        :to="{path: _route.path, query:{page: value}}"><span > {{ value }}</span></RouterLink>
+        <span @click="toPage(value)" v-for="(value, index) in arrayRange(start, end, 1)" :key="index" class=" text-blue-500 hover:text-blue-100 hover:bg-blue-500 hover:cursor-pointer"> {{ value }}</span>
         <span><i class="pi pi-angle-double-right text-blue-500 hover:text-blue-100 hover:bg-blue-500"></i></span>
     </div>
 </template>

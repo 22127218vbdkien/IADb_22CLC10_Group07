@@ -1,9 +1,10 @@
 <script setup>
 import SearchBar from './SearchBar.vue';
 import TagFilter from './TagFilter.vue';
-import { reactive, ref, watch} from 'vue';
+import { onRenderTracked, reactive, ref, watch} from 'vue';
 import { onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import PaginationBar from '../PaginationBar.vue';
 import axios from 'axios';
 import AnimeCard from '../anime/AnimeCard.vue';
 import parseParams from '../searchService/apiSearch';
@@ -100,8 +101,10 @@ const userQuery = reactive({
         status: "",
         source: "",
         studios: [],
-        search: ""
-    }
+        search: "",
+        page: 1
+    },
+    limit:5
 })
 
 const state = reactive({
@@ -146,6 +149,13 @@ const changeSearch = (event) => {
     console.log(event)
 
 }
+
+const changePage = (event) => {
+    userQuery.content.page = event
+    _router.push({ path: _route.fullPath, query: userQuery.content })
+    console.log(event)
+
+}
 // Handle Query
 
 const _route = useRoute()
@@ -153,9 +163,12 @@ const _router = useRouter()
 
 
 const handleQuery = () => {
+    userQuery.content.page = 1
     _router.push({ path: _route.fullPath, query: userQuery.content })
 }
 const showAnime = ref(false)
+
+
 watch(() => _route.query, async (query) => {
     
     try{
@@ -188,5 +201,6 @@ watch(() => _route.query, async (query) => {
     <div v-if="showAnime">
         <AnimeCard v-for="item in state.page.results" :anime="item" :key="item.id"></AnimeCard>
     </div>
+    <PaginationBar :_limit="userQuery.limit" :_start="userQuery.content.page" v-bind:key="userQuery.content.page" v-on:changePage="changePage"></PaginationBar>
     <!-- <button class="px-2 py-2">Click to search anime</button> -->
 </template>

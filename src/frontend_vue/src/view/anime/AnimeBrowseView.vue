@@ -11,20 +11,20 @@
         indexPage: 1, 
         limit: 5
     })
-    state.indexPage = (_route.query.page ? Number(_route.query.page) :state.indexPage)
-    console.log(_route.query.tags)
+    const changePage = (event) =>{
+        console.log(event)
+        _router.push({ path: _route.fullPath, query:{page:event} })
+    }
+
     watch(() => _route.query.page ? Number(_route.query.page) :state.indexPage,
         (newPage) => {
         if (state.indexPage != Number(newPage) && newPage)
             state.indexPage = Number(newPage)
     })
     
-
 </script>
 
 <template>
-    <AnimeSearchAndFilter></AnimeSearchAndFilter>
     <AnimeCards :fecthpage="state.indexPage" :key="state.indexPage"></AnimeCards>
-    <PaginationBar v-bind:_start="state.indexPage" v-bind:_limit="state.limit" :key="state.indexPage"></PaginationBar>
-
+    <PaginationBar v-bind:_start="state.indexPage" v-bind:_limit="state.limit" :key="state.indexPage" v-on:changePage="changePage"></PaginationBar>
 </template>

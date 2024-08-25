@@ -7,6 +7,8 @@ import LoginView from "@/view/authentication/LoginView.vue";
 import SearchView from "@/view/SearchView.vue";
 import CharacterBrowseView from "@/view/character/CharacterBrowseView.vue";
 import CharacterView from "@/view/character/CharacterView.vue";
+import StaffBrowseView from "@/view/staff/StaffBrowseView.vue";
+import StaffView from "@/view/staff/StaffView.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -34,6 +36,16 @@ const router = createRouter({
             path: '/characters/:id/',
             name: 'characters_view',
             component: CharacterView,
+        },
+        {
+            path: '/staffs/',
+            name: 'staffs',
+            component: StaffBrowseView,
+        },
+        {
+            path: '/staffs/:id/',
+            name: 'staffs_view',
+            component: StaffView,
         },
         {
             path: '/animes/search/',

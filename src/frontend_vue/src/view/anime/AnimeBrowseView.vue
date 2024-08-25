@@ -3,6 +3,7 @@
     import PaginationBar from '@/components/PaginationBar.vue';
     import { useRoute, useRouter , onBeforeRouteUpdate} from 'vue-router';
     import { reactive, watch } from 'vue';
+    import AnimeSearchAndFilter from '@/components/search_filter/AnimeSearchAndFilter.vue';
     const _router = useRouter()
     const _route = useRoute()
 
@@ -11,7 +12,7 @@
         limit: 5
     })
     state.indexPage = (_route.query.page ? Number(_route.query.page) :state.indexPage)
-    console.log(state.indexPage)
+    console.log(_route.query.tags)
     watch(() => _route.query.page ? Number(_route.query.page) :state.indexPage,
         (newPage) => {
         if (state.indexPage != Number(newPage) && newPage)
@@ -22,6 +23,7 @@
 </script>
 
 <template>
+    <AnimeSearchAndFilter></AnimeSearchAndFilter>
     <AnimeCards :fecthpage="state.indexPage" :key="state.indexPage"></AnimeCards>
     <PaginationBar v-bind:_start="state.indexPage" v-bind:_limit="state.limit" :key="state.indexPage"></PaginationBar>
 

@@ -20,17 +20,41 @@
 </template>
 
 <script setup>
-    import { computed, ref } from 'vue';
-    import { onMounted } from 'vue';
+    import { computed, ref, defineEmits, onMounted} from 'vue';
+ 
     const emit = defineEmits(['changeTagLists'])
     const props = defineProps({
         options: Array,
-        filterName: String
+        filterName: String, 
+        isMultiple: Boolean
     })
-    const selectedOption = ref(null)
+    const selectedOption = ref([])
     const visibleDropdown = ref(false)
     const toggleSelection = (option) =>{
-        selectedOption.value = option.name; 
+        if (props.isMultiple){
+            const index = selectedOption.value.indexOf((option.id || option.query))
+            if (index > -1){
+                selectedOption.value.splice(index, 1)
+            }
+            else {
+                selectedOption.value.push((option.id || option.query)); 
+            }
+        }
+        else{
+            const index = selectedOption.value.indexOf((option.id || option.query))
+            if (index > -1){
+                selectedOption.value.splice(index, 1)
+            }
+            else {if (selectedOption.value.length > 0){
+                selectedOption.value.splice(0, 1)
+                
+            }
+            selectedOption.value.push((option.id || option.query)); }
+            
+        }
+        emit('changeTagLists', selectedOption.value)
+
+        
     }
 
     const getSelectedValue = computed(() =>{

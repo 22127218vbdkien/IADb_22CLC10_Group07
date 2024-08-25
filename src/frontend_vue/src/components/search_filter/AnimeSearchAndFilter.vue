@@ -1,40 +1,44 @@
 <script setup>
 import SearchBar from './SearchBar.vue';
 import TagFilter from './TagFilter.vue';
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch} from 'vue';
 import { onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
+import AnimeCard from '../anime/AnimeCard.vue';
+import parseParams from '../searchService/apiSearch';
+// Options information
 const animeTags = ref([])
 const sourceTags = ref([
-    {   query: "Original",
+    {   query: "ORIGINAL",
         name: "Original"}
-    , {   query: "Manga",
+    , {   query: "MANGA",
         name: "Manga"}
-    ,{   query: "Light_Novel",
+    ,{   query: "LIGHT_NOVEL",
         name: "Light Novel"}
-    ,{   query: "Visual_Novel",
+    ,{   query: "VISUAL_NOVEL",
         name: "Visual Novel"}
-    ,{   query: "Video_Game",
+    ,{   query: "VIDEO_GAME",
         name: "Video Game"}
-    ,{   query: "Other",
+    ,{   query: "OTHER",
         name: "Other"}
-    ,{   query: "Novel",
+    ,{   query: "NOVEL",
         name: "Novel"}
-    ,{   query: "Doujinshi",
+    ,{   query: "DOUJINSHI",
         name: "Doujinshi"}
-    ,{   query: "Anime",
+    ,{   query: "ANIME",
         name: "Anime"}
-    ,{   query: "Web_Novel",
+    ,{   query: "WEB_NOVEL",
         name: "Web Novel"}
-    ,{   query: "Live_Action",
+    ,{   query: "LIVE_ACTION",
         name: "LiveAction"}
-    ,{   query: "Game",
+    ,{   query: "GAME",
         name: "Game"}
-    ,{   query: "Comic",
+    ,{   query: "COMIC",
         name: "Comic"}
-    ,{   query: "Multimedia_Project",
+    ,{   query: "MULTIMEDIA_PROJECT",
         name: "Multimedia Project"}
-    ,{   query: "Picture_Book",
+    ,{   query: "PICTURE_BOOK",
         name: "Picture Book"}
 ])
 const statusTags = ref([
@@ -63,6 +67,7 @@ const formatTags = ref([
     ,{   query: "ONA",
     name: "ONA"}])
 const studioTags = ref([])
+
 onMounted(async () => {
     try{
         let response = await axios.get('/api/tags/')
@@ -77,6 +82,7 @@ onMounted(async () => {
     }
 })
 
+
 onMounted(async () => {
     try{
         const response = await axios.get('/api/studios/')
@@ -85,19 +91,102 @@ onMounted(async () => {
         console.log(error)
     }
 })
+
+// Query information
+const userQuery = reactive({
+    content: {
+        tags:[],
+        anime_format: "",
+        status: "",
+        source: "",
+        studios: [],
+        search: ""
+    }
+})
+
+const state = reactive({
+    page:{
+        count: 0,
+        next: "",
+        previous: null,
+        results:[]
+    }
+})
+
+const changeTags = (event) => {
+    userQuery.content.tags = event
+    console.log(event)
+}
+
+const chnageFormat = (event) => {
+    userQuery.content.anime_format = event
+    console.log(event)
+
+}
+
+const changeStatus = (event) => {
+    userQuery.content.status = event
+    console.log(event)
+
+}
+const changeSource = (event) => {
+    userQuery.content.source = event
+    console.log(event)
+
+}
+
+const changeStudio = (event) => {
+    userQuery.content.studios = event
+    console.log(event)
+
+}
+
+const changeSearch = (event) => {
+    userQuery.content.search = event
+    console.log(event)
+
+}
+// Handle Query
+
+const _route = useRoute()
+const _router = useRouter()
+
+
+const handleQuery = () => {
+    _router.push({ path: _route.fullPath, query: userQuery.content })
+}
+const showAnime = ref(false)
+watch(() => _route.query, async (query) => {
+    
+    try{
+        const response = await axios.get('/api/animes/', {
+            params:query,
+            paramsSerializer: (params) => parseParams(params)
+        })
+        state.page = response.data
+        showAnime.value = true
+
+    } catch(error){
+        console.log(error)
+    }}) 
+
 </script>
 
 <template>
-    <SearchBar target="Anime" class="px-7"></SearchBar>
+    <SearchBar v-on:sendChange="changeSearch" target="Anime" class="px-7"></SearchBar>
     
     <div class="grid grid-cols-5 gap-0 px-7">
-        <TagFilter :options="animeTags" filterName="Tag"></TagFilter>
-        <TagFilter :options="statusTags" filterName="Status"></TagFilter>
-        <TagFilter :options="studioTags" filterName="Studio"></TagFilter>
-        <TagFilter :options="formatTags" filterName="Format"></TagFilter>
-        <TagFilter :options="sourceTags" filterName="Source"></TagFilter>
+        <TagFilter :options="animeTags" filterName="Tag" :isMultiple="true" v-on:changeTagLists="changeTags"></TagFilter>
+        <TagFilter :options="statusTags" filterName="Status" :isMultiple="false" v-on:changeTagLists="changeStatus"></TagFilter>
+        <TagFilter :options="studioTags" filterName="Studio" :isMultiple="true" v-on:changeTagLists="changeStudio"></TagFilter>
+        <TagFilter :options="formatTags" filterName="Format" :isMultiple="false" v-on:changeTagLists="chnageFormat"></TagFilter>
+        <TagFilter :options="sourceTags" filterName="Source" :isMultiple="false" v-on:changeTagLists="changeSource"></TagFilter>
     </div>
- 
+    
+    <div><button @click="handleQuery" class="py-2 px-4 my-2 border-2 border-blue-500 bg-blue-100 rounded-xl hover:bg-blue-300" >Click to Search and filter</button></div>
 
+    <div v-if="showAnime">
+        <AnimeCard v-for="item in state.page.results" :anime="item" :key="item.id"></AnimeCard>
+    </div>
     <!-- <button class="px-2 py-2">Click to search anime</button> -->
 </template>

@@ -103,6 +103,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         return CharacterViewSerializer
     
 class TagViewSet(viewsets.ModelViewSet):
+    pagination_class = None
     queryset = Tag.objects.all().order_by('id')
     serializer_class = TagListSerializer
 

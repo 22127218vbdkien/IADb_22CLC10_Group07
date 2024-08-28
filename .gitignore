@@ -4,8 +4,6 @@ env/
 .env
 # ignore pycache
 __pycache__/
-# ignore django migration folder
-migrations/
 # ignore test files
 test.rest
 test.txt

@@ -1,5 +1,12 @@
 <script setup>
+import { useRoute, useRouter } from 'vue-router';
+import { reactive } from 'vue';
 
+const user = reactive({
+    password: "",
+    username: "",
+    email: "",
+})
 </script>
 
 <template>

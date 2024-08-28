@@ -20,6 +20,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3030',
     'https://orange-moss-01fd42600.5.azurestaticapps.net'
 ]
 

@@ -14,7 +14,7 @@
                     <input id="is_favorite" type="checkbox" v-model="formInfo.is_favorite">
                 </div>
                 <div>
-                    <TagFilter filter-name="list" :options="listName.choices"></TagFilter>
+                    <TagFilter filter-name="list" :options="listName.choices" @change-tag-lists="updateList"></TagFilter>
                 </div>
                 <div>
                     <label for="score">Score</label>
@@ -23,6 +23,10 @@
                 <div>
                     <label for="progress">Progress</label>
                     <input id="progress" type="number" min="0"  v-model="formInfo.progress">
+                </div>
+                <div>
+                    <label for="finish_date">Finish Date</label>
+                    <input id="finish_date" type="datetime-local" v-model="formInfo.finish_date">
                 </div>
                 <div>
                     <label for="notes">Notes</label>

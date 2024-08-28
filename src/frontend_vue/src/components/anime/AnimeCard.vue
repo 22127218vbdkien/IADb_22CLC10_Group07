@@ -8,7 +8,7 @@
 
 <template>
     <div>
-        <RouterLink :to="`/animes/${props.anime.id}`">
+        <RouterLink :to="`/animes/${props.anime.id}/`">
             <div>
             <img :src="anime.cover_img_large" alt="Anime Image"/>
             <div>{{ anime.romaji_title }}</div>

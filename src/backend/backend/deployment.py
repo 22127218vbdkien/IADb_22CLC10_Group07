@@ -20,7 +20,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://zealous-island-033dced00.5.azurestaticapps.net/'
+    'https://zealous-island-033dced00.5.azurestaticapps.net'
 ]
 
 STORAGES = {

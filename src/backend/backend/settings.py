@@ -59,6 +59,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3030',
+    'https://zealous-island-033dced00.5.azurestaticapps.net'
 ]
 
 ROOT_URLCONF = 'backend.urls'

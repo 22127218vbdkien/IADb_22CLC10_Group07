@@ -19,8 +19,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'https://zealous-island-033dced00.5.azurestaticapps.net/'
+]
 
 STORAGES = {
     "default": {

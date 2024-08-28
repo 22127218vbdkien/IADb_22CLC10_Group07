@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
-console.log(isDevelopment)
+const apiUrl = isDevelopment ? 'http://127.0.0.1:8000' : 'https://iadb-22clc10-group07.azurewebsites.net'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,9 +17,7 @@ export default defineConfig({
     port: 3030,
     proxy:{
       '/api':{
-        target: process.env.NODE_ENV === 'development' 
-          ? 'http://127.0.0.1:8000' 
-          : 'https://iadb-22clc10-group07.azurewebsites.net',
+        target: apiUrl,
         changeOrigin: true,
         rewrite: (path)=> path.replace(/^\/api/,''),
       },

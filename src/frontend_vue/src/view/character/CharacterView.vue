@@ -5,6 +5,7 @@ import { onMounted, reactive, computed} from 'vue';
 import axios from 'axios';
 import { userState } from '@/store/userStore';
 import { apiURL } from '@/searchService/apiSearch';
+import AnimeCard from '@/components/anime/AnimeCard.vue';
 const _route = useRoute()
 const _router = useRouter()
 const char_id = _route.params.id
@@ -68,5 +69,40 @@ onMounted(async () => {
 <template>
     <img :src="character.info.img_large" alt="character image">
     <p>{{ character.info.name }}</p>
+    <div class="text-red-600"><i class="pi pi-heart"></i>{{ character.info.favorites || "No info" }}</div>
     <button @click.prevent="addCharacterToFavorite">Add to Favorite</button>
+    <nav>
+        <a href="#details">Details</a>
+        <a href="#in_animes">In animes</a>
+    </nav>
+    
+    <div id="details">
+        <div id="detail-frame">
+            <p><span>Gender: </span> {{ character.info.gender ||"No info" }}</p>
+            <div>
+
+                <div>Description</div>
+
+                <div >
+
+                    {{ character.info.description || 'There is no description' }}
+
+                </div>
+            </div>
+            <p><span>Birthday: </span> {{ character.info.date_of_birth || "No info" }}</p>
+            <p><span>Age: </span> {{ character.info.age || "No info" }}</p>
+        </div>
+    </div>
+    
+    <div id="in_animes">
+        <div>In animes</div>
+        <div id="anime-frame" v-if="character.info.in_animes.length > 0">
+            <div v-for="(item,index) in character.info.in_animes" :key="index">
+                <AnimeCard :anime="item.anime"></AnimeCard>
+                <p>{{ item.char_role || "Role info" }}</p>
+            </div>
+        </div>
+        <div v-else>There is no infomation of animes having this character</div>
+    </div>
+    
 </template>

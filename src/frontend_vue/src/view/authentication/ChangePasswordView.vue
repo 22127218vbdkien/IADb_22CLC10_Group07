@@ -24,7 +24,8 @@ const handleChangePassword = async () => {
                     "Authorization": `token ` + stateAuth.userAuth.token
                 }
                 })
-            // if (response.status)
+            if (response.ok)
+                stateAuth.logout(_router)
             //     alert('Already in favorites')
         }catch(error){
             console.log(error)

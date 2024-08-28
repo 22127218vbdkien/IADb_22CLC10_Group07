@@ -68,7 +68,49 @@ const formatTags = ref([
     ,{   query: "ONA",
     name: "ONA"}])
 const studioTags = ref([])
+const orderingTags = ref([
+    {
+        query: "start_date",
+        name: "Start Date - ascending"
+    },
+    {
+        query: "-start_date",
+        name: "Start Date - descending"
+    },
+    {
+        query: "popularity",
+        name: "Popularity - ascending"
+    },
+    {
+        query: "-popularity",
+        name: "Popularity - descending"
+    },
+    {
+        query: "trending",
+        name: "Trending - ascending"
+    },
+    {
+        query: "-trending",
+        name: "Trending - descending"
+    },
+    {
+        query: "favorites",
+        name: "Favorites - ascending"
+    },
+    {
+        query: "-favorites",
+        name: "Favorites - descending"
+    },
+    {
+        query: "anilist_score",
+        name: "Anilist score - ascending"
+    },
+    {
+        query: "-anilist_score",
+        name: "Anilist Date - ascending"
+    },
 
+])
 onMounted(async () => {
     try{
         let response = await axios.get('/api/tags/')
@@ -94,6 +136,22 @@ onMounted(async () => {
     }
 })
 
+
+
+onMounted(async () => {
+    const query = _route.query
+    try{
+        const response = await axios.get('/api/animes/', {
+            params:query,
+            paramsSerializer: (params) => parseParams(params)
+        })
+        state.page = response.data
+        showAnime.value = true
+
+    } catch(error){
+        console.log(error)
+    }
+})
 // Query information
 const userQuery = reactive({
     content: {
@@ -103,6 +161,7 @@ const userQuery = reactive({
         source: "",
         studios: [],
         search: "",
+        ordering:"",
         page: 1
     },
     limit:5
@@ -151,6 +210,12 @@ const changeSearch = (event) => {
 
 }
 
+const changeOrdering = (event) => {
+    userQuery.content.ordering = event
+    console.log(event)
+
+}
+
 const changePage = (event) => {
     userQuery.content.page = event
     _router.push({ path: _route.fullPath, query: userQuery.content })
@@ -189,12 +254,14 @@ watch(() => _route.query, async (query) => {
 <template>
     <SearchBar v-on:sendChange="changeSearch" target="Anime" class="px-7"></SearchBar>
     
-    <div class="grid grid-cols-5 gap-0 px-7">
+    <div class="grid grid-cols-4 gap-0 px-7">
         <TagFilter :options="animeTags" filterName="Tag" :isMultiple="true" v-on:changeTagLists="changeTags"></TagFilter>
         <TagFilter :options="statusTags" filterName="Status" :isMultiple="false" v-on:changeTagLists="changeStatus"></TagFilter>
         <TagFilter :options="studioTags" filterName="Studio" :isMultiple="true" v-on:changeTagLists="changeStudio"></TagFilter>
         <TagFilter :options="formatTags" filterName="Format" :isMultiple="false" v-on:changeTagLists="chnageFormat"></TagFilter>
         <TagFilter :options="sourceTags" filterName="Source" :isMultiple="false" v-on:changeTagLists="changeSource"></TagFilter>
+        <TagFilter :options="orderingTags" filterName="Ordering" :isMultiple="false" v-on:changeTagLists="changeOrdering"></TagFilter>
+
     </div>
     
     <div><button @click="handleQuery" class="py-2 px-4 my-2 border-2 border-blue-500 bg-blue-100 rounded-xl hover:bg-blue-300" >Click to Search and filter</button></div>

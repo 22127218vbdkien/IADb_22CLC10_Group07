@@ -62,6 +62,8 @@ class FavoriteStaffViewSet(viewsets.ModelViewSet):
 
 class AnimeInCollectionViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated or IsOwnerPermission]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=anime_id__id']
 
     @action(detail=False)
     def Watching(self, request):

@@ -7,7 +7,7 @@ import { useRouter, useRoute } from 'vue-router';
 import PaginationBar from '../PaginationBar.vue';
 import axios from 'axios';
 import AnimeCard from '../anime/AnimeCard.vue';
-import parseParams from '../searchService/apiSearch';
+import parseParams from '@/searchService/apiSearch';
 // Options information
 const animeTags = ref([])
 const sourceTags = ref([
@@ -72,7 +72,8 @@ const studioTags = ref([])
 onMounted(async () => {
     try{
         let response = await axios.get('/api/tags/')
-        animeTags.value = animeTags.value.concat(response.data["results"])
+        animeTags.value = response.data
+        console.log(animeTags.value)
         // let next = response.data["next"]
         // while (next != null){
         //     const nextPage = await axios.get(next)

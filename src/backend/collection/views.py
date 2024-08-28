@@ -66,6 +66,21 @@ class AnimeInCollectionViewSet(viewsets.ModelViewSet):
     search_fields = ['=anime_id__id']
 
     @action(detail=False)
+    def Favorite(self, request):
+        user = self.request.user
+        anime_list = AnimeInCollection.objects.filter(
+            user_id=user, is_favorite=True
+        ).prefetch_related('anime_id')
+
+        page = self.paginate_queryset(anime_list)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(anime_list, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False)
     def Watching(self, request):
         user = self.request.user
         anime_list = AnimeInCollection.objects.filter(

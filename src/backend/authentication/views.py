@@ -65,12 +65,10 @@ class UserViewSet(viewsets.ModelViewSet):
     def changePassword(self, request):
         if not request.user.is_authenticated:
             return Response({'detail': 'Authentication credentials are not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
-        if request.user.username != request.data['username']:
-            return Response({'detail': 'Invalid password changing request'}, status=status.HTTP_401_UNAUTHORIZED)
         
         serializer = PasswordSerializer(data=request.data)
         if serializer.is_valid():
-            user = get_object_or_404(User, username=request.data['username'])
+            user = get_object_or_404(User, username=request.user.username)
             if not user.check_password(serializer.validated_data['old_password']):
                 return Response({'old_password': 'Wrong password.'}, status=status.HTTP_400_BAD_REQUEST)
             user.set_password(serializer.validated_data['new_password'])

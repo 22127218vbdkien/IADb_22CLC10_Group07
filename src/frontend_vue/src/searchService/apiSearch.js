@@ -19,3 +19,5 @@ export default function parseParams(params) {
   
     return options ? options.slice(0, -1) : options
   }
+
+export const apiURL = () => {return 'http://127.0.0.1:8000'}

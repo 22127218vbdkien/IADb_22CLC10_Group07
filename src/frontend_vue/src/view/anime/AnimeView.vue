@@ -1,11 +1,15 @@
 <script setup>
     import router from '@/router';
     import { RouterLink,  useRoute, useRouter} from 'vue-router';
-    import { onMounted, reactive } from 'vue';
+    import {ref, onMounted, reactive } from 'vue';
+    import { userState } from '@/store/userStore';
     import axios from 'axios';
+    import animeCollectionForm from '@/components/popup/animeCollectionForm.vue';
     const _route = useRoute()
     const _router = useRouter()
     const _animeid = _route.params.id
+    const showform = ref(false)
+    const stateAuth = userState()
     const animeState = reactive({
         property:{
             id: 0,
@@ -49,6 +53,10 @@
             console.log(error)
         }
     })
+
+    const toggleCollectionForm = () =>{
+        showform.value = !showform.value
+    }
 </script>
 
 <template>
@@ -60,7 +68,8 @@
             <div class="cover-image-lagre">
                 <img :src="`${animeState.property.cover_img_large}`" alt="">
             </div>
-            <div class="px-4 py-2 bg-blue-200 text-blue-800 border-blue-800 hover:bg-blue-400 max-w-max rounded-xl border-2">Add to list</div>
+            <div v-if="stateAuth.isAuthenticated" class="px-4 py-2 bg-blue-200 text-blue-800 border-blue-800
+             hover:bg-blue-400 max-w-max rounded-xl border-2" @click="toggleCollectionForm">Add to list</div>
         </div>
 
         <div class="container" id="tag_and_description">
@@ -69,6 +78,9 @@
             </div>
         </div>
     </div>
+
+    <animeCollectionForm v-if="showform" :anime_id="Number(_animeid)" @modal-close="toggleCollectionForm"></animeCollectionForm>
+
     
     
 </template>

@@ -4,7 +4,7 @@ import { userState } from '@/store/userStore';
 import { onMounted, reactive } from 'vue';
 import AnimeCard from '@/components/anime/AnimeCard.vue';
 import AnimeCardURL from '@/components/anime/AnimeCardURL.vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter, RouterLink} from 'vue-router';
 import axios from 'axios';
 import CharacterCard from '@/components/character/CharacterCard.vue';
 import StaffCard from '@/components/staff/StaffCard.vue';
@@ -156,9 +156,17 @@ onMounted(async () => {
 
 <template>
 <div>
-<h2>userProfile</h2>
-<div>
-    {{ userProfile }}
+<h2>Profile</h2>
+<div id="user-profile">
+    <div id="user-avatar">
+        <img v-if="userProfile.avatar" :src="`data:image/png;base64, ${userProfile.avatar}`" alt="userAvatar">
+        <img v-else src="../assets/default_ava.png"  alt="default Avatar">
+    </div>
+    <div id="user-description">
+        <p>About</p>
+        <p>{{ userProfile.profile.about || "User has no description"}}</p>
+    </div>
+    <RouterLink to="/change-password/" class="hover:text-blue-500 text-black">Change your password</RouterLink>
 </div>
 </div>
 <div id="collection">

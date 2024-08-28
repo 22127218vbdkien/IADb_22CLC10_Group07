@@ -5,6 +5,11 @@
     import { userState } from '@/store/userStore';
     import axios from 'axios';
     import animeCollectionForm from '@/components/popup/animeCollectionForm.vue';
+    import CharacterCard from '@/components/character/CharacterCard.vue';
+    import StaffCard from '@/components/staff/StaffCard.vue';
+    import AnimeCard from '@/components/anime/AnimeCard.vue';
+    import AnimeCardURL from '@/components/anime/AnimeCardURL.vue';
+    import Tag from '@/components/anime/Tag.vue';
     const _route = useRoute()
     const _router = useRouter()
     const _animeid = _route.params.id
@@ -78,9 +83,120 @@
             </div>
         </div>
     </div>
-
+    <div id="anime-description">
+        <div id="description">{{ animeState.property.description || "This anime has no description" }}</div>
+        <div id="favorites" class="text-red-600"><i class="pi pi-heart px-1"></i>{{ animeState.property.favorites || 'No info' }}</div>
+        <div id="tag-frame" v-if="animeState.property.tags">
+            <Tag v-for="item in animeState.property.tags" :key="item.id" :tag="item.tag"></Tag>
+        </div>
+    </div>
     <animeCollectionForm v-if="showform" :anime_id="Number(_animeid)" @modal-close="toggleCollectionForm"></animeCollectionForm>
 
+    <div>
+        <a href="#details">Details</a>
+        <a href="#character">Character</a>
+        <a href="#staff">Staff</a>
+        <a href="#relations">Relations</a>
+        <a href="#reccomendation">reccomendation</a>
+    </div>
+
+    <div id="details">
+       <h3>Details</h3>
+        <div class="data-column">
+            <div class="data-cell">
+                <p>Format</p>
+                <p>{{animeState.property.format || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>Studio</p>
+                <div v-if="animeState.property.studios">
+                    <RouterLink class="hover:text-blue-600" v-for="item in animeState.property.studios " :key="item.id" :to="`/studio/${item.studio.id}/`">{{ item.studio.name || 'Studio name' }}</RouterLink>
+                </div>
+                <p v-else>'No info'</p>
+                
+            </div>
+            <div class="data-cell">
+                <p>Source</p>
+                <p>{{animeState.property.source || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>Episodes</p>
+                <p>{{animeState.property.episodes || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>Duration</p>
+                <p>{{animeState.property.duration || 'No info'}}</p>
+            </div>
+        </div>
+        <div class="data-column">
+            <div class="data-cell">
+                <p>Average Score</p>
+                <p>{{animeState.property.mean_score || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>Mean Score</p>
+                <p>{{animeState.property.mean_score || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>Status</p>
+                <p>{{animeState.property.status || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>Start Date</p>
+                <p>{{animeState.property.start_date || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>End date</p>
+                <p>{{animeState.property.end_date || 'No info'}}</p>
+            </div>
+        </div>           
+        <div class="data-column">
+            <div class="data-cell">
+                <p>Romanji Title</p>
+                <p>{{animeState.property.romaji_title || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>English Title</p>
+                <p>{{animeState.property.english_title || 'No info'}}</p>
+            </div>
+            <div class="data-cell">
+                <p>Native Title</p>
+                <p>{{animeState.property.native_title || 'No info'}}</p>
+            </div>
+        </div>  
+    </div>
+
+    <div id="character">
+        <h3>Character</h3>
+        <div id="character-frame" v-if="animeState.property.characters">
+            <div v-for="item in animeState.property.characters" :key="item.id">
+                <CharacterCard v-if="item.character" :character="item.character"></CharacterCard>
+                <StaffCard v-if="item.staff" :staff="item.staff"></StaffCard>
+                <p>{{ item.char_role || 'No role Info'}}</p>
+            </div>
+        </div>
+        <div v-else>There is no information about character of this anime</div>
+    </div>
     
-    
+
+    <div id="staff">
+        <h3>Staff</h3>
+        <div id="staff-frame" v-if="animeState.property.staffs">
+            <div v-for="item in animeState.property.staffs" :key="item.id">
+                <StaffCard v-if="item.staff" :staff="item.staff"></StaffCard>
+                <p>{{ item.staff_role || 'No role Info'}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="relations">
+        <h3>Relations</h3>
+        <div id="relation-frame" v-if="animeState.property.relations">
+            <div v-for="item in animeState.property.relations" :key="item.id">
+                <AnimeCardURL v-if="item.anime.url" :url="item.anime.url"></AnimeCardURL>
+                <p>{{ item.relation || 'No role Info'}}</p>
+            </div>
+        </div>
+    </div>
 </template>

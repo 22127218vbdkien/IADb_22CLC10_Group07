@@ -11,6 +11,7 @@ import StaffBrowseView from "@/view/staff/StaffBrowseView.vue";
 import StaffView from "@/view/staff/StaffView.vue";
 import SignUpView from "@/view/authentication/SignUpView.vue";
 import UserProfileView from "@/view/UserProfileView.vue";
+import ChangePasswordView from "@/view/authentication/ChangePasswordView.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -68,6 +69,11 @@ const router = createRouter({
             path: '/profile/',
             name: 'profile',
             component: UserProfileView,
+        },
+        {
+            path: '/change-password/',
+            name: 'change-password',
+            component: ChangePasswordView
         },
         {
             path: '/:catchAll(.*)',

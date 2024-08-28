@@ -5,8 +5,8 @@ import { reactive } from 'vue';
 import { userState } from '@/store/userStore';
 import axios from 'axios';
 const user = reactive({
-    username : "Username....",
-    password : "abc",
+    username : "",
+    password : "",
     error: ""
 })
 const _router = useRouter()
@@ -25,13 +25,15 @@ const resetError = () =>{
 </script>
 
 <template>
-
-    <form>
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username"/>
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password"/>
-        <input @click.prevent = "submitLogin" type="submit">
-    </form>
-    <p>{{user.error}}</p>
+    <div>
+        <form>
+            <label for="username" >Username</label>
+            <input type="text" id="username" placeholder="..." v-model="user.username" @input="resetError"/>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="..." v-model="user.password" @input="resetError"/>
+            <input @click.prevent = "submitLogin" type="submit">
+        </form>
+        <p>{{user.error}}</p>
+    </div>
+    <RouterLink to="/signup/">Create a new account <i class="pi pi-arrow-right"></i></RouterLink>
 </template>

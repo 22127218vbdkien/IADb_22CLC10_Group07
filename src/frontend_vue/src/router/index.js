@@ -9,6 +9,7 @@ import CharacterBrowseView from "@/view/character/CharacterBrowseView.vue";
 import CharacterView from "@/view/character/CharacterView.vue";
 import StaffBrowseView from "@/view/staff/StaffBrowseView.vue";
 import StaffView from "@/view/staff/StaffView.vue";
+import SignUpView from "@/view/authentication/SignUpView.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -21,6 +22,11 @@ const router = createRouter({
             path: '/login/',
             name: 'login',
             component: LoginView
+        },
+        {
+            path: '/signup/',
+            name: 'signup',
+            component: SignUpView
         },
         {
             path: '/animes/',

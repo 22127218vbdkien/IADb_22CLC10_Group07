@@ -1,8 +1,11 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+
+const isDevelopment = process.env.NODE_ENV === 'development'
+console.log(isDevelopment)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +17,9 @@ export default defineConfig({
     port: 3030,
     proxy:{
       '/api':{
-        target: 'http://127.0.0.1:8000',
+        target: process.env.NODE_ENV === 'development' 
+          ? 'http://127.0.0.1:8000' 
+          : 'https://iadb-22clc10-group07.azurewebsites.net',
         changeOrigin: true,
         rewrite: (path)=> path.replace(/^\/api/,''),
       },

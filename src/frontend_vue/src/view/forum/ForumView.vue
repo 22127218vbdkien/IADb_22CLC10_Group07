@@ -30,6 +30,7 @@ onMounted(async ()=>{
                 paramsSerializer: () => parseParams(params)
             }
         )
+        threads.results = response.data['results']
         console.log(response)
     }catch(error){
         console.log(error)
@@ -41,7 +42,7 @@ onMounted(async ()=>{
 <template>
 
     <div id="add-thread">
-        
+        <button>Add a thread</button>
     </div>
 
     <div id="thread-section">

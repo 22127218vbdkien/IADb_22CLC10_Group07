@@ -1,8 +1,25 @@
 <script setup>
+import { ref } from 'vue';
+const showImage = ref(false)
+const image = ref("")
+const convertToBase64 = (event) =>{
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () =>{
+        image.value = reader.result
+        console.log(image.value)
+        showImage.value = true
+    }
+    
+}
+
 
 </script>
 
 <template>
+
+   
+
     <!-- Home View    
         <div class="section">
             <div class="watching">

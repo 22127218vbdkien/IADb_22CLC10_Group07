@@ -1,13 +1,14 @@
 
 <script setup>
 import { userState } from '@/store/userStore';
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import AnimeCard from '@/components/anime/AnimeCard.vue';
 import AnimeCardURL from '@/components/anime/AnimeCardURL.vue';
 import { useRoute, useRouter, RouterLink} from 'vue-router';
 import axios from 'axios';
 import CharacterCard from '@/components/character/CharacterCard.vue';
 import StaffCard from '@/components/staff/StaffCard.vue';
+import userProfileUpdateForm from '@/components/popup/userProfileUpdateForm.vue';
 const _router = useRouter()
 const stateAuth = userState()
 const userProfile = reactive({
@@ -46,9 +47,20 @@ onMounted(async () => {
                     "Authorization": `token ` + stateAuth.userAuth.token
                 }
                 })
-            if (response.status === 200)
+            if (response.status === 200){
                 userProfile.profile = response.data
-                console.log(response)
+                const response_next = await axios.get(userProfile.profile.url, {
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": `token ` + stateAuth.userAuth.token
+                }
+                })
+                if (response_next.status === 200){
+                     userProfile.profile = response_next.data
+
+                }
+            }
+                
         }catch(error){
             console.log(error)
         }
@@ -152,21 +164,26 @@ onMounted(async () => {
         _router.push('/')   
     }
 })
+
+const isChangingAvatar = ref(false)
+const toggleChangeAvatar = () =>{
+    isChangingAvatar.value = !isChangingAvatar.value
+}
 </script>
 
 <template>
 <div>
 <h2>Profile</h2>
 <div id="user-profile">
-    <div id="user-avatar">
-        <img v-if="userProfile.avatar" :src="`data:image/png;base64, ${userProfile.avatar}`" alt="userAvatar">
+    <div id="user-avatar" >
+        <img v-if="userProfile.profile.avatar" :src="`${userProfile.profile.avatar}`" alt="userAvatar">
         <img v-else src="../assets/default_ava.png"  alt="default Avatar">
     </div>
-    <div id="user-description">
-        <p>About</p>
-        <p>{{ userProfile.profile.about || "User has no description"}}</p>
-    </div>
+    <button @click="toggleChangeAvatar">Click to change Avatar</button>
     <RouterLink to="/change-password/" class="hover:text-blue-500 text-black">Change your password</RouterLink>
+</div>
+<div id="new-avatar">
+    <userProfileUpdateForm v-if="isChangingAvatar" @modal-close="toggleChangeAvatar" :info="userProfile.profile"></userProfileUpdateForm>
 </div>
 </div>
 <div id="collection">

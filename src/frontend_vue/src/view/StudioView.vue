@@ -32,14 +32,21 @@ onMounted(async () => {
 </script>
 
 <template>
-    <section id="studio-info">
-        <h1>Studio Name</h1>
-        <div> {{ studio.info.name }}</div>
-    </section>
-    <section>
-        <h2>Anime produced by studio</h2>
-        <div id="anime-frame">
-            <AnimeCard v-for="anime in studio.info.animes" :key="anime.id" :anime="anime"></AnimeCard>
+    
+    <section class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2">
+        <div class="mb-4">
+            <h1 class="text-gray-700 font-bold text-2xl">
+                Studio Name
+            </h1>
+            <div class="text-gray-700 font-medium text-xl"> {{ studio.info.name }}</div>
+        </div>
+        <div class="max-w-full flex items-center justify-between flex-col">
+            <h1 class="text-gray-700 font-bold text-2xl mb-2">
+                Produced by {{ studio.info.name }}
+            </h1>
+            <div id="anime-frame-frame" class="grid grid-cols-5 max-w-5xl gap-x-10 gap-y-4 grid-flow-row">
+                <AnimeCard v-for="anime in studio.info.animes" :key="anime.id" :anime="anime"></AnimeCard>
+            </div>
         </div>
     </section>
 </template>

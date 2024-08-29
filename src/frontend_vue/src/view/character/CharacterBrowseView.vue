@@ -103,9 +103,13 @@ watch( () => _route.query,
 
 <template>
     <div class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2">
-        <div>
-            <SearchBar @sendChange="changeSearch" target="Character"></SearchBar>
-            <TagFilter @changeTagLists="changeTag" :options="orderingTags" filterName="Ordering"></TagFilter>
+        <div class="flex flex-row items-center justify-between w-full">
+            <div class="w-full pr-2 ">
+                <SearchBar @sendChange="changeSearch" target="Character"></SearchBar>
+            </div>
+            <div class="w-max">
+                <TagFilter @changeTagLists="changeTag" :options="orderingTags" filterName="Ordering"></TagFilter>  
+            </div>
         </div>
         <div class="w-full flex-row-reverse flex">
             <button @click="handleQuery" class="py-2 px-4 my-2 border-2 border-blue-500 bg-blue-100 rounded-xl hover:bg-blue-300 text-sm ">Click to search</button>

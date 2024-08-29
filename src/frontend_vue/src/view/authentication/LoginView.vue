@@ -35,11 +35,13 @@ const resetError = () =>{
                 <form class="space-y-4 md:space-y-6 max-w-3xl">
                     <div>
                         <label for="username" class="font-semibold block mb-1 text-sm  text-gray-900">Username</label>
-                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600"type="text" id="username" placeholder="..." v-model="user.username" @input="resetError"/>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 
+                        focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600"type="text" id="username" placeholder="..." v-model="user.username" @input="resetError"/>
                     </div>
                     <div>
                         <label for="password" class="font-semibold block mb-1 text-sm  text-gray-900">Password</label>
-                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600"type="password" id="password" placeholder="..." v-model="user.password" @input="resetError"/>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 
+                        focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600"type="password" id="password" placeholder="..." v-model="user.password" @input="resetError"/>
                     </div>
 
                     <button class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950

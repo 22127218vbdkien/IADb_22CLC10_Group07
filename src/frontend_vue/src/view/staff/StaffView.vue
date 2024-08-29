@@ -119,61 +119,81 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div>
-        <img :src="staff.info.img_large" alt="staff image">
-        <p>{{ staff.info.name }}</p>
-    </div>
-    <div class="text-red-600"><i class="pi pi-heart"></i>{{ staff.info.favorites || "No info" }}</div>
-    <button v-if="!isInCollection" @click.prevent="addStaffToFavorite">Add to Favorite</button>
-    <button v-if="isInCollection" @click.prevent="removeStaffFromFavorite">Remove from Favorite</button>
+
+    <section id="image-and-description" class="flex flex-row max-w-5xl mx-auto mt-10">
+        <div class="container w-fit min-w-48 min-h-52 flex flex-col justify-center items-center mr-10">
+            <img :src="staff.info.img_large" alt="staff image">
+            <button v-if="!isInCollection" class="px-4 py-2 w-56 bg-blue-200 text-blue-800 border-blue-800
+                    hover:bg-blue-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer" @click.prevent="addStaffToFavorite">Add to Favorite</button>
+            <button v-if="isInCollection" class="px-4 py-2 w-56 bg-red-200 text-red-800 border-red-800
+                    hover:bg-red-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer" @click.prevent="removeStaffFromFavorite">Remove from Favorite</button>
+        </div>
+        <div class="anime-description flex flex-col ">
+            <div class="text-2xl font-bold text-gray-500">
+                <p>{{ staff.info.name }}</p>
+            </div>
+               
+                <div >
+                    {{ staff.info.description || 'There is no description' }}
+                </div>
+                <div class="text-red-600"><i class="pi pi-heart"></i>{{ staff.info.favorites || "No info" }}</div>
+        </div>
+    </section>
     
-    <nav>
-        <a href="#details">Details</a>
-        <a href="#staff-roles">Roles</a>
-        <a href="#voice-characters">Voiced Characters</a>
+    
+    <nav class="w-full flex flex-row justify-evenly items-center border-y-2 border-blue-500 my-5">
+        <a  class = "hover:text-blue-500" href="#details">Details</a>
+        <a  class = "hover:text-blue-500" href="#staff-roles">Roles</a>
+        <a  class = "hover:text-blue-500" href="#voiced_characters">Voiced Characters</a>
     </nav>
 
-    <div id="details">
-        <div id="detail-frame">
-            <p><span>Gender: </span> {{ staff.info.gender ||"No info" }}</p>
-            <div>
-
-                <div>Description</div>
-
-                <div >
-
-                    {{ staff.info.description || 'There is no description' }}
-
-                </div>
+    <section id="details"class="flex flex-col items-center justify-center max-w-4xl mx-auto mt-10 ">
+        <h3 class="text-xl font-bold text-gray-500 mb-1">Details</h3>
+        <div id="detail-frame" class="w-full flex flex-row justify-evenly border-2 border-blue-600 rounded-xl  px-4 py-4">
+            <div >
+                <p class="font-bold">Native name:</p>
+                <p>{{ staff.info.name_native ||"No info" }}</p>
             </div>
-            <p><span>Birthday: </span> {{ staff.info.date_of_birth || "No info" }}</p>
-            <p><span>Age: </span> {{ staff.info.age || "No info" }}</p>
-            <p><span>Hometown: </span> {{ staff.info.home_town || "No info" }}</p>
+            <div>
+                <p class="font-bold">Gender:</p>
+                <p>{{ staff.info.gender ||"No info" }}</p>
+            </div>
+            <div>
+                <p class="font-bold">Birthday:</p>
+                <p>{{ staff.info.date_of_birth || "No info" }}</p>
+            </div>
+            <div>
+                <p class="font-bold">Age:</p>
+                <p>{{ staff.info.age || "No info" }}</p>
+            </div>
+            <div>
+                <p class="font-bold">Hometown:</p>
+                <p>{{ staff.info.home_town || "No info" }}</p>
+            </div>
         </div>
-    </div>
+    </section>
 
 
-    <div id="staff-roles">
-        <div>Roles</div>
-        <div id="role-frame" v-if="staff.info.staff_roles.length > 0">
-            <div v-for="(item, index) in staff.info.staff_roles" :key="index">
+    <section id="staff-roles" class="max-w-4xl mx-auto mt-10 flex flex-col items-center justify-center">
+        <div class="text-xl font-bold text-gray-500 mb-1" >Roles</div>
+        <div id="role-frame" v-if="staff.info.staff_roles.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+            <div v-for="(item, index) in staff.info.staff_roles" :key="index" class="flex flex-col max-w-40 justify-center items-center">
                 <AnimeCard :anime="item.anime"></AnimeCard>
                 <div>{{ item.staff_role || "Staff role" }}</div>
             </div>
         </div>
         <div v-else>This staff has no roles in anime</div>
 
-    </div>
+    </section>
 
-    <div id="voiced_characters">
-        <div>Voiced Characters</div>
-        <div id="character-frame" v-if="staff.info.voiced_characters.length > 0">
-            <div v-for="(item, index) in staff.info.voiced_characters" :key="index">
+    <section id="voiced_characters" class="max-w-4xl mx-auto mt-10 flex flex-col items-center justify-center">
+        <div class="text-xl font-bold text-gray-500 mb-1">Voiced Characters</div>
+        <div id="character-frame" v-if="staff.info.voiced_characters.length > 0" class="grid grid-cols-2 w-full border-2 border-blue-600 rounded-xl px-4 py-4 " >
+            <div v-for="(item, index) in staff.info.voiced_characters" :key="index" class="flex flex-row" >
                 <div>
                     <CharacterCard :character="item.character"></CharacterCard>
-                    <div>{{ item.char_role || "Char role" }}</div>
-                    
                 </div>
+                <p>{{ item.char_role || "Char role" }}</p>
                 <div>
                     <AnimeCard :anime="item.anime"></AnimeCard>
                 </div>
@@ -181,5 +201,5 @@ onMounted(async () => {
         </div>
         <div v-else>This staff has not voiced any characters</div>
 
-    </div>
+    </section>
 </template>

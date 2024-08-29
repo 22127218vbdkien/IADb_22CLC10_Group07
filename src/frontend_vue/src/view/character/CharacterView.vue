@@ -117,55 +117,75 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="flex items-start space-x-6 pl-96">
-        <img :src="character.info.img_large" alt="character image" class="w-48 h-64 object-cover">
-        <div class="pt-10">
-            <p class="text-2xl font-bold">{{ character.info.name }}</p>
-            <div class="text-red-600 pt-2">
-                <i class="pi pi-heart"></i> {{ character.info.favorites || "No info" }}
-            </div>
+    
+    <section class="flex flex-row max-w-5xl mx-auto mt-10">
+        <div class="container w-fit min-w-48 min-h-52 flex flex-col justify-center items-center mr-10">
+            <img :src="character.info.img_large" alt="character image" class="w-48 h-64 object-cover">
             <button
-                class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                class="px-4 py-2 w-56 bg-blue-200 text-blue-800 border-blue-800
+                    hover:bg-blue-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer"
                 v-if="!isInCollection"
                 @click.prevent="addCharacterToFavorite">
                 Add to Favorite
             </button>
             <button
-                class="mt-4 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                class="px-4 py-2 w-56 bg-red-200 text-red-800 border-red-800
+                    hover:bg-red-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer"
                 v-if="isInCollection"
                 @click.prevent="removeCharacterFromFavorite">
                 Remove from Favorite
             </button>
         </div>
-    </div>
-    
-    <br>
-    <nav class="text-center space-x-5 py-4">
-        <a href="#details">Details</a>
-        <a href="#in_animes">In animes</a>
-    </nav>
-    
-    <div id="details" class="py-8">
-        <div id="detail-frame" class="grid grid-cols-4 max-w-7xl mx-auto gap-x-14 gap-y-4 text-center grid-flow-row">
-            <p><span>Gender: </span> {{ character.info.gender ||"No info" }}</p>
+        <div class="flex flex-col">
+            <div class="text-2xl font-bold text-gray-500">
+                <p >{{ character.info.name }}</p>
+            </div>
             <div>
-                <div>Description</div>
-
                 <div >
 
                     {{ character.info.description || 'There is no description' }}
 
                 </div>
             </div>
-            <p><span>Birthday: </span> {{ character.info.date_of_birth || "No info" }}</p>
-            <p><span>Age: </span> {{ character.info.age || "No info" }}</p>
+            <div class="text-red-600 pt-2">
+                <i class="pi pi-heart"></i> {{ character.info.favorites || "No info" }}
+            </div>
         </div>
-    </div>
+    </section>
+    
     <br>
-    <div id="in_animes" class="justify-center">
-        <div class="grid-cols-1 text-center items-center max-w-5xl mx-auto">In animes</div>
-        <div id="anime-frame" v-if="character.info.in_animes.length > 0" class="grid grid-cols-3 max-w-5xl mx-auto gap-x-10 gap-y-4 grid-flow-row">
-            <div v-for="(item,index) in character.info.in_animes" :key="index">
+    <nav class="w-full flex flex-row justify-evenly items-center border-y-2 border-blue-500 my-5">
+        <a class = "hover:text-blue-500" href="#details">Details</a>
+        <a class = "hover:text-blue-500" href="#in_animes">In animes</a>
+    </nav>
+    
+    <section id="details" class="flex flex-col items-center justify-center max-w-4xl mx-auto mt-10 ">
+        <h3 class="text-xl font-bold text-gray-500 mb-1">Details</h3>
+        <div id="detail-frame" class="w-full flex flex-row justify-evenly border-2 border-blue-600 rounded-xl  px-4 py-4">
+            <div >
+                <p class="font-bold">Native name:</p>
+                <p>{{ character.info.name_native ||"No info" }}</p>
+            </div>
+            <div>
+                <p class="font-bold">Gender:</p>
+                <p>{{ character.info.gender ||"No info" }}</p>
+            </div>
+            <div>
+                <p class="font-bold">Birthday:</p>
+                <p>{{ character.info.date_of_birth || "No info" }}</p>
+            </div>
+            <div>
+                <p class="font-bold">Age:</p>
+                <p>{{ character.info.age || "No info" }}</p>
+            </div>
+    
+        </div>
+    </section>
+    <br>
+    <div id="in_animes" class="max-w-4xl mx-auto mt-10 flex flex-col items-center justify-center">
+        <div class="text-xl font-bold text-gray-500 mb-1">In animes</div>
+        <div id="anime-frame" v-if="character.info.in_animes.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+            <div v-for="(item,index) in character.info.in_animes" :key="index" class="flex flex-col max-w-40 justify-center items-center">
                 <AnimeCard :anime="item.anime"></AnimeCard>
                 <p>{{ item.char_role || "Role info" }}</p>
             </div>

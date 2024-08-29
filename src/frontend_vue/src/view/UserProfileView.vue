@@ -191,72 +191,98 @@ const handleRemoveAvatar = async () => {
 </script>
 
 <template>
-<div>
-<h2>Profile</h2>
-<div id="user-profile">
-    <div id="user-avatar" >
+
+<section id="user-profile" class="flex flex-col justify-center items-center max-w-5xl mx-auto mt-10">
+    <div id="user-avatar" class="container w-fit min-w-32 min-h-40 flex flex-col justify-center items-center ">
+        <h2 class="text-xl font-bold text-gray-500 mb-1">Profile</h2>
         <img v-if="userProfile.profile.avatar" :src="`${userProfile.profile.avatar}`" alt="userAvatar">
         <img v-else src="../assets/default_ava.png"  alt="default Avatar">
     </div>
-    <button @click="toggleChangeAvatar">Change Avatar</button>
-    <button @click="handleRemoveAvatar">Remove Avatar</button>
-
-    <RouterLink to="/change-password/" class="hover:text-blue-500 text-black">Change your password</RouterLink>
-</div>
+    <div class="flex flex-col justify-center items-center">
+        <h3 class="text-xl font-bold text-gray-500 mb-1">Option</h3>
+        <button class="px-4 py-2 w-56 bg-blue-200 text-blue-800 border-blue-800
+        hover:bg-blue-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer" @click="toggleChangeAvatar">Change Avatar</button>
+        <button class="px-4 py-2 w-56 bg-red-200 text-red-800 border-red-800
+        hover:bg-red-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer" @click="handleRemoveAvatar">Remove Avatar</button>
+        <RouterLink to="/change-password/" class="px-4 py-2 w-56 bg-green-200 text-green-800 border-green-800
+        hover:bg-green-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer">Change your password</RouterLink>
+    </div>
+    
+</section>
 <div id="new-avatar">
     <userProfileUpdateForm v-if="isChangingAvatar" @modal-close="toggleChangeAvatar" :info="userProfile.profile"></userProfileUpdateForm>
 </div>
-</div>
-<div id="collection">
-    <h3>Anime in collection</h3>
-    <div>
-        <h3>Completed</h3>
-        <div>
-        <AnimeCard v-for="(item, index) in userCollection.completed" :key="index" :anime="item.anime"></AnimeCard>
-        </div>
-    </div>
-    <div>
-        <h3>Dropped</h3>
-        <div>
-        <AnimeCard v-for="(item, index) in userCollection.dropped" :key="index" :anime="item.anime"></AnimeCard>
-        </div>
-    </div>
-    <div>
-        <h3>Paused</h3>
-        <div>
-        <AnimeCard v-for="(item, index) in userCollection.paused" :key="index" :anime="item.anime"></AnimeCard>
-        </div>
-    </div>
-    <div>
-        <h3>Planning</h3>
-        <div>
-        <AnimeCard v-for="(item, index) in userCollection.planning" :key="index" :anime="item.anime"></AnimeCard>
-        </div>
-    </div>
-    <div>
-        <h3>Watching</h3>
-        <div>
-        <AnimeCard v-for="(item, index) in userCollection.watching" :key="index" :anime="item.anime"></AnimeCard>
-        </div>
-    </div>
-</div>
 
-<div id="favorite">
-    <h3>Favorite</h3>
-    <div>
-        <h3>Animes</h3>
-        <AnimeCardURL v-for="(item, index) in userFavorite.anime" :key="index" :url="item.anime_id"></AnimeCardURL>
-    </div>
-    <div>
-        <h3>Characters</h3>
-        <CharacterCard v-for="(item, index) in userFavorite.character" :key="index" :character="item.character"></CharacterCard>
-        
-    </div>
-    <div>
-        <h3>staffs</h3>
-        <StaffCard v-for="(item, index) in userFavorite.staff" :key="index" :staff="item.staff"></StaffCard>
-    </div>
-</div>
+<nav class="w-full flex flex-row justify-evenly items-center border-y-2 border-blue-500 my-5">
+    <a href="#collection">Collection</a>
+    <a href="#favorite">Fovorite</a>
+</nav>
+
+
+    <section id="collection" class="max-w-4xl mx-auto mt-10 flex flex-col items-center justify-center border-blue-600 border-dashed border-2 rounded-xl px-4 py-4  ">
+        <h3 class="text-2xl font-bold text-gray-500 mb-1">Anime in collection</h3>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Completed</h3>
+            <div v-if="userCollection.completed.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+                <AnimeCard v-for="(item, index) in userCollection.completed" :key="index" :anime="item.anime"></AnimeCard>
+            </div>
+            <div v-else>There is no info</div>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Dropped</h3>
+            <div v-if="userCollection.dropped.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+            <AnimeCard v-for="(item, index) in userCollection.dropped" :key="index" :anime="item.anime"></AnimeCard>
+            </div>
+            <div v-else>There is no info</div>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Paused</h3>
+            <div v-if="userCollection.paused.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+            <AnimeCard v-for="(item, index) in userCollection.paused" :key="index" :anime="item.anime"></AnimeCard>
+            </div>
+            <div v-else>There is no info</div>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Planning</h3>
+            <div v-if="userCollection.planning.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+            <AnimeCard v-for="(item, index) in userCollection.planning" :key="index" :anime="item.anime"></AnimeCard>
+            </div>
+            <div v-else>There is no info</div>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Watching</h3>
+            <div v-if="userCollection.watching.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+            <AnimeCard v-for="(item, index) in userCollection.watching" :key="index" :anime="item.anime"></AnimeCard>
+            </div>
+            <div v-else>There is no info</div>
+        </div>
+    </section>
+
+    <section id="favorite" class="max-w-4xl mx-auto mt-10 flex flex-col items-center justify-center  border-blue-600 border-dashed border-2 rounded-xl px-4 py-4  ">
+        <h3 class="text-xl font-bold text-gray-500 mb-1" >Favorite</h3>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Animes</h3>
+            <div v-if="userFavorite.anime.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+                <AnimeCardURL v-for="(item, index) in userFavorite.anime" :key="index" :url="item.anime_id"></AnimeCardURL>
+            </div>
+            <div v-else>There is no info</div>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Characters</h3>
+            <div v-if="userFavorite.character.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+                <CharacterCard v-for="(item, index) in userFavorite.character" :key="index" :character="item.character"></CharacterCard>
+            </div>
+            
+            <div v-else>There is no info</div>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold text-gray-500 mb-1">Staffs</h3>
+            <div v-if="userFavorite.staff.length > 0" class="grid grid-cols-5 w-full border-2 border-blue-600 rounded-xl px-4 py-4 ">
+                <StaffCard v-for="(item, index) in userFavorite.staff" :key="index" :staff="item.staff"></StaffCard>
+            </div>
+            <div v-else>There is no info</div>
+        </div>
+    </section>
 </template>
 
 

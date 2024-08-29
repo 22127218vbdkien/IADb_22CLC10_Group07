@@ -63,15 +63,18 @@ const handleChangeAvatar = async () =>{
     left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)]
     max-h-full bg-black bg-opacity-60 flex">
         <div class="p-4 w-full max-w-md max-h-full bg-blue-50 mx-auto my-auto top-auto py-4 px-8 rounded">
-            <div>
-                <h3>Change Avatar</h3>
+            <div class="flex flex-row items-center mb-2">
+                <h3 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl mr-4">Change Avatar</h3>
                 <i class="pi pi-times" @click="()=>emit('modal-close')"></i>
             </div>
             <div>
                 <input class="block" type="file" accept="image/png, image/jpeg" @change="convertToBase64">
-                <img v-if="showImage" :src="avatar.data" alt="New user profile">
+                <div class="container w-fit min-w-48 min-h-52 flex flex-col justify-center items-center">
+                    <img v-if="showImage" :src="avatar.data" alt="New user profile">
+                </div>
             </div>
-        <button @click="handleChangeAvatar">Confirm</button>
+        <button class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
+        font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white hover:cursor-pointer" @click="handleChangeAvatar">Confirm</button>
 
         </div>
     </div>

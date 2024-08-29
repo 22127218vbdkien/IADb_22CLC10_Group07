@@ -51,11 +51,11 @@
 </script>
 
 <template>
-    <div>
+    <div class="card-container hover:border-blue-600 hover:border-4 hover:border-dashed w-40 px-1 py-2">
         <RouterLink :to="`/animes/${animeState.property.id}/`">
             <div>
             <img :src="animeState.property.cover_img_large" alt="Anime Image"/>
-            <div>{{ animeState.romaji_title }}</div>
+            <div class="text-sm mt-1">{{ animeState.romaji_title }}</div>
             </div>
         </RouterLink>
         

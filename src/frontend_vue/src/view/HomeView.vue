@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    Home View    
+    <!-- Home View    
         <div class="section">
             <div class="watching">
                 <h1 class ="split">Your Watching</h1>
@@ -75,5 +75,5 @@
                     <div class="pixel"><img src="ex.png"></div>
                 </div>
             </div>
-        </div>
+        </div> -->
 </template>

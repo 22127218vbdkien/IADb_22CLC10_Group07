@@ -38,7 +38,7 @@ class ThreadViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if self.action == 'list':
             return Thread.objects.all().order_by('updated_at').prefetch_related('owner_id')
-        if self.action in ['retrieve', 'update', 'partial_update']:
+        if self.action in ['retrieve', 'update', 'partial_update', 'destroy']:
             return Thread.objects.all().prefetch_related('comment_set')
 
     def perform_create(self, serializer):

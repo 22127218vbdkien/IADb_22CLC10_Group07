@@ -247,7 +247,8 @@ watch(() => _route.query, async (query) => {
 
     } catch(error){
         console.log(error)
-    }}) 
+    }}
+) 
 
 
 </script>

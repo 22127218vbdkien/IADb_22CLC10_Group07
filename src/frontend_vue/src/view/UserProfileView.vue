@@ -169,6 +169,25 @@ const isChangingAvatar = ref(false)
 const toggleChangeAvatar = () =>{
     isChangingAvatar.value = !isChangingAvatar.value
 }
+
+const handleRemoveAvatar = async () => {
+    userProfile.profile.avatar = null
+    try{
+        const response = await axios.put(userProfile.profile.url, 
+            userProfile.profile, {
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `token ` + stateAuth.userAuth.token
+            }
+            })
+        if (response.status === 200 || response.status === 201)
+            alert('Change suscessfully')
+            _router.push('/profile/')
+        console.log(response)
+    }catch(error){
+        console.log(error)
+    }
+}
 </script>
 
 <template>
@@ -179,7 +198,9 @@ const toggleChangeAvatar = () =>{
         <img v-if="userProfile.profile.avatar" :src="`${userProfile.profile.avatar}`" alt="userAvatar">
         <img v-else src="../assets/default_ava.png"  alt="default Avatar">
     </div>
-    <button @click="toggleChangeAvatar">Click to change Avatar</button>
+    <button @click="toggleChangeAvatar">Change Avatar</button>
+    <button @click="handleRemoveAvatar">Remove Avatar</button>
+
     <RouterLink to="/change-password/" class="hover:text-blue-500 text-black">Change your password</RouterLink>
 </div>
 <div id="new-avatar">

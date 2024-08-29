@@ -231,6 +231,9 @@ const handleAddAnimeToCollection = async () => {
                     "Authorization": `token ` + stateAuth.userAuth.token
                 }
                 })
+            if (response.status === 200 || response.status === 201 || response.status === 202)
+                alert('Add successfuly !!!')
+            emit('modal-close')
             console.log(response)
         }catch(error){
             console.log(error)
@@ -255,6 +258,9 @@ const handleUpdateAnimeInCollection = async () =>{
                 "Authorization": `token ` + stateAuth.userAuth.token
             }
             })
+        if (response.status === 200 || response.status === 201 || response.status === 202)
+            alert('Update successfuly !!!')
+        emit('modal-close')
         console.log(response)
     }catch(error){
         console.log(error)

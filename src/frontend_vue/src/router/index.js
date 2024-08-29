@@ -14,6 +14,7 @@ import UserProfileView from "@/view/UserProfileView.vue";
 import ChangePasswordView from "@/view/authentication/ChangePasswordView.vue";
 import ForumView from "@/view/forum/ForumView.vue";
 import ThreadView from "@/view/forum/ThreadView.vue";
+import StudioView from "@/view/StudioView.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -86,7 +87,12 @@ const router = createRouter({
             path: '/forum/',
             name: 'forum',
             component: ForumView
-        }, 
+        },
+        {
+            path: '/studio/:id/',
+            name: 'studio-view',
+            component: StudioView
+        },
         {
             path: '/:catchAll(.*)',
             name: 'not-found',

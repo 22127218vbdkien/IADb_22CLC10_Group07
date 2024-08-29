@@ -29,3 +29,4 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
         model = Comment
         fields = [field.name for field in model._meta.fields]
         fields += ['url']
+        read_only_fields = ['user_id']

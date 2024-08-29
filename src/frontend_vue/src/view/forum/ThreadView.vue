@@ -5,6 +5,7 @@ import axios from 'axios';
 import { userState } from '@/store/userStore';
 import { apiURL } from '@/searchService/apiSearch';
 import CommentCard from '@/components/comment/CommentCard.vue';
+import { comment } from 'postcss';
 const stateAuth = userState()
 const _router = useRouter()
 const _route = useRoute()
@@ -53,8 +54,28 @@ onMounted(async () => {
     }
 })
 
-const handleComment = () => {
-    console.log(commentThread)
+const handleComment = async () => {
+    if (commentThread.content.length > 0){
+        try{
+            const response = await axios.post('/api/comments/', commentThread, {
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization" : `token ${stateAuth.userAuth.token}`
+                }
+            }).catch((error) => {
+                return error.response
+            })
+            if (response.status === 200 || response.status === 201){
+                alert('Create successfuly')
+            }
+            else{
+                alert('Can not create')
+            }
+        }catch(error){
+            console.log(error)
+        }
+    }   
+        
 }
 </script>
 
@@ -68,9 +89,12 @@ const handleComment = () => {
             <div id="time">{{ thread.content.created_at || "Time created" }}</div>
         </div>
         </div>
-        <div id="body">
-            {{ thread.content.body }}
+        <div id="body-edit">
+            <div id="body">
+                {{ thread.content.body }}
+            </div>
         </div>
+        
         <div id="footer">
             <div id="views">
                 <i class="pi pi-eye"></i>
@@ -87,7 +111,7 @@ const handleComment = () => {
         <div id="reply-form">
             <form>
                 <textarea name="reply" id="reply" v-model="commentThread.content"></textarea>
-                <button @click="handleComment"></button>
+                <button type=submit @click.prevent="handleComment">Post</button>
             </form>
         </div>
     </div>

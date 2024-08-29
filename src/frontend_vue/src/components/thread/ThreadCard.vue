@@ -7,6 +7,13 @@ const props = defineProps({
     thread: Object
 })
 
+
+const displayBody = computed(() => {
+    let description = props.thread.body;
+    if (description.length > 150)
+        description = description.substring(0, 150) + '...';
+    return description;
+})
 </script>
 
 <template>
@@ -21,7 +28,7 @@ const props = defineProps({
         </div>
         </div>
         <div id="body">
-
+            {{displayBody}}
         </div>
         <div id="footer">
             <div id="views">

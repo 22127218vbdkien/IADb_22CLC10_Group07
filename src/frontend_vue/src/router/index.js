@@ -13,7 +13,7 @@ import SignUpView from "@/view/authentication/SignUpView.vue";
 import UserProfileView from "@/view/UserProfileView.vue";
 import ChangePasswordView from "@/view/authentication/ChangePasswordView.vue";
 import ForumView from "@/view/forum/ForumView.vue";
-
+import ThreadView from "@/view/forum/ThreadView.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -76,6 +76,11 @@ const router = createRouter({
             path: '/change-password/',
             name: 'change-password',
             component: ChangePasswordView
+        },
+        {
+            path: '/thread/:id/',
+            name: 'thread-view',
+            component: ThreadView
         },
         {
             path: '/forum/',

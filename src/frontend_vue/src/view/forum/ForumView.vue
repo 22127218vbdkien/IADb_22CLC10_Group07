@@ -1,13 +1,14 @@
 <script setup>
-import { onMounted, reactive, watch } from 'vue';
+import {ref, onMounted, reactive, watch } from 'vue';
 import PaginationBar from '@/components/PaginationBar.vue';
 import SearchBar from '@/components/search_filter/SearchBar.vue';
 import parseParams from '@/searchService/apiSearch';
 import { userState } from '@/store/userStore';
 import { useRouter } from 'vue-router';
 import ThreadCard from '@/components/thread/ThreadCard.vue';
+import ThreadPostBox from '@/components/thread/ThreadPostBox.vue';
 import axios from 'axios';
-const stateAuth = userState
+const stateAuth = userState()
 const _router = useRouter()
 const threads =  reactive({
     results:[]
@@ -21,6 +22,10 @@ const query = reactive({
     
 })
 
+const showPostThread = ref(false)
+const togglePostThread = () => {
+    showPostThread.value = !showPostThread.value
+}
 onMounted(async ()=>{
     query.content = _router.query
     try{
@@ -39,10 +44,10 @@ onMounted(async ()=>{
 
 </script>
 
-<template>
+<template>  
 
     <div id="add-thread">
-        <button>Add a thread</button>
+        <button @click="togglePostThread">Add a thread</button>
     </div>
 
     <div id="thread-section">
@@ -52,5 +57,5 @@ onMounted(async ()=>{
         </div>
         <div v-else> There is no thread to display</div>
     </div>
-   
+    <ThreadPostBox v-if="showPostThread" @modal-close="togglePostThread"></ThreadPostBox>
 </template>

@@ -35,7 +35,7 @@ const toPage = (event) => {
 <template>
     <div class="bar-wrapper">
         <span><i class="pi pi-angle-double-left  text-blue-500 hover:text-blue-100 hover:bg-blue-500"></i></span>
-        <span @click="toPage(value)" v-for="(value, index) in arrayRange(start, end, 1)" :key="index" class=" text-blue-500 hover:text-blue-100 hover:bg-blue-500 hover:cursor-pointer"> {{ value }}</span>
+        <span @click="toPage(value)" v-for="(value, index) in arrayRange(start, end, 1)" :key="index" class=" text-blue-500 hover:text-blue-50 hover:bg-blue-500 hover:cursor-pointer px-4 text-xl"> {{ value }}</span>
         <span><i class="pi pi-angle-double-right text-blue-500 hover:text-blue-100 hover:bg-blue-500"></i></span>
     </div>
 </template>

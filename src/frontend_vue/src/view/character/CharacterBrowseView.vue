@@ -102,14 +102,29 @@ watch( () => _route.query,
 </script>
 
 <template>
-    <div>
-        <SearchBar @sendChange="changeSearch" target="Character"></SearchBar>
-        <TagFilter @changeTagLists="changeTag" :options="orderingTags" filterName="Ordering"></TagFilter>
-        <button @click="handleQuery">Click to search</button>
+    <div class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2">
+        <div>
+            <SearchBar @sendChange="changeSearch" target="Character"></SearchBar>
+            <TagFilter @changeTagLists="changeTag" :options="orderingTags" filterName="Ordering"></TagFilter>
+        </div>
+        <div class="w-full flex-row-reverse flex">
+            <button @click="handleQuery" class="py-2 px-4 my-2 border-2 border-blue-500 bg-blue-100 rounded-xl hover:bg-blue-300 text-sm ">Click to search</button>
+        </div>
     </div>
-    <div id="character-frame">
-        <CharacterCard v-for="character in state.page.results" :key="character.id" :character="character"></CharacterCard>
-    </div>
-    <PaginationBar v-bind:_start="userQuery.content.page" v-bind:_limit="userQuery.limit" :key="userQuery.content.page" v-on:changePage="changePage"></PaginationBar>
+
+    <section class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2">
+        <div class="mb-4">
+            <h1 class="text-gray-700 font-bold text-2xl">
+                Character Section
+            </h1>
+        </div>
+        <div class="max-w-full flex items-center justify-between flex-col">
+            <div id="character-frame" class="grid grid-cols-5 max-w-5xl gap-x-10 gap-y-4 grid-flow-row">
+                <CharacterCard v-for="character in state.page.results" :key="character.id" :character="character"></CharacterCard>
+            </div>
+            <PaginationBar v-bind:_start="userQuery.content.page" v-bind:_limit="userQuery.limit" :key="userQuery.content.page" v-on:changePage="changePage"></PaginationBar>
+        </div>
+    </section>
+   
 
 </template>

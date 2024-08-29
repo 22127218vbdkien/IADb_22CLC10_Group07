@@ -254,23 +254,36 @@ watch(() => _route.query, async (query) => {
 </script>
 
 <template>
-    <SearchBar v-on:sendChange="changeSearch" target="Anime" class="px-7"></SearchBar>
-    
-    <div class="grid grid-cols-4 gap-0 px-7">
-        <TagFilter :options="animeTags" filterName="Tag" :isMultiple="true" v-on:changeTagLists="changeTags"></TagFilter>
-        <TagFilter :options="statusTags" filterName="Status" :isMultiple="false" v-on:changeTagLists="changeStatus"></TagFilter>
-        <TagFilter :options="studioTags" filterName="Studio" :isMultiple="true" v-on:changeTagLists="changeStudio"></TagFilter>
-        <TagFilter :options="formatTags" filterName="Format" :isMultiple="false" v-on:changeTagLists="chnageFormat"></TagFilter>
-        <TagFilter :options="sourceTags" filterName="Source" :isMultiple="false" v-on:changeTagLists="changeSource"></TagFilter>
-        <TagFilter :options="orderingTags" filterName="Ordering" :isMultiple="false" v-on:changeTagLists="changeOrdering"></TagFilter>
+    <section class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2">
+        <SearchBar v-on:sendChange="changeSearch" target="Anime"></SearchBar>
+        <div class="grid grid-cols-4 gap-0">
+            <TagFilter :options="animeTags" filterName="Tag" :isMultiple="true" v-on:changeTagLists="changeTags"></TagFilter>
+            <TagFilter :options="statusTags" filterName="Status" :isMultiple="false" v-on:changeTagLists="changeStatus"></TagFilter>
+            <TagFilter :options="studioTags" filterName="Studio" :isMultiple="true" v-on:changeTagLists="changeStudio"></TagFilter>
+            <TagFilter :options="formatTags" filterName="Format" :isMultiple="false" v-on:changeTagLists="chnageFormat"></TagFilter>
+            <TagFilter :options="sourceTags" filterName="Source" :isMultiple="false" v-on:changeTagLists="changeSource"></TagFilter>
+            <TagFilter :options="orderingTags" filterName="Ordering" :isMultiple="false" v-on:changeTagLists="changeOrdering"></TagFilter>
 
-    </div>
+        </div>
+        <div class="w-full flex-row-reverse flex">
+            <button @click="handleQuery" class="py-2 px-4 my-2 border-2 border-blue-500 bg-blue-100 rounded-xl hover:bg-blue-300 text-sm " >Click to Search</button>
+        </div>
+    </section>
     
-    <div><button @click="handleQuery" class="py-2 px-4 my-2 border-2 border-blue-500 bg-blue-100 rounded-xl hover:bg-blue-300" >Click to Search and filter</button></div>
-
-    <div v-if="showAnime">
-        <AnimeCard v-for="item in state.page.results" :anime="item" :key="item.id"></AnimeCard>
-    </div>
-    <PaginationBar :_limit="userQuery.limit" :_start="userQuery.content.page" v-bind:key="userQuery.content.page" v-on:changePage="changePage"></PaginationBar>
+    <section class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2">
+        <div class="mb-4">
+            <h1 class="text-gray-700 font-bold text-2xl">
+                Anime Section
+            </h1>
+        </div>
+        <div class="max-w-full flex items-center justify-between flex-col">
+            <div v-if="showAnime" class="grid grid-cols-5 max-w-5xl gap-x-10 gap-y-4 grid-flow-row">
+                <AnimeCard v-for="item in state.page.results" :anime="item" :key="item.id"></AnimeCard>
+            </div>
+            <PaginationBar :_limit="userQuery.limit" :_start="userQuery.content.page" v-bind:key="userQuery.content.page" v-on:changePage="changePage"></PaginationBar>
+        </div>
+    </section>
+    
+   
     <!-- <button class="px-2 py-2">Click to search anime</button> -->
 </template>

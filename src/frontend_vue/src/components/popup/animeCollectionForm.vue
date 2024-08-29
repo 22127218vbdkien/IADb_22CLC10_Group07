@@ -3,67 +3,73 @@
     left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)]
     max-h-full bg-black bg-opacity-60 flex">
         <div class="p-4 w-full max-w-md max-h-full bg-blue-50 mx-auto my-auto top-auto py-4 px-8 rounded">
-            <div>
-                <h3>Add anime to collection</h3>
+            <div class="flex flex-row items-center mb-2">
+                <h3 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl mr-4" >Add anime to collection</h3>
                 <i class="pi pi-times" @click="()=>emit('modal-close')"></i>
             </div>
-            <div v-if="!isCollected">
+            <div v-if="!isCollected" >
                 <form>
-                    <div>
-                        <label for="is_favorite">Is Favorite</label>
+                    <div class="flex flex-row items-center mb-1">
+                        <label class="font-semibold block text-sm  mr-2 text-gray-900" for="is_favorite">Is Favorite</label>
                         <input id="is_favorite" type="checkbox" v-model="formInfo.content.is_favorite">
                     </div>
                     <div>
                         <TagFilter filter-name="list" :options="listName.choices" @change-tag-lists="updateList"></TagFilter>
                     </div>
                     <div>
-                        <label for="score">Score</label>
-                        <input id="score" type="number" min="0" max="100" v-model="formInfo.content.score">
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="score">Score</label>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="score" type="number" min="0" max="100" v-model="formInfo.content.score">
                     </div>
                     <div>
-                        <label for="progress">Progress</label>
-                        <input id="progress" type="number" min="0"  v-model="formInfo.content.progress">
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="progress">Progress</label>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="progress" type="number" min="0"  v-model="formInfo.content.progress">
                     </div>
                     <div>
-                        <label for="finish_date">Finish Date</label>
-                        <input id="finish_date" type="datetime-local" v-model="formInfo.content.finish_date">
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="finish_date">Finish Date</label>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="finish_date" type="datetime-local" v-model="formInfo.content.finish_date">
                     </div>
                     <div> 
-                        <label for="notes">Notes</label>
-                        <textarea id="notes" rows="4" cols="50"  v-model="formInfo.content.notes"></textarea>
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="notes">Notes</label>
+                        <textarea class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="notes" rows="4" cols="50"  v-model="formInfo.content.notes"></textarea>
 
                     </div>
-                    <button type="submit" @click.prevent="handleAddAnimeToCollection">Submit</button>
+                    <button type="submit" class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
+                    font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" @click.prevent="handleAddAnimeToCollection">Submit</button>
                 </form>
             </div>
             <div v-if="isCollected">
                 <form>
-                    <div>
-                        <label for="is_favorite">Is Favorite</label>
+                    <div class="flex flex-row items-center mb-1">
+                        <label class="font-semibold block mr-2 text-sm  text-gray-900" for="is_favorite">Is Favorite</label>
                         <input id="is_favorite" type="checkbox" v-model="animeInCollection.content.is_favorite">
                     </div>
                     <div>
                         <TagFilter filter-name="list" :options="listName.choices" :has-value="animeInCollection.content.in_list" @change-tag-lists="updateCollectedList"></TagFilter>
                     </div>
                     <div>
-                        <label for="score">Score</label>
-                        <input id="score" type="number" min="0" max="100" v-model="animeInCollection.content.score">
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="score">Score</label>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="score" type="number" min="0" max="100" v-model="animeInCollection.content.score">
                     </div>
                     <div>
-                        <label for="progress">Progress</label>
-                        <input id="progress" type="number" min="0"  v-model="animeInCollection.content.progress">
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="progress">Progress</label>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="progress" type="number" min="0"  v-model="animeInCollection.content.progress">
                     </div>
                     <div>
-                        <label for="finish_date">Finish Date</label>
-                        <input id="finish_date" type="datetime-local" v-model="animeInCollection.content.finish_date">
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="finish_date">Finish Date</label>
+                        <input class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="finish_date" type="datetime-local" v-model="animeInCollection.content.finish_date">
                     </div>
                     <div> 
-                        <label for="notes">Notes</label>
-                        <textarea id="notes" rows="4" cols="50"  v-model="animeInCollection.content.notes"></textarea>
+                        <label class="font-semibold block mb-1 text-sm  text-gray-900" for="notes">Notes</label>
+                        <textarea class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" id="notes" rows="4" cols="50"  v-model="animeInCollection.content.notes"></textarea>
 
                     </div>
-                    <button type="submit" @click.prevent="handleUpdateAnimeInCollection">Update</button>
-                    <button type="submit" class="text-red-600" @click.prevent="deleteAnimeInCollection">Delete</button>
+                    <div>
+                        <button class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
+                        font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" type="submit" @click.prevent="handleUpdateAnimeInCollection">Update</button>
+                        <button class="px-5 py-1 mt-2 mb-2 bg-red-300 text-red-600 border-2 border-blue-950
+                        font-bold rounded-xl  w-full min-w-fit hover:bg-red-600 hover:text-white" type="submit" @click.prevent="deleteAnimeInCollection">Delete</button>
+                    </div>
+                    
                 </form>
             </div>
             

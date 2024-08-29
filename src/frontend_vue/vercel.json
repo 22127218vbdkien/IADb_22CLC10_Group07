@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+        { "source": "/api/:path(.*)", "destination": "http://iadb-22clc10-group07.azurewebsites.net/:path" },
+        { "source": "/(.*)", "destination": "/index.html" }
+    ]
+}

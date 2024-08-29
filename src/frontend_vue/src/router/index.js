@@ -12,6 +12,8 @@ import StaffView from "@/view/staff/StaffView.vue";
 import SignUpView from "@/view/authentication/SignUpView.vue";
 import UserProfileView from "@/view/UserProfileView.vue";
 import ChangePasswordView from "@/view/authentication/ChangePasswordView.vue";
+import ForumView from "@/view/forum/ForumView.vue";
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes:[
@@ -75,6 +77,11 @@ const router = createRouter({
             name: 'change-password',
             component: ChangePasswordView
         },
+        {
+            path: '/forum/',
+            name: 'forum',
+            component: ForumView
+        }, 
         {
             path: '/:catchAll(.*)',
             name: 'not-found',

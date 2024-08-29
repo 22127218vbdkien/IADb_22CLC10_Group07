@@ -14,7 +14,6 @@ export default defineConfig({
     vue(),
     vueJsx(),
   ],
-  baseUrl: baseUrl,
   server:{
     port: 3030,
     proxy:{

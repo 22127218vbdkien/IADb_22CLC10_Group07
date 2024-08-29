@@ -121,7 +121,7 @@ const handleAddAnimeToCollection = async () => {
 }
 
 const updateList = (event) =>{
-    formInfo.in_list = event
+    formInfo.in_list = event[0]    
 }
 </script>
 

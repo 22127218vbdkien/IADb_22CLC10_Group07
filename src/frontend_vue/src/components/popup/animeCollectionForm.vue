@@ -204,6 +204,19 @@ const preprocess = () =>{
         formInfo.content.notes = null
 }
 
+const preprocessInCollection = () =>{
+    if (String(animeInCollection.content.in_list).length === 0 || !animeInCollection.content.in_list)
+        animeInCollection.content.in_list = null
+    if (String(animeInCollection.content.score).length === 0)
+        animeInCollection.content.score = null
+    if (String(animeInCollection.content.progress).length === 0)
+        animeInCollection.content.progress = null
+    if (String(animeInCollection.content.finish_date).length === 0)
+        animeInCollection.content.finish_date = null
+    if (String(animeInCollection.content.notes).length === 0)
+        animeInCollection.content.notes = null
+}
+
 const handleAddAnimeToCollection = async () => {
     preprocess()
     console.log((formInfo.content))
@@ -233,6 +246,7 @@ const updateList = (event) =>{
 }
 
 const handleUpdateAnimeInCollection = async () =>{
+    preprocessInCollection()
     try{
         const response = await axios.put(incollection_url.value, 
             animeInCollection.content, {

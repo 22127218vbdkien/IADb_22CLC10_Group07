@@ -28,7 +28,7 @@
                     <label for="finish_date">Finish Date</label>
                     <input id="finish_date" type="datetime-local" v-model="formInfo.finish_date">
                 </div>
-                <div>
+                <div> 
                     <label for="notes">Notes</label>
                     <textarea id="notes" rows="4" cols="50"  v-model="formInfo.notes"></textarea>
 
@@ -97,8 +97,22 @@ const formInfo = reactive({
     })
 })
 
+const preprocess = () =>{
+    if (String(formInfo.in_list).length === 0 || !formInfo.in_list)
+        formInfo.in_list = null
+    if (String(formInfo.score).length === 0)
+        formInfo.score = null
+    if (String(formInfo.progress).length === 0)
+        formInfo.progress = null
+    if (String(formInfo.finish_date).length === 0)
+        formInfo.finish_date = null
+    if (String(formInfo.notes).length === 0)
+        formInfo.notes = null
+}
+
 const handleAddAnimeToCollection = async () => {
-    console.log(JSON.stringify(formInfo))
+    preprocess()
+    console.log((formInfo))
     if (!stateAuth.isAuthenticated )
         alert('User is not logged in or missing credentials. Please log in!')    
     else if (stateAuth.userAuth.token){

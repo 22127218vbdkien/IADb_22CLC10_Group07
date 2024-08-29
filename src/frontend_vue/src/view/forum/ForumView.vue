@@ -5,6 +5,7 @@ import SearchBar from '@/components/search_filter/SearchBar.vue';
 import parseParams from '@/searchService/apiSearch';
 import { userState } from '@/store/userStore';
 import { useRouter } from 'vue-router';
+import ThreadCard from '@/components/thread/ThreadCard.vue';
 import axios from 'axios';
 const stateAuth = userState
 const _router = useRouter()
@@ -38,5 +39,17 @@ onMounted(async ()=>{
 </script>
 
 <template>
-    Forum View
+
+    <div id="add-thread">
+        
+    </div>
+
+    <div id="thread-section">
+        <h2>Thread section</h2>
+        <div id="thread-frame" v-if="threads.results.length > 0">
+            <ThreadCard v-for="item in threads.results" :key="item.id" :thread="item"></ThreadCard>
+        </div>
+        <div v-else> There is no thread to display</div>
+    </div>
+   
 </template>

@@ -15,6 +15,8 @@ from collection.permissions import *
 
 class FavoriteCharacterViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated or IsOwnerPermission]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=char_id__id']
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -31,6 +33,8 @@ class FavoriteCharacterViewSet(viewsets.ModelViewSet):
 
 class FavoriteStudioViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated or IsOwnerPermission]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=studio_id__id']
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -47,6 +51,8 @@ class FavoriteStudioViewSet(viewsets.ModelViewSet):
 
 class FavoriteStaffViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated or IsOwnerPermission]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=staff_id__id']
 
     def get_serializer_class(self):
         if self.action == 'list':

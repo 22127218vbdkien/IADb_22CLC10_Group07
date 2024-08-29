@@ -1,0 +1,313 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+.header-main{
+    width: 100%;
+    height: 60px;
+    background-color: lightblue;
+    display: flex;
+    position: absolute;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #888; 
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+/* Add margin to separate the navigation bar and the section */
+.header-main-logo{
+    width: fit-content;
+    height: 60px;
+    background-color: green;
+    display: flex;
+}
+
+.header-main-logo img{
+    height: 60px;
+    align-self: center;
+}
+
+.header-main-nav{
+    width: fit-content;
+    height: 60px;
+    background-color: lightblue;
+}
+
+.header-main-nav ul{
+    margin-left: 500px;
+    width: fit-content;
+}
+
+.header-main-nav ul li{
+    list-style: none;
+    display: inline-block;
+    line-height: 60px;
+    
+}
+
+.header-main-nav ul li a{
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-family: Arial;
+    padding: 0 20px;
+    color: #1e1e1e;
+}
+
+.header-main-nav ul li a:hover{
+    color: white;
+}
+
+.header-main-profile{
+    width: fit-content;
+    height: 100%;
+    background-color: red;
+    padding-right: 100px;
+    display: flex;
+    /* align-items: center; */
+}
+
+.header-main a.split {
+    float: right;
+    background-color: #04AA6D;
+    color: white;
+}
+
+:root {
+    --rad: .7rem;
+    --dur: .3s;
+    --color-white: #ffffff;
+    --color-light: #fff;
+    --color-brand: #57bd84;
+    --color-blue: lightblue;
+    --font-fam: 'Lato', sans-serif;
+    --height: 3rem;
+    --btn-width: 5rem;
+    --bez: cubic-bezier(0, 0, 0.43, 1.49);
+}
+  
+/* Setup */
+body {
+    background: var(--color-white); 
+    display: flex; 
+    justify-content: center; 
+    min-height: 100vh;
+      
+}
+
+html {box-sizing: border-box; height: 100%; font-size: 10px;} *, *::before, *::after { box-sizing: inherit; }
+  
+/* Main styles */
+
+form {
+    position: relative;
+    width: 25rem;
+    background: var(--color-blue);
+    border-radius: var(--rad);
+    align-self: center;
+    line-height: 60px;
+}
+
+input, button {
+    height: var(--height);
+    font-family: var(--font-fam);
+    border: 0;
+    color: var(--color-dark);
+    font-size: 1.65rem;
+    
+}
+
+input[type="search"] {
+    outline: 0;
+    width: 100%;
+    background: var(--color-light);
+    padding: 0 1.7rem;
+    border-radius: var(--rad);
+    appearance: none; /*for iOS input[type="search"] roundedness issue. border-radius alone doesn't work*/
+    transition: all var(--dur) var(--bez);
+    transition-property: width, border-radius;
+    z-index: 1;
+    position: relative;
+}
+
+button {
+    display: none; /*prevent being able to tab to it*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--btn-width);
+    font-weight: bold;
+    background: var(--color-brand);
+    border-radius: 0 var(--rad) var(--rad) 0;
+    
+}
+
+label {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    
+}
+
+.section{
+    background-color: cornflowerblue;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.watching {
+    width: 100%;
+    
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+    font-size: 15;
+    text-align: left;
+    background-color: red;
+    
+    padding: 10px;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    min-height: 50px;
+}
+
+.watching h1:hover{
+    color: white;
+}
+
+.trending-anime {
+    width: 100%;
+    
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+    font-size: 15;
+    text-align: left;
+    background-color: red;
+    
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    min-height: 50px;
+}
+
+.trending-anime h1:hover{
+    color: white;
+}
+
+.new-anime {
+    width: 100%;
+    
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+    font-size: 15;
+    text-align: left;
+    background-color: red;
+    
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    min-height: 50px;
+}
+
+.popular-anime {
+    width: 100%;
+    
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+    font-size: 15;
+    text-align: left;
+    background-color: red;
+    
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    min-height: 50px;
+}
+
+.box{
+    display: flex;
+    justify-content: space-evenly;
+}
+.row{
+    display:flex
+    background-color
+}
+.box1{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.box2{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.box3{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.box4{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+
+.box5{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+}
+

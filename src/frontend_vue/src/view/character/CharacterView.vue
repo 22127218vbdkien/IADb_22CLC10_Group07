@@ -117,22 +117,38 @@ onMounted(async () => {
 </script>
 
 <template>
-    <img :src="character.info.img_large" alt="character image">
-    <p>{{ character.info.name }}</p>
-    <div class="text-red-600"><i class="pi pi-heart"></i>{{ character.info.favorites || "No info" }}</div>
-    <button v-if="!isInCollection" @click.prevent="addCharacterToFavorite">Add to Favorite</button>
-    <button v-if="isInCollection" @click.prevent="removeCharacterFromFavorite">Remove from Favorite</button>
-
-    <nav>
+    <div class="flex items-start space-x-6 pl-96">
+        <img :src="character.info.img_large" alt="character image" class="w-48 h-64 object-cover">
+        <div class="pt-10">
+            <p class="text-2xl font-bold">{{ character.info.name }}</p>
+            <div class="text-red-600 pt-2">
+                <i class="pi pi-heart"></i> {{ character.info.favorites || "No info" }}
+            </div>
+            <button
+                class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                v-if="!isInCollection"
+                @click.prevent="addCharacterToFavorite">
+                Add to Favorite
+            </button>
+            <button
+                class="mt-4 bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                v-if="isInCollection"
+                @click.prevent="removeCharacterFromFavorite">
+                Remove from Favorite
+            </button>
+        </div>
+    </div>
+    
+    <br>
+    <nav class="text-center space-x-5 py-4">
         <a href="#details">Details</a>
         <a href="#in_animes">In animes</a>
     </nav>
     
-    <div id="details">
-        <div id="detail-frame">
+    <div id="details" class="py-8">
+        <div id="detail-frame" class="grid grid-cols-4 max-w-7xl mx-auto gap-x-14 gap-y-4 text-center grid-flow-row">
             <p><span>Gender: </span> {{ character.info.gender ||"No info" }}</p>
             <div>
-
                 <div>Description</div>
 
                 <div >
@@ -145,10 +161,10 @@ onMounted(async () => {
             <p><span>Age: </span> {{ character.info.age || "No info" }}</p>
         </div>
     </div>
-    
-    <div id="in_animes">
-        <div>In animes</div>
-        <div id="anime-frame" v-if="character.info.in_animes.length > 0">
+    <br>
+    <div id="in_animes" class="justify-center">
+        <div class="grid-cols-1 text-center items-center max-w-5xl mx-auto">In animes</div>
+        <div id="anime-frame" v-if="character.info.in_animes.length > 0" class="grid grid-cols-3 max-w-5xl mx-auto gap-x-10 gap-y-4 grid-flow-row">
             <div v-for="(item,index) in character.info.in_animes" :key="index">
                 <AnimeCard :anime="item.anime"></AnimeCard>
                 <p>{{ item.char_role || "Role info" }}</p>

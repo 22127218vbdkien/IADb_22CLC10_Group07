@@ -168,7 +168,7 @@
 
     <div id="character">
         <h3>Character</h3>
-        <div id="character-frame" v-if="animeState.property.characters">
+        <div id="character-frame" v-if="animeState.property.characters" >
             <div v-for="item in animeState.property.characters" :key="item.id">
                 <CharacterCard v-if="item.character" :character="item.character"></CharacterCard>
                 <StaffCard v-if="item.staff" :staff="item.staff"></StaffCard>

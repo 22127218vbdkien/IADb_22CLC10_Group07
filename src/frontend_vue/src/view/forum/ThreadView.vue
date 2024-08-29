@@ -136,58 +136,80 @@ const deleteThread = async () => {
 
 <template>
 
-    <div id="thread-area">
-        <div id="header">
-        <div id="userinfo">
-            {{ thread.content.owner.username || "Username" }}
-            <div v-if="currentUserName === thread.content.owner.username"> 
-                <span @click="toggleEdit" class="textlink">Edit</span> 
-                <span  @click="deleteThread" class="textlink">Delete</span> 
+    <section class=" border-gray-500 min-w-96 max-w-5xl mx-auto mt-10 flex flex-col justify-center items-center">
+        <div class="mb-4">
+            <h1 class="text-gray-700 font-bold text-2xl">
+                Thread Content
+            </h1>
+        </div>
+        <section id="thread-area" class="p-1 rounded-md border-2 border-gray-500 w-full max-w-xl mx-auto  mt-4">
+            
+            <div id="header" class="flex flex-col">
+                <div id="userinfo" class="flex-row justify-between flex items-center" >
+                    <div id="title" class="text-gray-800 font-semibold">{{ thread.content.title || "Thread title" }}</div>
+                    <div v-if="currentUserName === thread.content.owner.username"> 
+                        <span class="hover:text-blue-600 hover:cursor-pointer mr-2 px-1" @click="toggleEdit">Edit</span> 
+                        <span class="hover:text-red-600 hover:cursor-pointer px-1"   @click="deleteThread">Delete</span> 
+                    </div>
+                </div>
+                <div id="title-time" class="w-full font-medium text-gray-500 flex-row justify-between flex items-center">
+                    <div> {{ thread.content.owner.username || "Username" }} </div>
+                    <div id="time">{{ thread.content.created_at || "Time created" }}</div>
+                </div>
             </div>
-        </div>
-        <div id="title-time">
-            <div id="title">{{ thread.content.title || "Thread title" }}</div>
-            <div id="time">{{ thread.content.created_at || "Time created" }}</div>
-        </div>
-        </div>
-        <div id="body-edit">
-            <div v-if="!isEditing" id="body">
-                {{ thread.content.body }}
+            <div id="body-edit" class="p-1 rounded-md border border-gray-500 px-1">
+                <div v-if="!isEditing" id="body">
+                    {{ thread.content.body }}
+                </div>
+                <div v-if="isEditing">
+                    <textarea class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" rows="5" cols="40"  name="edit" id="edit" v-model="editContent.content"></textarea>
+                    <button class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
+                    font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" @click="editThread">Confirm</button>
+                    <button class="px-5 py-1 mt-2 mb-2 bg-red-300 text-red-600 border-2 border-red-950
+                    font-bold rounded-xl  w-full min-w-fit hover:bg-red-800 hover:text-white" @click="toggleEdit">Cancel</button>
+                </div>
             </div>
-            <div v-if="isEditing">
-                <textarea name="edit" id="edit" v-model="editContent.content"></textarea>
-                <button @click="editThread">Confirm</button>
-                <button @click="toggleEdit">Cancel</button>
+            
+            <div id="footer" class="w-full font-medium text-gray-500 flex-row flex items-center">
+                <div id="views" class="px-1 py-1">
+                    <i class="pi pi-eye"></i>
+                    {{ thread.content.view_count || "Views" }}
+                </div>
+                <div id="views" class="px-1 py-1">
+                    <i class="pi pi-comment"></i>
+                    {{ thread.content.comment_count || "Comment" }}
+                </div>
             </div>
-        </div>
-        
-        <div id="footer">
-            <div id="views">
-                <i class="pi pi-eye"></i>
-                {{ thread.content.view_count || "Views" }}
-            </div>
-            <div id="views">
-                <i class="pi pi-comment"></i>
-                {{ thread.content.comment_count || "Comment" }}
-            </div>
-        </div>
-    </div>
-    <div id="reply-box">
-        <h2>Post a Reply</h2>
-        <div id="reply-form">
-            <form>
-                <textarea name="reply" id="reply" v-model="commentThread.content"></textarea>
-                <button type=submit @click.prevent="handleComment">Post</button>
-            </form>
-        </div>
-    </div>
+        </section>
 
-    <div id="comment-area">
-        <h2>Comment Section</h2>
-        <div id="comment-frame" v-if="thread.content.comments.length > 0">
-            <CommentCard v-for="item in thread.content.comments" :key="item.id" :thread-url="thread.content.url" :info="item"></CommentCard>
+        <div id="reply-box" class="mt-10 mw">
+            <h2 class="font-semibold block mb-1 text-sm  text-gray-900" >Post a Reply</h2>
+            <div id="reply-form">
+                <form>
+                    <textarea class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none focus:ring-0 focus:border-gray-600" rows="5" cols="40" name="reply" id="reply" v-model="commentThread.content"></textarea>
+                    <button class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
+                    font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" type=submit @click.prevent="handleComment">Post</button>
+                </form>
+            </div>
         </div>
-    </div>
+        <div class="mb-4 mt-4">
+                <h1 class="text-gray-700 font-bold text-2xl">
+                    Comment
+                </h1>
+        </div>
+        <section class="mt-4 w-full max-w-xl">
+            
+            <div id="comment-area">
+                <div id="comment-frame" v-if="thread.content.comments.length > 0">
+                    <CommentCard v-for="item in thread.content.comments" :key="item.id" :thread-url="thread.content.url" :info="item"></CommentCard>
+                </div>
+            </div>
+        </section>
+    </section>
+    
+    
+
+    
 
 
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, onMounted, reactive} from 'vue';
+import { ref, defineProps, onMounted, reactive, computed} from 'vue';
 import { userState } from '@/store/userStore';
 import axios from 'axios';
 const stateAuth = userState()
@@ -109,6 +109,10 @@ const toggleEdit = () => {
     isEditing.value = !isEditing.value
 }
 
+const isReplying = ref(false)
+const toggleReply  = () => {
+    isReplying.value = ! isReplying.value
+}
 const editComment = async () => {
     if (editContent.content.length > 0){
         currentComment.data.content = editContent.content
@@ -150,47 +154,66 @@ const deleteComment = async () => {
         console.log(error)
     }
 }
+
+const getRepliedContent = computed(() => {
+    let description = repliedComment.data.content
+    description = description.substring(0, 20) + '...';
+    return description;
+})
 </script>
 
 <template>
-    <div class="px-2 py-1 border-2 border-blue-500 mx-auto my-2 max-w-sm">
+    <div class="px-2 py-1 border-2 border-gray-500 border-dashed mx-auto my-2 max-w-sm">
         <div id="thread-area">
         <div id="header">
-            <div id="userinfo">
+            <div id="userinfo" class="w-full font-medium text-gray-500 flex-row justify-between flex items-center">
                 {{ comment.info.user.username || "Username" }} 
                 <div v-if="currentUserName === comment.info.user.username"> 
-                    <span @click="toggleEdit" class="textlink">Edit</span> 
-                    <span  @click="deleteComment" class="textlink">Delete</span> 
+                    <span  @click="toggleEdit" class="hover:text-blue-600 hover:cursor-pointer mr-2 px-1">Edit</span> 
+                    <span  @click="deleteComment" class="hover:text-red-600 hover:cursor-pointer px-1">Delete</span> 
                 </div>
                 </div>
-            <div id="title-time">
+            <div id="title-time" class="w-full font-medium text-gray-500 flex-row justify-between flex items-center text-sm" >
                 <div id="time">{{ comment.info.created_at || "Time created" }}</div>
             </div>
-            <div v-if="comment.info.reply_to">Reply to: {{ repliedComment.content }}</div>
+            <div v-if="comment.info.reply_to" class="text-sm mt-1 mb-1 ">
+                <div> Reply to: </div>
+                
+                <div> {{ getRepliedContent }} </div>
+            </div>
         </div>
-        <div id="body-edit">
+        <div id="body-edit" class="p-1 rounded-md border border-gray-500 px-1">
             <div v-if="!isEditing" id="body">
                 {{ comment.info.content }}
             </div>
             <div v-if="isEditing" id="edit">
-                <textarea name="edit" id="edit" v-model="editContent.content"></textarea>
-                <button @click="editComment">Confirm</button>
-                <button @click="toggleEdit">Cancel</button>
+                <textarea class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none
+                 focus:ring-0 focus:border-gray-600" rows="5" cols="40" name="edit" id="edit" v-model="editContent.content"></textarea>
+                <button class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
+                font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" @click="editComment">Confirm</button>
+                <button  class="px-5 py-1 mt-2 mb-2 bg-red-300 text-red-600 border-2 border-red-950
+                font-bold rounded-xl  w-full min-w-fit hover:bg-red-800 hover:text-white" @click="toggleEdit">Cancel</button>
             </div>
         </div>
         
-        <div id="footer">
-           <div>reply</div>
-        </div>
-        </div>
-        <div id="reply-box">
+        <div id="footer" class="mt-1">
+           <div v-if="!isReplying" @click="toggleReply" class="hover:text-blue-600 hover:cursor-pointer mr-2 px-1">reply</div>
+           <div v-if="isReplying" id="reply-box">
             <div id="reply-form">
                 <form>
-                    <textarea name="reply" id="reply" v-model="replyComment.content"></textarea>
-                    <button @click.prevent="handleReply">Post</button>
+                    <textarea class="border rounded-xl w-full text-base px-2 py-1 focus: shadow-blue-500 focus:outline-none
+                    focus:ring-0 focus:border-gray-600" rows="5" cols="40" name="reply" id="reply" v-model="replyComment.content"></textarea>
+                    <button  class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
+                    font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" @click.prevent="handleReply">Post</button>
+                    <button class="px-5 py-1 mt-2 mb-2 bg-red-300 text-red-600 border-2 border-red-950
+                    font-bold rounded-xl  w-full min-w-fit hover:bg-red-800 hover:text-white" @click.prevent="toggleReply">Cancel</button>
+
                 </form>
             </div>
         </div>
+        </div>
+        </div>
+        
     </div>
     
 </template>

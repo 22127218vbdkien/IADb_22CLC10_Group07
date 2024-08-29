@@ -286,6 +286,7 @@ const deleteAnimeInCollection = async () => {
             })
         if (response.status === 200 || response.status === 202 || response.status === 204 )
             alert('Remove from collection!!!')
+        emit('modal-close')
     }catch(error){
         console.log(error)
     }

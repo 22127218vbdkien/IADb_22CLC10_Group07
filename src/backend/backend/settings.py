@@ -92,7 +92,7 @@ DATABASES = {
     'default':{
         'ENGINE':'mssql',         # Must be "mssql"
         'NAME':'djangorest', # DB name
-        'HOST':'LAPTOP-ONJ8RFFS', # <server>\<instance>
+        'HOST':'DESKTOP-Q8RT6LN', # <server>\<instance>
         'PORT':'',                           
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',

@@ -26,17 +26,22 @@
     const props = defineProps({
         options: Array,
         filterName: String, 
-        isMultiple: Boolean
+        isMultiple: Boolean,
+        hasValue: String,
     })
     const selectedOption = ref([])
+    const selectedOptionDisplay = ref([])
     const visibleDropdown = ref(false)
+    
     const toggleSelection = (option) =>{
         if (props.isMultiple){
             const index = selectedOption.value.indexOf((option.id || option.query))
             if (index > -1){
                 selectedOption.value.splice(index, 1)
+                selectedOptionDisplay.value.splice(index, 1); 
             }
             else {
+                selectedOptionDisplay.value.push((option.name)); 
                 selectedOption.value.push((option.id || option.query)); 
             }
         }
@@ -44,18 +49,24 @@
             const index = selectedOption.value.indexOf((option.id || option.query))
             if (index > -1){
                 selectedOption.value.splice(index, 1)
+                selectedOptionDisplay.value.splice(index, 1); 
+
             }
             else {if (selectedOption.value.length > 0){
                 selectedOption.value.splice(0, 1)
+                selectedOptionDisplay.value.splice(0, 1); 
                 
+                }
+                selectedOptionDisplay.value.push((option.name)); 
+                selectedOption.value.push((option.id || option.query)); 
             }
-            selectedOption.value.push((option.id || option.query)); }
             
         }
         emit('changeTagLists', selectedOption.value)
 
         
     }
+
     const isNotSensitive = (option) => {
         if (props.filterName.toUpperCase() === "TAG"){
             console.log("Hello")
@@ -63,7 +74,10 @@
         return true
     }
     const getSelectedValue = computed(() =>{
-        return (selectedOption.value?.name || selectedOption.value || 'Select sth' )
+        if (selectedOptionDisplay.value.length > 0 || !props.hasValue)
+            return (selectedOptionDisplay.value?.name || selectedOptionDisplay.value || 'Select sth' )
+        else   
+            return props.hasValue
     })
 
     const toggleDropdown = () => {

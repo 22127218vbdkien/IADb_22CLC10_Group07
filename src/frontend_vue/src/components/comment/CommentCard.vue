@@ -77,6 +77,10 @@ onMounted(async () => {
     }
 })
 
+const editContent = reactive({
+    content: currentComment.data.content
+})
+
 const handleReply = async () =>{
     if (replyComment.content.length > 0){
         try{
@@ -101,11 +105,29 @@ const handleReply = async () =>{
 }
 const isEditing = ref(false)
 const toggleEdit = () => {
+    editContent.content = currentComment.data.content
     isEditing.value = !isEditing.value
 }
 
-const editComment = () => {
-    console.log(currentComment.data.content)
+const editComment = async () => {
+    if (editContent.content.length > 0){
+        currentComment.data.content = editContent.content
+        try{
+        const response = await axios.put(comment.info.url, currentComment.data ,{
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization" : `token ${stateAuth.userAuth.token}`
+            }
+        }).catch((error) => {
+            return error.response
+        })
+        console.log(response)
+       
+    }catch(error){
+        console.log(error)
+    }
+    }
+    
 }
 
 const deleteComment = async () => {
@@ -134,8 +156,12 @@ const deleteComment = async () => {
     <div class="px-2 py-1 border-2 border-blue-500 mx-auto my-2 max-w-sm">
         <div id="thread-area">
         <div id="header">
-            <div id="userinfo">{{ comment.info.user.username || "Username" }} 
-                <div v-if="currentUserName === comment.info.user.username"> <span @click="toggleEdit" class="textlink">Edit</span> <span  @click="deleteComment" class="textlink">Delete</span> </div>
+            <div id="userinfo">
+                {{ comment.info.user.username || "Username" }} 
+                <div v-if="currentUserName === comment.info.user.username"> 
+                    <span @click="toggleEdit" class="textlink">Edit</span> 
+                    <span  @click="deleteComment" class="textlink">Delete</span> 
+                </div>
                 </div>
             <div id="title-time">
                 <div id="time">{{ comment.info.created_at || "Time created" }}</div>
@@ -147,7 +173,7 @@ const deleteComment = async () => {
                 {{ comment.info.content }}
             </div>
             <div v-if="isEditing" id="edit">
-                <textarea name="edit" id="edit" v-model="currentComment.data.content"></textarea>
+                <textarea name="edit" id="edit" v-model="editContent.content"></textarea>
                 <button @click="editComment">Confirm</button>
                 <button @click="toggleEdit">Cancel</button>
             </div>

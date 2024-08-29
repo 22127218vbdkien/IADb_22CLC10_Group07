@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, watch} from 'vue';
+import { computed, onMounted, reactive, ref} from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from 'axios';
 import { userState } from '@/store/userStore';
@@ -10,6 +10,7 @@ const stateAuth = userState()
 const _router = useRouter()
 const _route = useRoute()
 const thread_id = _route.params.id 
+const currentUserName = stateAuth.userAuth.user.username
 
 const thread = reactive({
     content:{
@@ -26,6 +27,10 @@ const thread = reactive({
     }
 })
 
+
+const editContent = reactive({
+    data:"",
+})
 const commentThread = reactive({
     thread_id: computed(() => {return apiURL() + `/threads/${thread_id}/`}),
     reply_to: null,
@@ -77,21 +82,82 @@ const handleComment = async () => {
     }   
         
 }
+
+const isEditing = ref(false)
+const toggleEdit = () => {
+    editContent.content = thread.content.body
+    isEditing.value = !isEditing.value
+}
+
+
+const editThread = async () => {
+    if (editContent.content.length > 0){
+        thread.content.body = editContent.content
+        try{
+        const response = await axios.put(thread.content.url, thread.content ,{
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization" : `token ${stateAuth.userAuth.token}`
+            }
+        }).catch((error) => {
+            return error.response
+        })
+        console.log(response)
+       
+    }catch(error){
+        console.log(error)
+    }
+    }
+    
+}
+
+const deleteThread = async () => {
+    const thread_url = apiURL() + `/threads/${thread_id}/`
+    try{
+        const response = await axios.delete(thread_url ,{
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization" : `token ${stateAuth.userAuth.token}`
+            }
+        }).catch((error) => {
+            return error.response
+        })
+        if (response.status === 204 || response.status === 201){
+            alert('Delete successfuly')
+        }
+        else{
+            alert('Can not delete')
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
 </script>
 
 <template>
 
     <div id="thread-area">
         <div id="header">
-        <div id="userinfo">{{ thread.content.owner.username || "Username" }}</div>
+        <div id="userinfo">
+            {{ thread.content.owner.username || "Username" }}
+            <div v-if="currentUserName === thread.content.owner.username"> 
+                <span @click="toggleEdit" class="textlink">Edit</span> 
+                <span  @click="deleteThread" class="textlink">Delete</span> 
+            </div>
+        </div>
         <div id="title-time">
             <div id="title">{{ thread.content.title || "Thread title" }}</div>
             <div id="time">{{ thread.content.created_at || "Time created" }}</div>
         </div>
         </div>
         <div id="body-edit">
-            <div id="body">
+            <div v-if="!isEditing" id="body">
                 {{ thread.content.body }}
+            </div>
+            <div v-if="isEditing">
+                <textarea name="edit" id="edit" v-model="editContent.content"></textarea>
+                <button @click="editThread">Confirm</button>
+                <button @click="toggleEdit">Cancel</button>
             </div>
         </div>
         

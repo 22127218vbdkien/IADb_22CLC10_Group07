@@ -1,16 +1,18 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import router from '@/router';
-import { onMounted, reactive, computed} from 'vue';
+import { onMounted, reactive, computed, ref} from 'vue';
 import axios from 'axios';
 import { userState } from '@/store/userStore';
 import { apiURL } from '@/searchService/apiSearch';
 import AnimeCard from '@/components/anime/AnimeCard.vue';
+import CharacterCard from '@/components/character/CharacterCard.vue';
 const _route = useRoute()
 const _router = useRouter()
 const char_id = _route.params.id
 const stateAuth = userState()
-
+const isInCollection = ref(false)
+const collectionURL = ref("")
 const character = reactive({
     info : {
         id: 0,
@@ -55,6 +57,29 @@ const addCharacterToFavorite = async () => {
         alert('User is not logged in or missing credentials. Please log in!')
     }
 }
+
+const removeCharacterFromFavorite = async () => {
+    console.log(collectionURL)
+    try{
+        const response = await axios.delete(collectionURL.value, {
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization" : `token ${stateAuth.userAuth.token}`
+            }
+        }).catch((error)=>{
+            return error.response
+        })
+        console.log(response)
+        if (response.status === 200 || response.status === 204 || response.status === 202){
+            alert('Remove successfuly')
+            isInCollection.value = false
+            collectionURL.value = ""
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
+
 onMounted(async () => {
     try{
         const response = await axios.get(`/api/characters/${char_id}/`)
@@ -63,14 +88,41 @@ onMounted(async () => {
     }catch(error){
         console.log(error)
     }
+    try{
+        const response = await axios.get('/api/favoritecharacters/', {
+            params: {
+                search: character.info.id
+            },
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization" : `token ${stateAuth.userAuth.token}`
+            }
+        }).catch((error)=>{
+            return error.response
+        })
+        console.log(response)
+        if (response.status === 200){
+            if (response.data['count'] > 0){
+                isInCollection.value = true
+                collectionURL.value = response.data['results'][0].url
+            }
+        }
+    }catch(error){
+        console.log(error)
+    }
 })
+
+
+
 </script>
 
 <template>
     <img :src="character.info.img_large" alt="character image">
     <p>{{ character.info.name }}</p>
     <div class="text-red-600"><i class="pi pi-heart"></i>{{ character.info.favorites || "No info" }}</div>
-    <button @click.prevent="addCharacterToFavorite">Add to Favorite</button>
+    <button v-if="!isInCollection" @click.prevent="addCharacterToFavorite">Add to Favorite</button>
+    <button v-if="isInCollection" @click.prevent="removeCharacterFromFavorite">Remove from Favorite</button>
+
     <nav>
         <a href="#details">Details</a>
         <a href="#in_animes">In animes</a>

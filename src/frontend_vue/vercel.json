@@ -6,7 +6,7 @@
 
     "redirects": [
     { 
-      "source": "/api/admin",
+      "source": "/admin",
       "destination": "http://iadb-22clc10-group07.azurewebsites.net/admin", 
       "permanent": true
     }

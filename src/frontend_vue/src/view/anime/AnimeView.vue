@@ -1,7 +1,7 @@
 <script setup>
     import router from '@/router';
     import { RouterLink,  useRoute, useRouter} from 'vue-router';
-    import {ref, onMounted, reactive } from 'vue';
+    import {ref, onMounted, reactive, watch } from 'vue';
     import { userState } from '@/store/userStore';
     import axios from 'axios';
     import animeCollectionForm from '@/components/popup/animeCollectionForm.vue';
@@ -58,7 +58,15 @@
             console.log(error)
         }
     })
-
+    watch(() => _route.params.id, async(newid) => {
+        try {
+            const response = await axios.get(`/api/animes/${newid}/`)
+            animeState.property = response.data
+            console.log( animeState.property )
+        } catch (error) {
+            console.log(error)
+        }
+    })
     const toggleCollectionForm = () =>{
         showform.value = !showform.value
     }

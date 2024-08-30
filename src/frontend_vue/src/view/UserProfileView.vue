@@ -195,8 +195,8 @@ const handleRemoveAvatar = async () => {
 <section id="user-profile" class="flex flex-col justify-center items-center max-w-5xl mx-auto mt-10">
     <div id="user-avatar" class="container w-fit min-w-32 min-h-40 flex flex-col justify-center items-center ">
         <h2 class="text-xl font-bold text-gray-500 mb-1">Profile</h2>
-        <img v-if="userProfile.profile.avatar" :src="`${userProfile.profile.avatar}`" alt="userAvatar">
-        <img v-else src="../assets/default_ava.png"  alt="default Avatar">
+        <img class="max-h-32" v-if="userProfile.profile.avatar" :src="`${userProfile.profile.avatar}`" alt="userAvatar">
+        <img class="max-h-32" v-else src="../assets/default_ava.png"  alt="default Avatar">
     </div>
     <div class="flex flex-col justify-center items-center">
         <h3 class="text-xl font-bold text-gray-500 mb-1">Option</h3>

@@ -66,7 +66,7 @@ const resetError = () => {
                     </div>
 
                     <button class="px-5 py-1 mt-2 mb-2 bg-blue-300 text-gray-900 border-2 border-blue-950
-                     font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" @click.prevent = "submitLogin" >Sign up ( •̀ ω •́ )✧</button>
+                     font-bold rounded-xl  w-full min-w-fit hover:bg-blue-800 hover:text-white" @click.prevent = "handleRegister" >Sign up ( •̀ ω •́ )✧</button>
                 </form>
                 <RouterLink class="mt-2 text-gray-600 hover:text-blue-500 hover:cursor-pointer" to="/login/">Sign in to your account <i class="pi pi-arrow-right"></i></RouterLink>
             </div>

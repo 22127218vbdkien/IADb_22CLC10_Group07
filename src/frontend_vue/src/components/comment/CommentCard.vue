@@ -3,7 +3,6 @@ import { ref, defineProps, onMounted, reactive, computed} from 'vue';
 import { userState } from '@/store/userStore';
 import axios from 'axios';
 const stateAuth = userState()
-const currentUserName = stateAuth.userAuth.user.username
 
 const comment = defineProps({
     info: Object,
@@ -50,7 +49,7 @@ onMounted(async () => {
         const response = await axios.get(comment.info.url, {
             headers:{
                 "Content-Type":"application/json",
-                "Authorization" : `token ${stateAuth.userAuth.token}`
+                // "Authorization" : `token ${stateAuth.userAuth.token}`
             }
         })
         if (response.status === 200 || response.status === 201){
@@ -65,7 +64,7 @@ onMounted(async () => {
             const response = await axios.get(comment.info.reply_to, {
                 headers:{
                     "Content-Type":"application/json",
-                    "Authorization" : `token ${stateAuth.userAuth.token}`
+                    // "Authorization" : `token ${stateAuth.userAuth.token}`
                 }
             })
             if (response.status === 200 || response.status === 201){
@@ -168,7 +167,7 @@ const getRepliedContent = computed(() => {
         <div id="header">
             <div id="userinfo" class="w-full font-medium text-gray-500 flex-row justify-between flex items-center">
                 {{ comment.info.user.username || "Username" }} 
-                <div v-if="currentUserName === comment.info.user.username"> 
+                <div v-if=" stateAuth.isAuthenticated && stateAuth.userAuth.user.username === comment.info.user.username"> 
                     <span  @click="toggleEdit" class="hover:text-blue-600 hover:cursor-pointer mr-2 px-1">Edit</span> 
                     <span  @click="deleteComment" class="hover:text-red-600 hover:cursor-pointer px-1">Delete</span> 
                 </div>
@@ -196,7 +195,7 @@ const getRepliedContent = computed(() => {
             </div>
         </div>
         
-        <div id="footer" class="mt-1">
+        <div v-if="stateAuth.isAuthenticated" id="footer" class="mt-1">
            <div v-if="!isReplying" @click="toggleReply" class="hover:text-blue-600 hover:cursor-pointer mr-2 px-1">reply</div>
            <div v-if="isReplying" id="reply-box">
             <div id="reply-form">

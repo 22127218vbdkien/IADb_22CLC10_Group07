@@ -31,7 +31,7 @@ const stateAuth = userState()
             hover:bg-blue-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer">Browse Character <i class="pi pi-arrow-right"></i></RouterLink>
             <RouterLink to="/staffs/" class="px-4 py-2 w-56 bg-blue-200 text-blue-800 border-blue-800
             hover:bg-blue-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer">Browse Staff <i class="pi pi-arrow-right"></i></RouterLink>
-            <RouterLink v-if="stateAuth.isAuthenticated" to="/forum/" class="px-4 py-2 w-56 bg-blue-200 text-blue-800 border-blue-800
+            <RouterLink  to="/forum/" class="px-4 py-2 w-56 bg-blue-200 text-blue-800 border-blue-800
             hover:bg-blue-400 max-w-80 rounded-xl border-2 text-center mt-2 hover:cursor-pointer">Browse Forum <i class="pi pi-arrow-right"></i></RouterLink>
         </div>
     </section>

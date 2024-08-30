@@ -10,7 +10,6 @@ const stateAuth = userState()
 const _router = useRouter()
 const _route = useRoute()
 const thread_id = _route.params.id 
-const currentUserName = stateAuth.userAuth.user.username
 
 const thread = reactive({
     content:{
@@ -37,32 +36,20 @@ const commentThread = reactive({
     content: ""
 })
 onMounted(async () => {
-    if (!stateAuth.isAuthenticated )
-        alert('User is not logged in or missing credentials. Please log in!')    
-    else if (stateAuth.userAuth.token){
-        try{
-            const response = await axios.get(`/api/threads/${thread_id}/`, {
-                headers:{
-                    "Content-Type":"application/json",
-                    "Authorization": `token ` + stateAuth.userAuth.token
-                }
-                })
+    try{
+            const response = await axios.get(`/api/threads/${thread_id}/`)
             if(response.status === 200 || response.status === 201)
                 thread.content = response.data
                 console.log(response)
         }catch(error){
             console.log(error)
-        }
-    }
-    else{
-        alert('User is not logged in or missing credentials. Please log in!')
     }
 })
 
 const handleComment = async () => {
     if (commentThread.content.length > 0){
         try{
-            const response = await axios.post('/api/comments/', commentThread, {
+            const response = await axios.post('/api/comments/', commentThread,  {
                 headers:{
                     "Content-Type":"application/json",
                     "Authorization" : `token ${stateAuth.userAuth.token}`
@@ -147,7 +134,7 @@ const deleteThread = async () => {
             <div id="header" class="flex flex-col">
                 <div id="userinfo" class="flex-row justify-between flex items-center" >
                     <div id="title" class="text-gray-800 font-semibold">{{ thread.content.title || "Thread title" }}</div>
-                    <div v-if="currentUserName === thread.content.owner.username"> 
+                    <div v-if="  stateAuth.isAuthenticated && stateAuth.userAuth.user.username === thread.content.owner.username"> 
                         <span class="hover:text-blue-600 hover:cursor-pointer mr-2 px-1" @click="toggleEdit">Edit</span> 
                         <span class="hover:text-red-600 hover:cursor-pointer px-1"   @click="deleteThread">Delete</span> 
                     </div>
@@ -182,7 +169,7 @@ const deleteThread = async () => {
             </div>
         </section>
 
-        <div id="reply-box" class="mt-10 mw">
+        <div v-if="stateAuth.isAuthenticated" id="reply-box" class="mt-10 mw">
             <h2 class="font-semibold block mb-1 text-sm  text-gray-900" >Post a Reply</h2>
             <div id="reply-form">
                 <form>

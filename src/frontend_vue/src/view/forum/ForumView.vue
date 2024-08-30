@@ -46,7 +46,7 @@ onMounted(async ()=>{
 
 <template>  
 
-    <section class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2 flex flex-col justify-center items-center">
+    <section v-if="stateAuth.isAuthenticated" class="max-w-6xl mx-auto mt-10 mb-4 px-4 py-2 flex flex-col justify-center items-center">
         <h1 class="text-gray-700 font-bold text-xl">
                 Post a thread now ヾ(≧▽≦*)o
         </h1>

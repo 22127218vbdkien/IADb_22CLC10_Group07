@@ -215,7 +215,7 @@ const handleRemoveAvatar = async () => {
 
 <nav class="w-full flex flex-row justify-evenly items-center border-y-2 border-blue-500 my-5">
     <a href="#collection">Collection</a>
-    <a href="#favorite">Fovorite</a>
+    <a href="#favorite">Favorite</a>
 </nav>
 
 

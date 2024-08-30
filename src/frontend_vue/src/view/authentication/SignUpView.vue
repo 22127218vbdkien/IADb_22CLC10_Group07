@@ -49,7 +49,7 @@ const resetError = () => {
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div class="flex flex-col items-center bg-white w-full max-w-2xl py-4 rounded-3xl shadow-lg">
                 <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl mb-4">
-                  Sign in to your account
+                  Create your account
                 </h1>
                 <form class="space-y-4 md:space-y-6 max-w-3xl">
                     <div>

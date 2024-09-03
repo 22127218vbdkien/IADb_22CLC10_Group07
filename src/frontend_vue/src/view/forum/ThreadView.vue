@@ -40,7 +40,6 @@ onMounted(async () => {
             const response = await axios.get(`/api/threads/${thread_id}/`)
             if(response.status === 200 || response.status === 201)
                 thread.content = response.data
-                console.log(response)
         }catch(error){
             console.log(error)
     }
@@ -89,7 +88,6 @@ const editThread = async () => {
         }).catch((error) => {
             return error.response
         })
-        console.log(response)
        
     }catch(error){
         console.log(error)

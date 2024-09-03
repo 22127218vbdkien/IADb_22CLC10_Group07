@@ -68,9 +68,6 @@
     }
 
     const isNotSensitive = (option) => {
-        if (props.filterName.toUpperCase() === "TAG"){
-            console.log("Hello")
-        }
         return true
     }
     const getSelectedValue = computed(() =>{

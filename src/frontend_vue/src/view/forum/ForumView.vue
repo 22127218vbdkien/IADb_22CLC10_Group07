@@ -36,7 +36,6 @@ onMounted(async ()=>{
             }
         )
         threads.results = response.data['results']
-        console.log(response)
     }catch(error){
         console.log(error)
     }

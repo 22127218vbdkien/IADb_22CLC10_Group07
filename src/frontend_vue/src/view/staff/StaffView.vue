@@ -64,7 +64,6 @@ const addStaffToFavorite = async () => {
 }
 
 const removeStaffFromFavorite = async () => {
-    console.log(collectionURL)
     try{
         const response = await axios.delete(collectionURL.value, {
             headers:{
@@ -74,7 +73,6 @@ const removeStaffFromFavorite = async () => {
         }).catch((error)=>{
             return error.response
         })
-        console.log(response)
         if (response.status === 200 || response.status === 204 || response.status === 202){
             alert('Remove successfuly')
             isInCollection.value = false
@@ -89,7 +87,6 @@ onMounted(async () => {
     try{
         const response = await axios.get(`/api/staffs/${staff_id}/`)
         staff.info = response.data
-        console.log(staff.info) 
     }catch(error){
         console.log(error)
     }
@@ -105,7 +102,6 @@ onMounted(async () => {
         }).catch((error)=>{
             return error.response
         })
-        console.log(response)
         if (response.status === 200){
             if (response.data['count'] > 0){
                 isInCollection.value = true

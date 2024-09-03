@@ -124,7 +124,6 @@ const editComment = async () => {
         }).catch((error) => {
             return error.response
         })
-        console.log(response)
        
     }catch(error){
         console.log(error)

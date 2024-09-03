@@ -9,7 +9,6 @@ const props = defineProps({
 
 const _route = useRoute()
 const _router = useRouter()
-console.log(_route.path)
 
 const start = props._start - 2 > 0 ? props._start - 2 : 1
 const end =  (props._start - 2 > 0 ? props._start - 2 : 1) + props._limit - 1
@@ -26,7 +25,6 @@ const arrayRange = (start1, stop1, step1) =>
 const emit = defineEmits(['changePage'])
 
 const toPage = (event) => {
-    console.log(event)
     emit('changePage', event)
 }
 </script>

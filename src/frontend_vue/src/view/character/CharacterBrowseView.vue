@@ -59,7 +59,6 @@ onMounted( async () => {
             }).catch((error) => {return error.response})
             if (response.status === 200){
                 state.page = response.data
-                console.log(state.page)
             }
         }catch(error){
             console.log(error)
@@ -91,7 +90,6 @@ watch( () => _route.query,
             }).catch((error) => {return error.response})
             if (response.status === 200){
                 state.page = response.data
-                console.log(state.page)
             }
         }catch(error){
             console.log(error)

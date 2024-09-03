@@ -19,7 +19,6 @@ const searchAnime = async () => {
             }
         })
         animes.state = response.data
-        console.log(animes.state)
     } catch (error) {
         console.log(error)
     }

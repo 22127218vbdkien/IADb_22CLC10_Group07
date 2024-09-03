@@ -57,7 +57,6 @@ onMounted(async () => {
                 })
                 if (response_next.status === 200){
                      userProfile.profile = response_next.data
-
                 }
             }
                 
@@ -74,7 +73,6 @@ onMounted(async () => {
                 })
             if (response.status === 200)
                 userCollection.completed = response.data['results']
-                console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -87,7 +85,6 @@ onMounted(async () => {
                 })
             if (response.status === 200)
                 userCollection.dropped = response.data['results']
-                console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -100,7 +97,6 @@ onMounted(async () => {
                 })
             if (response.status === 200)
                 userCollection.paused = response.data['results']
-                console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -113,7 +109,6 @@ onMounted(async () => {
                 })
             if (response.status === 200)
                 userCollection.watching = response.data['results']
-                console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -127,7 +122,6 @@ onMounted(async () => {
                 })
             if (response.status === 200)
                 userFavorite.anime = response.data['results']
-                console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -140,7 +134,6 @@ onMounted(async () => {
                 })
             if (response.status === 200)
                 userFavorite.character = response.data['results']
-                console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -153,7 +146,6 @@ onMounted(async () => {
                 })
             if (response.status === 200)
                 userFavorite.staff = response.data['results']
-                console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -180,10 +172,10 @@ const handleRemoveAvatar = async () => {
                 "Authorization": `token ` + stateAuth.userAuth.token
             }
             })
-        if (response.status === 200 || response.status === 201)
+        if (response.status === 200 || response.status === 201){
             alert('Change suscessfully')
             _router.push('/profile/')
-        console.log(response)
+        }
     }catch(error){
         console.log(error)
     }

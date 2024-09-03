@@ -15,7 +15,7 @@
         <RouterLink to="/staffs/" class="px-2 py-2 hover:bg-blue-400 cursor-pointer rounded w-fit font-medium">Staff</RouterLink>
         <RouterLink v-if="!stateAuth.isAuthenticated" to="/login/" class="px-2 py-2 hover:bg-blue-400 cursor-pointer rounded w-fit font-medium">Login</RouterLink>
         <RouterLink v-if="stateAuth.isAuthenticated" to="/profile/"  class="px-2 py-2 hover:bg-blue-400 cursor-pointer rounded w-fit font-medium">Profile</RouterLink>
-        <a v-if="stateAuth.isAuthenticated"  class="px-2 py-2 hover:bg-blue-400 cursor-pointer rounded w-fit font-medium" href="http://iadb-22clc10-group07.azurewebsites.net/admin/">To Admin</a>
+        <a v-if="stateAuth.isAuthenticated"  class="px-2 py-2 hover:bg-blue-400 cursor-pointer rounded w-fit font-medium" href="http://127.0.0.1:8000/admin/">To Admin</a>
         <div v-if="stateAuth.isAuthenticated" @click="stateAuth.logout(_router)" class="px-2 py-2 hover:bg-blue-400 cursor-pointer rounded w-fit font-medium">Logout</div>
     </nav>
 </template>

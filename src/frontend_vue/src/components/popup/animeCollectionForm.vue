@@ -168,12 +168,10 @@ onMounted(async () => {
         }).catch((error)=>{
             return error.response
         })
-        console.log(response)
         if (response.status === 200){
             if (response.data['count'] > 0){
                 isCollected.value = true
                 incollection_url.value = response.data['results'][0].url
-                console.log(incollection_url.value)
                 try{
                     const collection_response =  await axios.get(incollection_url.value, {
                         headers:{
@@ -183,10 +181,8 @@ onMounted(async () => {
                     }).catch((error)=>{
                         return error.response
                     })
-                    console.log(collection_response)
                     if (collection_response.status === 200){
                         animeInCollection.content = collection_response.data
-                        console.log(animeInCollection.content)
                     }
                 }catch(error){
                     console.log(error)
@@ -225,7 +221,6 @@ const preprocessInCollection = () =>{
 
 const handleAddAnimeToCollection = async () => {
     preprocess()
-    console.log((formInfo.content))
     if (!stateAuth.isAuthenticated )
         alert('User is not logged in or missing credentials. Please log in!')    
     else if (stateAuth.userAuth.token){
@@ -240,7 +235,6 @@ const handleAddAnimeToCollection = async () => {
             if (response.status === 200 || response.status === 201 || response.status === 202)
                 alert('Add successfuly !!!')
             emit('modal-close')
-            console.log(response)
         }catch(error){
             console.log(error)
         }
@@ -267,7 +261,6 @@ const handleUpdateAnimeInCollection = async () =>{
         if (response.status === 200 || response.status === 201 || response.status === 202)
             alert('Update successfuly !!!')
         emit('modal-close')
-        console.log(response)
     }catch(error){
         console.log(error)
     }

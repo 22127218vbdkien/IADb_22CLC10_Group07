@@ -43,7 +43,6 @@
         try {
             const response = await axios.get(props.url)
             animeState.property = response.data
-            console.log( animeState.property )
         } catch (error) {
             console.log(error)
         }

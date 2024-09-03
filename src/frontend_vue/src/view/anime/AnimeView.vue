@@ -53,7 +53,6 @@
         try {
             const response = await axios.get(`/api/animes/${_animeid}/`)
             animeState.property = response.data
-            console.log( animeState.property )
         } catch (error) {
             console.log(error)
         }
@@ -62,7 +61,6 @@
         try {
             const response = await axios.get(`/api/animes/${newid}/`)
             animeState.property = response.data
-            console.log( animeState.property )
         } catch (error) {
             console.log(error)
         }

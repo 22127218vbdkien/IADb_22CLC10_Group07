@@ -48,7 +48,6 @@ const addCharacterToFavorite = async () => {
                 })
             // if (response.status)
             //     alert('Already in favorites')
-            console.log(response.status)
         }catch(error){
             alert('Already in favorites')
         }
@@ -59,7 +58,6 @@ const addCharacterToFavorite = async () => {
 }
 
 const removeCharacterFromFavorite = async () => {
-    console.log(collectionURL)
     try{
         const response = await axios.delete(collectionURL.value, {
             headers:{
@@ -69,7 +67,6 @@ const removeCharacterFromFavorite = async () => {
         }).catch((error)=>{
             return error.response
         })
-        console.log(response)
         if (response.status === 200 || response.status === 204 || response.status === 202){
             alert('Remove successfuly')
             isInCollection.value = false
@@ -84,7 +81,6 @@ onMounted(async () => {
     try{
         const response = await axios.get(`/api/characters/${char_id}/`)
         character.info = response.data
-        console.log(character.info) 
     }catch(error){
         console.log(error)
     }
@@ -100,7 +96,6 @@ onMounted(async () => {
         }).catch((error)=>{
             return error.response
         })
-        console.log(response)
         if (response.status === 200){
             if (response.data['count'] > 0){
                 isInCollection.value = true

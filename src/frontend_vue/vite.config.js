@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
-const apiUrl = 'http://iadb-22clc10-group07.azurewebsites.net'
+const apiUrl = 'http://127.0.0.1:8000/'
 
 // https://vitejs.dev/config/
 export default defineConfig({

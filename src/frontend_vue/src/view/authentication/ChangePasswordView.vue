@@ -29,7 +29,6 @@ const handleChangePassword = async () => {
                 stateAuth.logout(_router)
             //     alert('Already in favorites')
         }catch(error){
-            console.log(error)
             alert('Wrong old password!!! Please check your infomation')
         }
     }

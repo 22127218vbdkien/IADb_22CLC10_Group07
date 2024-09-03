@@ -24,16 +24,14 @@ const handleRegister = async ()=>{
                     "Content-Type":"application/json"
                 }
             })
-        console.log(response)
         if (response.status == 200 || response.status == 201 ){
-            console.log(response)
             _router.push('/login/')
         }
         else {
            error.value = "Username or email has been used, please check your infomation!!!"
         }
     } catch(error){
-        console.log(error)
+        alert('"Username or email has been used, please check your infomation!!!"')
     }
 }
 

@@ -47,10 +47,11 @@ const handleChangeAvatar = async () =>{
                 "Authorization": `token ` + stateAuth.userAuth.token
             }
             })
-        if (response.status === 200 || response.status === 201)
+        if (response.status === 200 || response.status === 201){
             alert('Change suscessfully')
-            _router.push('/profile/')
-        console.log(response)
+            emit('modal-close')
+        }
+           
     }catch(error){
         console.log(error)
     }

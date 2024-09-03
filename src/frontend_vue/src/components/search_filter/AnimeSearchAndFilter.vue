@@ -115,7 +115,6 @@ onMounted(async () => {
     try{
         let response = await axios.get('/api/tags/')
         animeTags.value = response.data
-        console.log(animeTags.value)
         // let next = response.data["next"]
         // while (next != null){
         //     const nextPage = await axios.get(next)
@@ -178,48 +177,40 @@ const state = reactive({
 
 const changeTags = (event) => {
     userQuery.content.tags = event
-    console.log(event)
 }
 
 const chnageFormat = (event) => {
     userQuery.content.anime_format = event
-    console.log(event)
 
 }
 
 const changeStatus = (event) => {
     userQuery.content.status = event
-    console.log(event)
 
 }
 const changeSource = (event) => {
     userQuery.content.source = event
-    console.log(event)
 
 }
 
 const changeStudio = (event) => {
     userQuery.content.studios = event
-    console.log(event)
 
 }
 
 const changeSearch = (event) => {
     userQuery.content.search = event
-    console.log(event)
 
 }
 
 const changeOrdering = (event) => {
     userQuery.content.ordering = event
-    console.log(event)
 
 }
 
 const changePage = (event) => {
     userQuery.content.page = event
     _router.push({ path: _route.fullPath, query: userQuery.content })
-    console.log(event)
 
 }
 // Handle Query
